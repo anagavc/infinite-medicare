@@ -1,15 +1,14 @@
-import React from "react";
-import Categories from "../components/Layouts/Categories";
-import Header from "../sections/Header";
-
+import { Header, Categories, GetStarted } from "../sections";
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center items-center relative">
-      <header>
+    <div className="flex flex-col justify-center items-center relative w-full">
+      <header className="relative flex flex-col justify-center items-center">
         <Header />
+        <Categories />
       </header>
-      <Categories />
-      <main></main>
+      <main className="w-full flex flex-col justify-between">
+        <GetStarted />
+      </main>
     </div>
   );
 };

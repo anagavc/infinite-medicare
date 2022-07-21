@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import { Close, Menu } from "@mui/icons-material";
 import NavItem from "./NavItem";
-import { Button, PrimaryButton } from "../Buttons";
+import { PrimaryButton } from "../UI/Buttons";
 import { NavLink } from "react-router-dom";
 // import logo from "../../images/logo.png";
 

@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 const Categories = () => {
   return (
-    <div className="w-full bg-pry-50 flex space-x-4 drop-shadow px-24 py-8  justify-around ">
+    <div className="w-5/6  bg-pry-50 flex space-x-4 drop-shadow px-8 py-8 rounded-xl justify-around absolute top-full -mt-20">
       <div className="flex space-x-4 flex-1">
         <div className="bg-pry-100 rounded text-pry-50 w-20 flex items-center justify-center">
           <Vaccines />

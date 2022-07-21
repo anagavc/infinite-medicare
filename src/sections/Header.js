@@ -1,12 +1,12 @@
-import { PrimaryButton, SecondaryButton } from "../components/Buttons";
+import { PrimaryButton, SecondaryButton } from "../components/UI/Buttons";
 
 import heroImg from "../images/doctor.png";
 // import { FadeDownAnimation, FadeUpAnimation } from "./Animations";
 const Header = () => {
   return (
-    <div className="flex   justify-center items-center  lg:mt-0  lg:h-screen w-full">
+    <div className="flex   justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 py-2">
       <div className=" bg-pry-100 flex  px-32  flex-col  space-y-12 justify-center h-full w-full lg:w-3/5 ">
-        <p className="font-body text-lg text-pry-50 font-bold">
+        <p className="font-body text-sm text-pry-100 font-bold bg-sec py-2 rounded w-3/5 flex justify-center items-center">
           Welcome to Infinite Medicare
         </p>
         <h1 className=" text-3xl lg:text-6xl leading-8 text-center lg:text-left font-heading font-bold text-sec">
@@ -15,7 +15,7 @@ const Header = () => {
           Healthcare Services
         </h1>
 
-        <p className="font-body text-base lg:text-sm text-center text-pry-50 lg:text-justify">
+        <p className="font-body text-base text-center text-pry-50 lg:text-justify">
           We offer you exceptional healthcare options, with your full recovery
           being our utmost goal.
         </p>
