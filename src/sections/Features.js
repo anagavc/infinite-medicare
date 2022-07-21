@@ -43,7 +43,7 @@ const Features = () => {
             <div className="w-full -mt-24">
               <img
                 src={feature.image}
-                alt="Hero"
+                alt={feature.name}
                 className="w-full bg-pry-50 h-64 rounded-xl p-8 drop-shadow-lg"
               />
             </div>
