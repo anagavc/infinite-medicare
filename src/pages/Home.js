@@ -1,4 +1,4 @@
-import { Header, Categories, GetStarted } from "../sections";
+import { Header, Categories, GetStarted, Features } from "../sections";
 const Home = () => {
   return (
     <div className="flex flex-col justify-center items-center relative w-full">
@@ -8,6 +8,7 @@ const Home = () => {
       </header>
       <main className="w-full flex flex-col justify-between">
         <GetStarted />
+        <Features />
       </main>
     </div>
   );
