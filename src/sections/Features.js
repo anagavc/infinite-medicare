@@ -26,9 +26,10 @@ const Features = () => {
   return (
     <div className="bg-pry-100 flex flex-col space-y-12 px-24 w-full h-full py-32 ">
       <div className="flex flex-col gap-2 justify-center items-center">
-        <h3 className="font-heading text-2xl text-pry-50 font-bold uppercase">
-          Our Features
+        <h3 className="text-sec text-3xl font-bold font-heading text-center">
+          Features
         </h3>
+
         <p className="font-heading text-base text-pry-50 ">
           Here are some of the features that make us outstanding at Infinite
           Medicare

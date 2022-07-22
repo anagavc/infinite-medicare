@@ -1,4 +1,11 @@
-import { Header, Categories, GetStarted, Features, Staff } from "../sections";
+import {
+  Header,
+  Categories,
+  GetStarted,
+  Features,
+  Staff,
+  Reviews,
+} from "../sections";
 const Home = () => {
   return (
     <div className="flex flex-col justify-center items-center relative w-full">
@@ -10,6 +17,7 @@ const Home = () => {
         <GetStarted />
         <Features />
         <Staff />
+        <Reviews />
       </main>
     </div>
   );

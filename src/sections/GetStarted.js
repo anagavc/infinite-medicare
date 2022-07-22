@@ -24,9 +24,10 @@ const GetStarted = () => {
   return (
     <div className="bg-pry-50 flex flex-col space-y-12 px-24 w-full h-full py-32 ">
       <div className="flex flex-col gap-2 justify-center items-center">
-        <h3 className="font-heading text-2xl text-pry-100 font-bold uppercase">
+        <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Get Started
         </h3>
+
         <p className="font-heading text-base text-pry-100 ">
           These are the steps on getting started
         </p>
