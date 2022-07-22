@@ -4,7 +4,7 @@ import heroImg from "../images/doctor.png";
 // import { FadeDownAnimation, FadeUpAnimation } from "./Animations";
 const Header = () => {
   return (
-    <div className="flex   justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 py-2">
+    <div className="flex   justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 ">
       <div className=" bg-pry-100 flex  px-32  flex-col  space-y-12 justify-center h-full w-full lg:w-3/5 ">
         <p className="font-body text-sm text-pry-100 font-bold bg-sec py-2 rounded w-3/5 flex justify-center items-center">
           Welcome to Infinite Medicare
@@ -43,7 +43,7 @@ const Header = () => {
         <img
           src={heroImg}
           alt="Hero"
-          className="w-4/5 bg-sec rounded px-12 pt-2 mt-12"
+          className="w-4/5 h-full bg-sec px-12 pt-2 mt-12"
         />
       </div>
       <div className="lg:hidden mb-12 w-full flex-col flex  space-y-2">
