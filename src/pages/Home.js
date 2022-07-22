@@ -5,6 +5,7 @@ import {
   Features,
   Staff,
   Reviews,
+  Blog,
 } from "../sections";
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
         <Features />
         <Staff />
         <Reviews />
+        <Blog />
       </main>
     </div>
   );
