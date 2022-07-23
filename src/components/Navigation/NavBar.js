@@ -92,7 +92,7 @@ const NavBar = () => {
         ) : (
           <>
             <NavItem
-              path="/Login"
+              path="/login"
               key="loginButton"
               name="Login"
               click={handleClose}

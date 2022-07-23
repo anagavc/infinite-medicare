@@ -1,3 +1,5 @@
+import Layout from "../components/Layouts/Layout";
+
 import {
   Header,
   Categories,
@@ -10,20 +12,22 @@ import {
 } from "../sections";
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center items-center relative w-full">
-      <header className="relative flex flex-col justify-center items-center">
-        <Header />
-        <Categories />
-      </header>
-      <main className="w-full flex flex-col justify-between">
-        <GetStarted />
-        <Features />
-        <Staff />
-        <Reviews />
-        <Blog />
-        <Contact />
-      </main>
-    </div>
+    <Layout>
+      <div className="flex flex-col justify-center items-center relative w-full">
+        <header className="relative flex flex-col justify-center items-center">
+          <Header />
+          <Categories />
+        </header>
+        <main className="w-full flex flex-col justify-between">
+          <GetStarted />
+          <Features />
+          <Staff />
+          <Reviews />
+          <Blog />
+          <Contact />
+        </main>
+      </div>
+    </Layout>
   );
 };
 

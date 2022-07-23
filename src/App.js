@@ -1,14 +1,13 @@
 import Layout from "./components/Layouts/Layout";
-import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
+import { Home, Login } from "./pages";
 function App() {
   return (
     <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   );
 }

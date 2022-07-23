@@ -9,16 +9,16 @@ const Input = ({
   register,
   errors,
   errorColor,
+  textColor,
 }) => {
-  const inputStyle =
-    "px-4  py-2  placeholder:text-pry-100 text-pry-100 bg-pry-50 border border-pry-100  focus:outline-none  focus:border-sec transition focus:ring-sec focus:ring-1 duration-300 w-full";
+  const inputStyle = `px-4  py-2  placeholder:text-pry-100 text-pry-100 bg-pry-50 border border-pry-100  focus:outline-none  focus:border-sec transition focus:ring-sec focus:ring-1 duration-300 w-full`;
   return (
     <>
       {type === "select" ? (
         <div className="flex flex-col w-full" key={inputName}>
           <label
             htmlFor={inputName}
-            className="text-base text-pry-50 font-normal"
+            className={`text-base text-${textColor} font-body`}
           >
             {title}
           </label>
@@ -43,7 +43,7 @@ const Input = ({
         <div className="flex flex-col w-full" key={inputName}>
           <label
             htmlFor={inputName}
-            className="text-base text-pry-50 font-heading"
+            className={`text-base text-${textColor} font-body`}
           >
             {title}
           </label>

@@ -80,3 +80,14 @@ export const SecondaryButton = ({
     </>
   );
 };
+
+export const FooterIcon = ({ path, icon }) => {
+  return (
+    <NavLink
+      to={path}
+      className="text-pry-50 hover:text-sec transition duration-300"
+    >
+      {icon}
+    </NavLink>
+  );
+};

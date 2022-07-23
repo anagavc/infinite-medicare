@@ -75,7 +75,7 @@ const Contact = () => {
     {
       icon: <EmailIcon />,
       name: "Mail us",
-      info: "support@infinitemedicare.org",
+      info: "support@infinitemedicare.netlify.app",
     },
     {
       icon: <QuestionAnswerIcon />,
@@ -85,7 +85,7 @@ const Contact = () => {
     {
       icon: <LanguageIcon />,
       name: "Our website",
-      info: "infinitemedicare.org",
+      info: "infinitemedicare.netlify.app",
     },
     {
       icon: <LocationCityIcon />,
@@ -118,6 +118,7 @@ const Contact = () => {
           {inputs.map((input) => (
             <Input
               title={input.title}
+              textColor="pry-50"
               inputName={input.inputName}
               placeholder={input.placeholder}
               type={input.type}
@@ -129,7 +130,7 @@ const Contact = () => {
           ))}
 
           <PrimaryButton
-            name="Send"
+            name="Send Message"
             bgColor="pry-50"
             textColor="pry-100"
             borderColor="pry-100"
@@ -144,13 +145,13 @@ const Contact = () => {
             {contactDetails.map((detail, index) => {
               return (
                 <div
-                  className="flex flex-col w-2/4 space-y-0 justify-between "
+                  className="flex flex-col w-60 space-y-0 justify-between "
                   key={index}
                 >
                   <div className=" w-8 h-8 text-pry-100 flex justify-center items-center px-4 py-4">
                     {detail.icon}
                   </div>
-                  <h5 className="font-body uppercase tracking-widest font-medium text-pry-100">
+                  <h5 className="font-body  uppercase tracking-widest font-medium text-pry-100">
                     {detail.name}
                   </h5>
                   <p className="font-body text-base text-pry-100">
