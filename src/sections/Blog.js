@@ -18,21 +18,21 @@ const Blog = () => {
       <div className="flex w-full justify-between gap-8 h-full ">
         {newsItem.slice(0, 3).map((item, index) => (
           <div
-            className="flex flex-col p-6 bg-pry-100 w-2/6 drop-shadow rounded space-y-4"
+            className="flex flex-col px-6 py-8 bg-pry-100 w-3/6 drop-shadow rounded space-y-4"
             key={index}
           >
-            <p className="text-xs text-pry-50 uppercase font-heading">
+            <p className="text-base text-pry-50 uppercase font-body">
               {item.date}
             </p>
-            <h6 className="text-sec font-body text-xl font-semibold">
+            <h6 className="text-sec font-body text-lg font-semibold border-b-2 border-sec">
               {item.title}
             </h6>
-            <p className="text-justify text-pry-50 text-xs font-heading font-light">
+            <p className="text-justify text-pry-50 text-base font-heading font-light">
               {item.content}
             </p>
             <NavLink
               to={`${index}`}
-              className="flex space-x-2 w-full items-center  text-base uppercase text-sec hover:text-pry-50 font-heading transition duration-300"
+              className="flex space-x-2 w-full items-center  text-base  text-sec hover:text-pry-50 font-body transition duration-300"
             >
               <span className="h-1 w-20 bg-sec hover:bg-pry-50 transition duration-300"></span>
               <p>Read more</p>
