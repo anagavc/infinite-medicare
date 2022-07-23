@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Input from "../components/UI/Input";
 import { PrimaryButton } from "../components/UI/Buttons";
-import login from "../images/login.svg";
+import registerImg from "../images/register.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-const Login = () => {
+const Register = () => {
   const [isFetching, setisFetching] = useState(false);
 
   const {
@@ -38,7 +38,7 @@ const Login = () => {
           </NavLink>
         </div>
         <div className="flex flex-col w-full h-full gap-4 items-center justify-center">
-          <img src={login} alt="login" className="w-3/5" />
+          <img src={registerImg} alt="Register" className="w-3/5" />
           <h1 className="font-heading text-center text-4xl text-pry-50 font-bold">
             Get access to premium healthcare service
           </h1>
@@ -58,9 +58,18 @@ const Login = () => {
           </NavLink>
         </div>
         <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-12">
-          Login
+          Register
         </h1>
         <form className="flex flex-col  h-full w-full gap-8 px-6">
+          <Input
+            title="Email Address"
+            textColor="pry-100"
+            inputName="email"
+            placeholder="Enter your email address"
+            type="text"
+            register={register}
+            errors={errors}
+          />
           <Input
             title="Username"
             textColor="pry-100"
@@ -80,28 +89,28 @@ const Login = () => {
             errors={errors}
           />
           <PrimaryButton
-            name="Login"
+            name="Register"
             bgColor="pry-100"
             textColor="pry-50"
             borderColor="pry-100"
             py="3"
           />
           <p className="text-base text-pry-100 font-body text-center">
-            Dont have an account?{" "}
+            Already have an account?{" "}
             <NavLink
-              to="/register"
+              to="/login"
               className="hover:text-sec font-bold transition duration-300"
             >
-              Register
+              Login
             </NavLink>
           </p>
         </form>
         <div className="lg:hidden flex justify-center items-center w-full rounded-t-full bg-pry-100 pt-12">
-          <img src={login} alt="login" className="w-3/5" />
+          <img src={registerImg} alt="Register" className="w-3/5" />
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
