@@ -24,28 +24,27 @@ const Features = () => {
     },
   ];
   return (
-    <div className="bg-pry-100 flex flex-col space-y-12 px-24 w-full h-full py-24 ">
+    <div className="bg-pry-100 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-sec text-3xl font-bold font-heading text-center">
           Features
         </h3>
 
-        <p className="font-heading text-base text-pry-50 ">
-          Here are some of the features that make us outstanding at Infinite
-          Medicare
+        <p className="font-heading text-base text-pry-50 text-center ">
+          Here are some of the features that make us outstanding
         </p>
       </div>
-      <div className="w-full flex justify-between space-x-8 h-full mt-20">
+      <div className="w-full flex flex-col lg:flex-row justify-between gap-8 lg:space-x-8 h-full mt-20">
         {features.map((feature) => (
           <div
             key={feature.name}
-            className="flex flex-col bg-pry-50 drop-shadow border border-sec mt-20  rounded-lg w-2/6  h-3/4 justify-center items-center px-8 py-8 space-y-4"
+            className="flex flex-col bg-pry-50 drop-shadow border border-sec mt-20  rounded-lg w-full lg:w-2/6  h-3/4 justify-center items-center lg:p-8 p-6 space-y-4"
           >
             <div className="w-full -mt-24">
               <img
                 src={feature.image}
                 alt={feature.name}
-                className="w-full bg-pry-50 h-64 rounded-xl p-8 drop-shadow-lg"
+                className="w-full bg-pry-50 h-2/5 lg:h-64 rounded-xl p-4 lg:p-6 drop-shadow-lg"
               />
             </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import { Close, Menu } from "@mui/icons-material";
+import { Close, Menu } from "@mui/icons-material";
 import NavItem from "./NavItem";
 import { PrimaryButton } from "../UI/Buttons";
 import { NavLink } from "react-router-dom";
@@ -58,7 +58,7 @@ const NavBar = () => {
           className="text-3xl text-pry-50 absolute right-4 lg:hidden  top-2 cursor-pointer transition duration-300 "
           onClick={() => setOpen(!open)}
         >
-          {/* {open ? <Close /> : <Menu />} */}
+          {open ? <Close /> : <Menu />}
         </div>
       </div>
       {/* mobile navigation  begins*/}
@@ -101,6 +101,7 @@ const NavBar = () => {
               name="Register"
               path="/register"
               bgColor="pry-50"
+              py="4"
               click={handleClose}
             />
           </>

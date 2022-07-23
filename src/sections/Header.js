@@ -4,36 +4,36 @@ import heroImg from "../images/doctor.png";
 // import { FadeDownAnimation, FadeUpAnimation } from "./Animations";
 const Header = () => {
   return (
-    <div className="flex   justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 ">
-      <div className=" bg-pry-100 flex  px-32  flex-col  space-y-12 justify-center h-full w-full lg:w-3/5 ">
-        <p className="font-body text-sm text-pry-100 font-bold bg-sec py-2 rounded w-3/5 flex justify-center items-center">
+    <div className="flex  lg:flex-row flex-col justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 ">
+      <div className=" bg-pry-100 flex  px-8 lg:px-32  flex-col mt-24 lg:mt-0 space-y-12 justify-center h-full w-full md:w-3/5 lg:w-3/5 ">
+        <p className="font-body text-sm text-pry-100 font-bold bg-sec py-2 rounded w-full lg:w-3/5 flex justify-center items-center">
           Welcome to Infinite Medicare
         </p>
-        <h1 className=" text-3xl lg:text-6xl leading-8 text-center lg:text-left font-heading font-bold text-sec">
+        <h1 className=" text-3xl lg:text-6xl leading-8 text-left font-heading font-bold text-sec">
           Leaders In{" "}
           <span className="text-pry-50 inline-block  mr-2">Quality</span>
           Healthcare Services
         </h1>
 
-        <p className="font-body text-base text-center text-pry-50 lg:text-justify">
+        <p className="font-body text-base  text-pry-50 text-justify">
           We offer you exceptional healthcare options, with your full recovery
           being our utmost goal.
         </p>
         <div className="lg:flex hidden flex-row space-x-4">
-          <PrimaryButton
-            name="Request a quote"
-            path="#contact"
-            bgColor="pry-50"
-            textColor="pry-100"
-            borderColor="pry-100"
-            py="4"
-          />
           <SecondaryButton
             name="Explore"
-            path="#track"
+            path="/about"
             bgColor="pry-100"
             textColor="pry-50"
             borderColor="pry-50"
+            py="4"
+          />
+          <PrimaryButton
+            name="Get Started"
+            path="/login"
+            bgColor="pry-50"
+            textColor="pry-100"
+            borderColor="pry-100"
             py="4"
           />
         </div>
@@ -46,24 +46,22 @@ const Header = () => {
           className="w-4/5 h-full bg-sec px-12 pt-2 mt-12"
         />
       </div>
-      <div className="lg:hidden mb-12 w-full flex-col flex  space-y-2">
+      <div className="lg:hidden my-12 w-4/5 justify-between h-full flex-col flex gap-4">
         <PrimaryButton
-          name="Track your order"
-          bgColor="sec"
+          name="Get Started"
+          path="/login"
+          bgColor="pry-50"
+          textColor="pry-100"
+          borderColor="pry-100"
           py="4"
-          text="pry-50"
-          hoverText="pry-100"
-          hoverBg="pry-50"
-          path="/#track"
         />
         <SecondaryButton
-          name="Request a quote"
+          name="Explore"
+          path="/about"
+          bgColor="pry-100"
+          textColor="pry-50"
           borderColor="pry-50"
-          py="4"
-          text="pry-50"
-          hoverText="pry-100"
-          hoverBg="pry-50"
-          path="/#contact"
+          py="6"
         />
       </div>
     </div>

@@ -4,21 +4,21 @@ import { NavLink } from "react-router-dom";
 
 const Blog = () => {
   return (
-    <div className="bg-pry-50 flex flex-col space-y-12 px-24 w-full h-full py-24 ">
+    <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Blog
         </h3>
 
-        <p className="font-heading text-base text-pry-100 ">
+        <p className="font-heading text-base text-pry-100 text-center ">
           Here are some of the latest news at Infinite Medicare
         </p>
       </div>
 
-      <div className="flex w-full justify-between gap-8 h-full ">
+      <div className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full ">
         {newsItem.slice(0, 3).map((item, index) => (
           <div
-            className="flex flex-col px-6 py-8 bg-pry-100 w-3/6 drop-shadow rounded space-y-4"
+            className="flex flex-col px-6 py-8 bg-pry-100 w-full lg:w-3/6 drop-shadow rounded space-y-4"
             key={index}
           >
             <p className="text-base text-pry-50 uppercase font-body">

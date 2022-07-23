@@ -22,7 +22,7 @@ const GetStarted = () => {
     },
   ];
   return (
-    <div className="bg-pry-50 flex flex-col space-y-12 px-24 w-full h-full py-32 ">
+    <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-32 ">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Get Started
@@ -32,9 +32,9 @@ const GetStarted = () => {
           These are the steps on getting started
         </p>
       </div>
-      <div className="w-full flex justify-between space-x-8">
+      <div className="w-full flex flex-col lg:flex-row justify-between gap-6 lg:space-x-8">
         {procedures.map((procedure) => (
-          <div className="w-2/6 rounded-lg flex-col bg-pry-100 p-12 space-y-4">
+          <div className="w-full lg:w-2/6 rounded lg:rounded-lg flex-col bg-pry-100 px-6 py-8 lg:px-8 space-y-4">
             <div className="rounded-full bg-pry-50 text-pry-100 p-2 flex justify-center items-center w-20">
               {procedure.icon}
             </div>

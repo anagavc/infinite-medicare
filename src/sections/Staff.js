@@ -44,20 +44,20 @@ const Staff = () => {
     },
   ];
   return (
-    <div className="bg-pry-50 flex flex-col space-y-12 px-24 w-full h-full py-24 ">
+    <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Our Consultants
         </h3>
 
-        <p className="font-heading text-base text-pry-100 ">
+        <p className="font-heading text-center text-base text-pry-100 ">
           Here are our Lead Consultants
         </p>
       </div>
-      <div className="w-full flex justify-between space-x-8 h-full">
+      <div className="w-full flex-col lg:flex-row flex justify-between gap-8 lg:space-x-8 h-full">
         {consultants.map((consultant) => (
           <div
-            className="flex flex-col bg-pry-100 w-2/6 p-8 rounded space-y-4"
+            className="flex flex-col bg-pry-100 w-full lg:w-2/6 p-8 rounded space-y-4"
             key={consultant.name}
           >
             <div className="bg-sec relative flex flex-col rounded justify-center items-center mb-4">

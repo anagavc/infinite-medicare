@@ -13,7 +13,7 @@ import {
 const Home = () => {
   return (
     <Layout>
-      <div className="flex flex-col justify-center items-center relative w-full">
+      <div className="flex flex-col justify-center items-center relative w-full bg-pry-100">
         <header className="relative flex flex-col justify-center items-center">
           <Header />
           <Categories />
