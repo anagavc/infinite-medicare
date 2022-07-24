@@ -16,6 +16,9 @@ module.exports = {
         heading: ["Raleway", "sans-serif"],
         body: ["Lato", "sans-serif"],
       },
+      backgroundImage: {
+        bgImage: "url('./images/equipment.jpg')",
+      },
     },
   },
   plugins: [],
