@@ -20,8 +20,8 @@ const Header = () => {
         </p>
         <div className="lg:flex hidden flex-row space-x-4">
           <SecondaryButton
-            name="Explore"
-            path="/about"
+            name="Book an appointment"
+            path="/contact"
             bgColor="pry-100"
             textColor="pry-50"
             borderColor="pry-50"
@@ -55,8 +55,8 @@ const Header = () => {
           py="4"
         />
         <SecondaryButton
-          name="Explore"
-          path="/about"
+          name="Book an appointment"
+          path="/contact"
           bgColor="pry-100"
           textColor="pry-50"
           borderColor="pry-50"

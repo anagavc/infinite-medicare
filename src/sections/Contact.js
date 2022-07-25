@@ -55,18 +55,18 @@ const Contact = () => {
       errors: errors,
     },
     {
-      title: "Your location",
-      inputName: "location",
-      placeholder: "Enter your location",
-      type: "text",
+      title: "Select specialty",
+      inputName: "specialty",
+      type: "select",
+      options: ["Dermatology", "Urology", "Gynaecology"],
       register: register,
       errors: errors,
     },
     {
-      title: "Enquiry",
-      inputName: "wnquiry",
-      placeholder: "How can we assist you?",
-      type: "text",
+      title: "Pick an appointment date",
+      inputName: "date",
+      placeholder: "Pick a date",
+      type: "date",
       register: register,
       errors: errors,
     },
@@ -113,7 +113,7 @@ const Contact = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <h6 className="text-xl text-center text-pry-50 tracking-tight font-body    w-full">
-            Make an enquiry
+            Book an appointment
           </h6>
           {inputs.map((input) => (
             <Input
@@ -130,7 +130,7 @@ const Contact = () => {
           ))}
 
           <PrimaryButton
-            name="Send Message"
+            name="Book "
             bgColor="pry-50"
             textColor="pry-100"
             borderColor="pry-100"

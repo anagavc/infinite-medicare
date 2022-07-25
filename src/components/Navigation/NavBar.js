@@ -127,7 +127,7 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <NavItem path="login" key="loginButton" name="Login" />
+              <NavItem path="/login" key="loginButton" name="Login" />
               <PrimaryButton
                 name="Register"
                 path="/register"

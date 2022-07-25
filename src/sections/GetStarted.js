@@ -34,7 +34,10 @@ const GetStarted = () => {
       </div>
       <div className="w-full flex flex-col lg:flex-row justify-between gap-6 lg:space-x-8">
         {procedures.map((procedure) => (
-          <div className="w-full lg:w-2/6 rounded lg:rounded-lg flex-col bg-pry-100 px-6 py-8 lg:px-8 space-y-4">
+          <div
+            className="w-full lg:w-2/6 rounded lg:rounded-lg flex-col bg-pry-100 px-6 py-8 lg:px-8 space-y-4"
+            key={procedure.name}
+          >
             <div className="rounded-full bg-pry-50 text-pry-100 p-2 flex justify-center items-center w-20">
               {procedure.icon}
             </div>

@@ -5,3 +5,6 @@
 .swiper-pagination-bullet-active {
   background-color: #038b73 !important;
 }
+html {
+  scroll-behavior: smooth;
+}

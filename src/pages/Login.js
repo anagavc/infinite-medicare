@@ -5,6 +5,9 @@ import { PrimaryButton } from "../components/UI/Buttons";
 import login from "../images/login.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Home } from "@mui/icons-material";
+import NavBar from "../components/Navigation/NavBar";
+import Footer from "../components/Layouts/Footer";
 const Login = () => {
   const [isFetching, setisFetching] = useState(false);
 
@@ -27,7 +30,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="h-screen flex justify-center items-center w-full ">
+    <div className="lg:h-screen flex justify-center items-center w-full ">
       <div className="bg-pry-100 lg:flex flex-col px-16 hidden py-12 h-full w-2/4 gap-4">
         <div className=" flex justify-between w-full">
           <NavLink
@@ -48,19 +51,23 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <div className="bg-pry-50  flex flex-col  lg:px-16  h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
-        <div className="lg:hidden flex justify-center items-center w-full  bg-pry-100 h-full py-12 px-4 rounded-b-full">
-          <NavLink
-            to="/"
-            className="font-heading mt-16 hover:text-sec text-xl text-pry-50 font-bold transition duration-300"
-          >
-            Infinite Medicare
-          </NavLink>
+      <div className="bg-pry-50  flex flex-col  lg:px-16   lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
+        <NavLink
+          className="text-pry-100 hover:text-sec transition duration-300 px-6 "
+          to="/"
+        >
+          <Home />
+        </NavLink>
+        <div className="lg:hidden flex w-full  h-full  ">
+          <NavBar />
         </div>
-        <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-12">
+        <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-8 lg:mt-16">
           Login
         </h1>
-        <form className="flex flex-col  h-full w-full gap-8 px-6">
+        <form
+          className="flex flex-col  h-full w-full gap-8 px-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Input
             title="Username"
             textColor="pry-100"
@@ -96,8 +103,8 @@ const Login = () => {
             </NavLink>
           </p>
         </form>
-        <div className="lg:hidden flex justify-center items-center w-full rounded-t-full bg-pry-100 pt-12">
-          <img src={login} alt="login" className="w-3/5" />
+        <div className="lg:hidden block w-full ">
+          <Footer />
         </div>
       </div>
     </div>

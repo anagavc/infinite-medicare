@@ -5,6 +5,7 @@ import {
   Instagram,
   Twitter,
   Email,
+  LocalHospital,
 } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -60,12 +61,11 @@ const Footer = () => {
     <div className="w-full flex flex-col justify-between space-y-12  bg-pry-100">
       <div className=" py-6  flex flex-col space-y-8 justify-between w-full ">
         <div className="flex justify-between bg-pry-100 drop-shadow  py-2  px-8 md:px-24">
-          <div className="flex justify-center items-center space-x-2 h-full">
-            <div className="w-8 h-8 ">
-              {/* <img src={logo} alt="logo" /> */}
-            </div>
+          <div className="flex justify-center gap-2 items-center text-pry-50 h-full">
+            <LocalHospital />
+
             <NavLink to="/">
-              <span className="text-2xl font-bold cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
+              <span className="text-xl lg:text-2xl font-bold cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
                 Infinite Medicare
               </span>
             </NavLink>
@@ -162,11 +162,11 @@ const Footer = () => {
 
                   <input
                     type="text"
-                    id="email"
+                    id="subscriberEmail"
                     name="email"
                     className="py-3 px-4 w-full tracking-widest left-12 block pl-14  placeholder-pry-50 bg-pry-100 border-b border-b-pry-50 text-pry-50 placeholder:text-pry-50  appearance-none transition duration-300 focus:outline-none focus:border-pry-50 focus:ring-pry-50 focus:ring-1 "
                     placeholder="Your email address"
-                    {...register("email", {
+                    {...register("subscriberEmail", {
                       required: "Your email address is required, thank you",
                       minLength: {
                         value: 4,

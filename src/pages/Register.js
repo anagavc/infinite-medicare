@@ -1,9 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Input from "../components/UI/Input";
+import { Home } from "@mui/icons-material";
+
+import NavBar from "../components/Navigation/NavBar";
 import { PrimaryButton } from "../components/UI/Buttons";
 import registerImg from "../images/register.svg";
 import { useForm } from "react-hook-form";
+import Footer from "../components/Layouts/Footer";
 import axios from "axios";
 const Register = () => {
   const [isFetching, setisFetching] = useState(false);
@@ -48,19 +52,23 @@ const Register = () => {
           </p>
         </div>
       </div>
-      <div className="bg-pry-50  flex flex-col  lg:px-16  h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
-        <div className="lg:hidden flex justify-center items-center w-full  bg-pry-100 h-full py-12 px-4 rounded-b-full">
-          <NavLink
-            to="/"
-            className="font-heading mt-16 hover:text-sec text-xl text-pry-50 font-bold transition duration-300"
-          >
-            Infinite Medicare
-          </NavLink>
+      <div className="bg-pry-50  flex flex-col  lg:px-16  lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
+        <NavLink
+          className="text-pry-100 hover:text-sec transition duration-300 px-6 "
+          to="/"
+        >
+          <Home />
+        </NavLink>
+        <div className="lg:hidden flex w-full  h-full">
+          <NavBar />
         </div>
-        <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-12">
+        <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-28 lg:mt-12">
           Register
         </h1>
-        <form className="flex flex-col  h-full w-full gap-8 px-6">
+        <form
+          className="flex flex-col  h-full w-full gap-8 px-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Input
             title="Email Address"
             textColor="pry-100"
@@ -105,8 +113,8 @@ const Register = () => {
             </NavLink>
           </p>
         </form>
-        <div className="lg:hidden flex justify-center items-center w-full rounded-t-full bg-pry-100 pt-12">
-          <img src={registerImg} alt="Register" className="w-3/5" />
+        <div className="lg:hidden block w-full ">
+          <Footer />
         </div>
       </div>
     </div>
