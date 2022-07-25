@@ -1,4 +1,5 @@
 import Layout from "../components/Layouts/Layout";
+import { PrimaryButton } from "../components/UI/Buttons";
 import { newsItem } from "../utilities/newsItem";
 import { NavLink } from "react-router-dom";
 const BlogPage = () => {
@@ -11,7 +12,7 @@ const BlogPage = () => {
             Latest News
           </h1>
         </div>
-        <div className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full flex-wrap px-8 lg:px-12 p-12">
+        <div className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full flex-wrap px-8 lg:p-12">
           {newsItem.map((item, index) => (
             <div
               className="flex flex-col px-6 py-8 bg-pry-100 w-full lg:w-96 drop-shadow rounded space-y-4"
@@ -43,6 +44,16 @@ const BlogPage = () => {
               </NavLink>
             </div>
           ))}
+        </div>
+        <div className="px-8 lg:px-24 mx-auto w-full mt-6">
+          <PrimaryButton
+            name="Back"
+            path="/"
+            bgColor="pry-100"
+            textColor="pry-50"
+            borderColor="pry-100"
+            py="4"
+          />
         </div>
       </div>
     </Layout>
