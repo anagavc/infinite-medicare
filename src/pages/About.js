@@ -7,19 +7,19 @@ const About = () => {
   return (
     <Layout>
       <div className="h-full flex flex-col justify-between pb-24 gap-4 pt-32  bg-pry-50">
-        <div className="w-full px-24 flex flex-col justify-between gap-4">
+        <div className="w-full px-8 lg:px-24 flex flex-col justify-between gap-4">
           <h1 className="text-3xl font-heading text-pry-100 font-bold ">
             About Infinite Medicare
           </h1>
-          <div className="flex space-x-16 w-full items-center drop-shadow p-8 rounded bg-pry-50">
-            <div className="w-2/5 flex justify-between flex-wrap">
+          <div className="flex flex-col lg:flex-row gap-4 lg:space-x-16 w-full items-center drop-shadow p-8 rounded bg-pry-50">
+            <div className="w-full lg:w-2/5 flex justify-between flex-wrap">
               <img
                 src={ambulance}
                 alt="ambulance"
-                className="bg-pry-100 p-8 rounded w-full h-full"
+                className="bg-pry-100 p-4 lg:p-8 rounded w-full h-full"
               />
             </div>
-            <div className="flex flex-col gap-4 w-3/5">
+            <div className="flex flex-col gap-4 w-full lg:w-3/5">
               <h3 className="text-xl font-heading text-pry-100 font-bold">
                 Providing An Exceptional Healthcare Service
               </h3>
@@ -46,9 +46,11 @@ const About = () => {
             </div>
           </div>
         </div>
+        <div className="w-full bg-pry-50 drop-shadow p-8 lg:drop-shadow-none">
+          <Staff />
+        </div>
 
-        <Staff />
-        <div className="px-24 mx-auto w-full">
+        <div className="px-8 lg:px-24 mx-auto w-full">
           <PrimaryButton
             name="Back"
             path="/"

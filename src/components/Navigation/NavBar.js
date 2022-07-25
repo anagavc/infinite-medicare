@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Close, Menu } from "@mui/icons-material";
+import { Close, LocalHospital, Menu } from "@mui/icons-material";
 import NavItem from "./NavItem";
 import { PrimaryButton } from "../UI/Buttons";
 import { NavLink } from "react-router-dom";
@@ -25,16 +25,12 @@ const NavBar = () => {
       path: "/about",
     },
     {
-      name: "Services",
-      path: "/#services",
-    },
-    {
       name: "Blog",
       path: "/blog",
     },
     {
       name: "Contact",
-      path: "/#contact",
+      path: "/contact",
     },
   ];
   const logoutHandler = () => {
@@ -45,10 +41,12 @@ const NavBar = () => {
   return (
     <div className="drop-shadow flex justify-between w-full fixed top-0 left-0 bg-pry-100 px-12 z-50">
       <div className="flex justify-start items-center lg:py-3 lg:px-10  py-4 z-10">
-        <div className="flex justify-center items-center space-x-2 h-full">
-          <div className="w-8 h-8 ">{/* <img src={logo} alt="logo" /> */}</div>
+        <div className="flex justify-between space-x-2 items-centerh-full">
+          <div className=" text-pry-50">
+            <LocalHospital />
+          </div>
           <NavLink to="/">
-            <span className="text-lg cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
+            <span className="text-xl font-bold cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
               Infinite Medicare
             </span>
           </NavLink>

@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, Register, About } from "./pages";
+import { Home, Login, Register, About, ContactPage, BlogPage } from "./pages";
+
 function App() {
   return (
     <>
@@ -8,6 +9,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/Blog" element={<BlogPage />} />
       </Routes>
     </>
   );

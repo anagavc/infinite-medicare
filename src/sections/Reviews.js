@@ -45,7 +45,7 @@ const Reviews = () => {
         <Paragraph
           color="pry-50"
           align="center"
-          title="Here are some of things our satisifed pateints have to say about how we took care of them"
+          title="Here are some of things our satisifed patients have to say about how we took care of them"
         />
       </div>
       <Swiper

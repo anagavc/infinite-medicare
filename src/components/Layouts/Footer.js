@@ -76,11 +76,14 @@ const Footer = () => {
             </h5>
             <div className="flex justify-between  items-center space-x-4 md:space-x-6 ">
               <FooterIcon
-                path="www.facebook.com/"
+                path="https://www.facebook.com/"
                 icon={<FacebookOutlined />}
               />
-              <FooterIcon path="www.instagram.com/" icon={<Instagram />} />
-              <FooterIcon path="www.twitter.com/" icon={<Twitter />} />
+              <FooterIcon
+                path="https://www.instagram.com/"
+                icon={<Instagram />}
+              />
+              <FooterIcon path="https://www.twitter.com/" icon={<Twitter />} />
             </div>
           </div>
         </div>

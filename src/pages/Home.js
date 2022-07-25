@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="flex flex-col justify-center items-center relative w-full bg-pry-100">
-        <header className="relative flex flex-col justify-center items-center">
+        <header className="relative flex flex-col justify-center items-center w-full">
           <Header />
           <Categories />
         </header>

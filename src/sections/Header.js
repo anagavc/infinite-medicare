@@ -1,11 +1,10 @@
 import { PrimaryButton, SecondaryButton } from "../components/UI/Buttons";
-
 import heroImg from "../images/doctor.png";
 // import { FadeDownAnimation, FadeUpAnimation } from "./Animations";
 const Header = () => {
   return (
     <div className="flex  lg:flex-row flex-col justify-center items-center  lg:mt-0  h-full w-full bg-pry-100 ">
-      <div className=" bg-pry-100 flex  px-8 lg:px-32  flex-col mt-24 lg:mt-0 space-y-12 justify-center h-full w-full md:w-3/5 lg:w-3/5 ">
+      <div className=" bg-pry-100 flex  px-8 lg:px-28 flex-col mt-24 lg:mt-0 space-y-12 justify-center h-full w-full md:w-3/5">
         <p className="font-body text-sm text-pry-100 font-bold bg-sec py-2 rounded w-full lg:w-3/5 flex justify-center items-center">
           Welcome to Infinite Medicare
         </p>

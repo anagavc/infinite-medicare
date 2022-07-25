@@ -1,4 +1,3 @@
-import React from "react";
 import { newsItem } from "../utilities/newsItem";
 import { NavLink } from "react-router-dom";
 

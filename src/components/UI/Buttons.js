@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import React from "react";
 // import ClipLoader from "react-spinners/ClipLoader";
 
@@ -83,11 +83,12 @@ export const SecondaryButton = ({
 
 export const FooterIcon = ({ path, icon }) => {
   return (
-    <NavLink
-      to={path}
+    <Link
+      to={{ pathname: path }}
+      target="_blank"
       className="text-pry-50 hover:text-sec transition duration-300"
     >
       {icon}
-    </NavLink>
+    </Link>
   );
 };
