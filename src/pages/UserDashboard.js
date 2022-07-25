@@ -1,7 +1,17 @@
-import { Email, Person, Phone } from "@mui/icons-material";
-import { PrimaryButton } from "../components/UI/Buttons";
+import {
+  CalendarMonth,
+  Email,
+  KeyboardArrowRight,
+  MedicalInformation,
+  MeetingRoom,
+  Person,
+  Phone,
+} from "@mui/icons-material";
+import { PrimaryButton, UserButton } from "../components/UI/Buttons";
 import Layout from "../components/Layouts/Layout";
 import doctor from "../images/doctor.png";
+import { Table } from "@mui/material";
+import CustomizedTables from "../components/Layouts/Table";
 const UserDashboard = () => {
   return (
     <Layout>
@@ -9,7 +19,7 @@ const UserDashboard = () => {
         <h1 className="font-heading text-2xl text-pry-100 mb-6">
           Patient's dashboard
         </h1>
-        <div className="flex justify-between rounded drop-shadow p-8 w-full bg-pry-50">
+        <div className="flex justify-between rounded drop-shadow p-8 w-full bg-pry-50 gap-6">
           <div className="flex flex-col justify-between w-2/6 gap-6">
             <div className="flex flex-col px-12 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
               <div className="rounded-full py-2 w-40 h-40 flex justify-center items-center bg-sec">
@@ -45,26 +55,62 @@ const UserDashboard = () => {
                 py="4"
               />
             </div>
-            <div className="flex flex-col drop-shadow py-8 px-12 justify-center items-center gap-8 bg-pry-50">
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Home
-              </button>
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Book appointment
-              </button>
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Appointments
-              </button>
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Encounters
-              </button>
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Prescriptions
-              </button>
-              <button className="text-pry-100 hover:text-sec font-body text-base transition duration-300 border-b border-b-pry-100 w-full">
-                Change password
-              </button>
+            <div className="flex flex-col drop-shadow py-8 px-12 justify-start items-start gap-8 bg-pry-50">
+              <UserButton name="Home" />
+              <UserButton name="Encounters" />
+              <UserButton name="Appointments" />
+              <UserButton name="Prescriptions" />
+              <UserButton name="Change Password" />
+              <UserButton name="Book Appointment" />
             </div>
+          </div>
+
+          <div className="flex w-4/6  flex-col justify-between gap-6">
+            <div className="flex justify-between w-full gap-4">
+              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
+                <div className="flex flex-col gap-2 w-3/5">
+                  <h4 className="text-xl font-body text-pry-100 font-bold">
+                    0
+                  </h4>
+                  <p className="font-body text-base text-pry-100 ">
+                    Total Visits
+                  </p>
+                </div>
+                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
+                  <MeetingRoom />
+                </div>
+              </div>
+              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
+                <div className="flex flex-col gap-2 w-3/5">
+                  <h4 className="text-xl font-body text-pry-100 font-bold">
+                    0
+                  </h4>
+                  <p className="font-body text-base text-pry-100 ">
+                    Appointment
+                  </p>
+                </div>
+                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
+                  <CalendarMonth />
+                </div>
+              </div>
+              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
+                <div className="flex flex-col gap-2 w-3/5">
+                  <h4 className="text-xl font-body text-pry-100 font-bold">
+                    0
+                  </h4>
+                  <p className="font-body text-base text-pry-100 ">
+                    Prescriptions
+                  </p>
+                </div>
+                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
+                  <MedicalInformation />
+                </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <CustomizedTables />
+            </div>
+            <Table />
           </div>
         </div>
       </div>

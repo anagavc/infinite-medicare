@@ -1,5 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
+import { KeyboardArrowRight } from "@mui/icons-material";
 // import ClipLoader from "react-spinners/ClipLoader";
 
 // export const FooterIcon = ({ path, icon }) => {
@@ -90,5 +91,14 @@ export const FooterIcon = ({ path, icon }) => {
     >
       {icon}
     </Link>
+  );
+};
+
+export const UserButton = ({ name, click }) => {
+  return (
+    <button className="text-pry-100 border-b border-b-sec py-2 hover:text-sec flex justify-center gap-4 items-center font-body text-base transition duration-300 w-full">
+      <span>{name}</span>
+      <KeyboardArrowRight />
+    </button>
   );
 };
