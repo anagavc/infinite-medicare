@@ -13,7 +13,11 @@ import {
   Phone,
 } from "@mui/icons-material";
 import { useState } from "react";
-import { BookDialog } from "../components/Layouts/Modal";
+import {
+  BookDialog,
+  PasswordDialog,
+  AccountDialog,
+} from "../components/Layouts/Modal";
 const UserDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -21,6 +25,12 @@ const UserDashboard = () => {
     <Layout>
       {modalType === "book" && (
         <BookDialog showModal={showModal} setShowModal={setShowModal} />
+      )}
+      {modalType === "password" && (
+        <PasswordDialog showModal={showModal} setShowModal={setShowModal} />
+      )}
+      {modalType === "account" && (
+        <AccountDialog showModal={showModal} setShowModal={setShowModal} />
       )}
       <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
@@ -47,6 +57,10 @@ const UserDashboard = () => {
                 textColor="pry-50"
                 borderColor="pry-100"
                 py="2 lg:py-4"
+                click={() => {
+                  setShowModal(!showModal);
+                  setModalType("account");
+                }}
               />
             </div>
             <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
@@ -54,7 +68,13 @@ const UserDashboard = () => {
               <UserButton name="Encounters" />
               <UserButton name="Appointments" />
               <UserButton name="Prescriptions" />
-              <UserButton name="Change Password" />
+              <UserButton
+                name="Change Password"
+                click={() => {
+                  setShowModal(!showModal);
+                  setModalType("password");
+                }}
+              />
               <UserButton
                 name="Book Appointment"
                 click={() => {
@@ -86,6 +106,9 @@ const UserDashboard = () => {
               />
             </div>
             <div className="w-full">
+              <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
+                Encounters
+              </h1>
               <CustomizedTables />
             </div>
           </div>

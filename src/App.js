@@ -1,3 +1,5 @@
+import ScrollToTop from "./utilities/ScrollToTop";
+import AdminLayout from "./admin/components/AdminLayout";
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
@@ -9,8 +11,8 @@ import {
   BlogItem,
   UserDashboard,
 } from "./pages";
-import ScrollToTop from "./utilities/ScrollToTop";
 
+const isAdmin = true;
 function App() {
   return (
     <ScrollToTop>
@@ -23,6 +25,7 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogItem />} />
         <Route path="/account" element={<UserDashboard />} />
+        {isAdmin && <Route path="/admin/*" element={<AdminLayout />} />}
       </Routes>
     </ScrollToTop>
   );

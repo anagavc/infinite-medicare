@@ -80,3 +80,162 @@ export const BookDialog = ({ showModal, setShowModal }) => {
     </div>
   );
 };
+export const PasswordDialog = ({ showModal, setShowModal }) => {
+  const [isFetching, setisFetching] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const onSubmit = async (data) => {
+    setisFetching(true);
+    try {
+      reset();
+      //   toast.success(`Your request has been sent,we will get back to you soon.`);
+    } catch (error) {
+      console.log(error);
+      setisFetching(false);
+    }
+  };
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Change password
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            To change your password, enter your old password and you new
+            password.
+          </p>
+
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Old Password"
+              textColor="pry-100"
+              inputName="oldPassword"
+              placeholder="Enter your old password"
+              type="password"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              title="New Password"
+              textColor="pry-100"
+              inputName="newPassword"
+              placeholder="Enter your new password"
+              type="password"
+              register={register}
+              errors={errors}
+            />
+            <PrimaryButton
+              name="Submit"
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+              click={handleClose}
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+export const AccountDialog = ({ showModal, setShowModal }) => {
+  const [isFetching, setisFetching] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const onSubmit = async (data) => {
+    setisFetching(true);
+    try {
+      reset();
+      //   toast.success(`Your request has been sent,we will get back to you soon.`);
+    } catch (error) {
+      console.log(error);
+      setisFetching(false);
+    }
+  };
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Update account
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            To update your account, enter the information you want to update.
+          </p>
+
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Name"
+              textColor="pry-100"
+              inputName="name"
+              placeholder="Enter your Full Name"
+              type="text"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              title="Phone Number"
+              textColor="pry-100"
+              inputName="phoneNumber"
+              placeholder="Enter your phone number"
+              type="text"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              title="Email Address"
+              textColor="pry-100"
+              inputName="email"
+              placeholder="Enter your email address"
+              type="email"
+              register={register}
+              errors={errors}
+            />
+            <PrimaryButton
+              name="Submit"
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+              click={handleClose}
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};

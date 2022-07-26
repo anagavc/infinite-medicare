@@ -22,3 +22,20 @@ export const HeadingSix = ({ title, color, align, size }) => {
     </h6>
   );
 };
+
+export const HeadingFour = ({ title, color, textColor }) => {
+  return (
+    <div className="flex justify-between items-center space-x-2">
+      <div className={`w-40 border border-${color} bg-${color}`}></div>
+
+      <h4 className={`${textColor} font-heading text-base font-medium`}>
+        {title}
+      </h4>
+      <div className={`w-40 border border-${color} bg-${color}`}></div>
+    </div>
+  );
+};
+
+export const HeadingTwo = ({ title, color, size }) => {
+  return <h2 className={`font-heading  ${color} ${size}`}>{title}</h2>;
+};
