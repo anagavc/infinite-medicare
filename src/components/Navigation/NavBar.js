@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-
-import { Close, LocalHospital, Menu } from "@mui/icons-material";
 import NavItem from "./NavItem";
+import { useState } from "react";
+import { Close, LocalHospital, Menu } from "@mui/icons-material";
 import { PrimaryButton } from "../UI/Buttons";
 import { NavLink } from "react-router-dom";
-// import logo from "../../images/logo.png";
-
 // import { useSelector, useDispatch } from "react-redux";
 // import { logoutSuccess } from "../../redux/userSlice";
 const NavBar = () => {
@@ -41,16 +38,12 @@ const NavBar = () => {
   return (
     <div className="drop-shadow flex justify-between w-full fixed top-0 left-0 bg-pry-100 px-12 z-50">
       <div className="flex justify-start items-center lg:py-3 lg:px-10  py-4 z-10">
-        <div className="flex justify-between space-x-2 items-centerh-full">
-          <div className=" text-pry-50">
+        <NavLink to="/">
+          <span className="text-xl gap-2 font-bold cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
             <LocalHospital />
-          </div>
-          <NavLink to="/">
-            <span className="text-xl font-bold cursor-pointer text-pry-50 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
-              Infinite Medicare
-            </span>
-          </NavLink>
-        </div>
+            Infinite Medicare
+          </span>
+        </NavLink>
 
         <div
           className="text-3xl text-pry-50 absolute right-4 lg:hidden  top-2 cursor-pointer transition duration-300 "

@@ -1,27 +1,27 @@
+import Layout from "../components/Layouts/Layout";
+import doctor from "../images/doctor.png";
+import CustomizedTables from "../components/Layouts/Table";
+import { PrimaryButton, UserButton } from "../components/UI/Buttons";
+import { UserActivity, UserInfo } from "../components/Layouts/UserData";
 import {
+  Bloodtype,
   CalendarMonth,
   Email,
-  KeyboardArrowRight,
   MedicalInformation,
   MeetingRoom,
   Person,
   Phone,
 } from "@mui/icons-material";
-import { PrimaryButton, UserButton } from "../components/UI/Buttons";
-import Layout from "../components/Layouts/Layout";
-import doctor from "../images/doctor.png";
-import { Table } from "@mui/material";
-import CustomizedTables from "../components/Layouts/Table";
 const UserDashboard = () => {
   return (
     <Layout>
-      <div className="bg-pry-50 h-full px-24 py-24 flex flex-col justify-between w-full">
-        <h1 className="font-heading text-2xl text-pry-100 mb-6">
+      <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
+        <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
           Patient's dashboard
         </h1>
-        <div className="flex justify-between rounded drop-shadow p-8 w-full bg-pry-50 gap-6">
-          <div className="flex flex-col justify-between w-2/6 gap-6">
-            <div className="flex flex-col px-12 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
+        <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
+          <div className="flex flex-col justify-between w-full  lg:w-2/6 gap-6">
+            <div className="flex flex-col px-2 lg:px-12 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
               <div className="rounded-full py-2 w-40 h-40 flex justify-center items-center bg-sec">
                 <img
                   src={doctor}
@@ -29,30 +29,17 @@ const UserDashboard = () => {
                   alt="patient"
                 />
               </div>
-              <div className="flex  justify-between gap-2 text-pry-100">
-                <Person />
-                <p className="font-body text-base  text-pry-100 ">
-                  Hospital Patient
-                </p>
-              </div>
-              <div className="flex  justify-between gap-2 text-pry-100">
-                <Phone />
-                <p className="font-body text-base text-pry-100 ">
-                  +234-812-345-6789
-                </p>
-              </div>
-              <div className="flex  justify-between gap-2 text-pry-100">
-                <Email />
-                <p className="font-body text-base text-pry-100 ">
-                  hospitalpatient@gmail.com
-                </p>
-              </div>
+              <UserInfo name="Hospital Patient" icon={<Person />} />
+              <UserInfo name="+234-812-345-6789" icon={<Phone />} />
+              <UserInfo name="hospitalpatient@gmail.com" icon={<Email />} />
+              <UserInfo name="B positive" icon={<Bloodtype />} />
+
               <PrimaryButton
                 name="Edit account"
                 bgColor="pry-100"
                 textColor="pry-50"
                 borderColor="pry-100"
-                py="4"
+                py="2 lg:py-4"
               />
             </div>
             <div className="flex flex-col drop-shadow py-8 px-12 justify-start items-start gap-8 bg-pry-50">
@@ -65,52 +52,29 @@ const UserDashboard = () => {
             </div>
           </div>
 
-          <div className="flex w-4/6  flex-col justify-between gap-6">
-            <div className="flex justify-between w-full gap-4">
-              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
-                <div className="flex flex-col gap-2 w-3/5">
-                  <h4 className="text-xl font-body text-pry-100 font-bold">
-                    0
-                  </h4>
-                  <p className="font-body text-base text-pry-100 ">
-                    Total Visits
-                  </p>
-                </div>
-                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
-                  <MeetingRoom />
-                </div>
-              </div>
-              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
-                <div className="flex flex-col gap-2 w-3/5">
-                  <h4 className="text-xl font-body text-pry-100 font-bold">
-                    0
-                  </h4>
-                  <p className="font-body text-base text-pry-100 ">
-                    Appointment
-                  </p>
-                </div>
-                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
-                  <CalendarMonth />
-                </div>
-              </div>
-              <div className="flex justify-between bg-pry-50 p-6 rounded drop-shadow w-2/6 ">
-                <div className="flex flex-col gap-2 w-3/5">
-                  <h4 className="text-xl font-body text-pry-100 font-bold">
-                    0
-                  </h4>
-                  <p className="font-body text-base text-pry-100 ">
-                    Prescriptions
-                  </p>
-                </div>
-                <div className="bg-pry-100 p-4 rounded text-pry-50 flex items-center justify-center">
-                  <MedicalInformation />
-                </div>
-              </div>
+          <div className="flex w-full lg:w-4/6  flex-col justify-between gap-6">
+            <div className="flex flex-col lg:flex-row justify-between w-full gap-4">
+              <UserActivity
+                count="0"
+                name="Total Visits"
+                icon={<MeetingRoom />}
+              />
+
+              <UserActivity
+                count="0"
+                name="Appointment"
+                icon={<CalendarMonth />}
+              />
+
+              <UserActivity
+                count="0"
+                name="Prescriptions"
+                icon={<MedicalInformation />}
+              />
             </div>
             <div className="w-full">
               <CustomizedTables />
             </div>
-            <Table />
           </div>
         </div>
       </div>

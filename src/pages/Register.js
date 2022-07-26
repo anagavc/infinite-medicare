@@ -1,14 +1,13 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import Input from "../components/UI/Input";
-import { Home } from "@mui/icons-material";
-
 import NavBar from "../components/Navigation/NavBar";
-import { PrimaryButton } from "../components/UI/Buttons";
 import registerImg from "../images/register.svg";
-import { useForm } from "react-hook-form";
 import Footer from "../components/Layouts/Footer";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Home, LocalHospital } from "@mui/icons-material";
+import { PrimaryButton } from "../components/UI/Buttons";
+import { useForm } from "react-hook-form";
 const Register = () => {
   const [isFetching, setisFetching] = useState(false);
 
@@ -33,12 +32,12 @@ const Register = () => {
   return (
     <div className="h-screen flex justify-center items-center w-full ">
       <div className="bg-pry-100 lg:flex flex-col px-16 hidden py-12 h-full w-2/4 gap-4">
-        <div className=" flex justify-between w-full">
-          <NavLink
-            to="/"
-            className="font-heading  hover:text-sec text-lg text-pry-50 font-bold transition duration-300"
-          >
-            Infinite Medicare
+        <div className="flex items-center h-full">
+          <NavLink to="/">
+            <span className="text-xl font-bold cursor-pointer text-pry-50 gap-2 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
+              <LocalHospital />
+              Infinite Medicare
+            </span>
           </NavLink>
         </div>
         <div className="flex flex-col w-full h-full gap-4 items-center justify-center">
