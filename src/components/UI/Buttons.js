@@ -96,7 +96,10 @@ export const FooterIcon = ({ path, icon }) => {
 
 export const UserButton = ({ name, click }) => {
   return (
-    <button className="text-pry-100 border-b border-b-sec py-2 hover:text-sec flex justify-center gap-4 items-center font-body text-base transition duration-300 w-full">
+    <button
+      onClick={click}
+      className="text-pry-100 border-b border-b-sec py-2 hover:text-sec flex justify-center gap-4 items-center font-body text-base transition duration-300 w-full"
+    >
       <span>{name}</span>
       <KeyboardArrowRight />
     </button>

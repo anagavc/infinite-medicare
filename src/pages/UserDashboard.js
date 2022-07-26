@@ -12,9 +12,16 @@ import {
   Person,
   Phone,
 } from "@mui/icons-material";
+import { useState } from "react";
+import { BookDialog } from "../components/Layouts/Modal";
 const UserDashboard = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
   return (
     <Layout>
+      {modalType === "book" && (
+        <BookDialog showModal={showModal} setShowModal={setShowModal} />
+      )}
       <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
           Patient's dashboard
@@ -42,17 +49,23 @@ const UserDashboard = () => {
                 py="2 lg:py-4"
               />
             </div>
-            <div className="flex flex-col drop-shadow py-8 px-12 justify-start items-start gap-8 bg-pry-50">
+            <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
               <UserButton name="Home" />
               <UserButton name="Encounters" />
               <UserButton name="Appointments" />
               <UserButton name="Prescriptions" />
               <UserButton name="Change Password" />
-              <UserButton name="Book Appointment" />
+              <UserButton
+                name="Book Appointment"
+                click={() => {
+                  setShowModal(!showModal);
+                  setModalType("book");
+                }}
+              />
             </div>
           </div>
 
-          <div className="flex w-full lg:w-4/6  flex-col justify-between gap-6">
+          <div className="flex w-full lg:w-4/6  flex-col  gap-8">
             <div className="flex flex-col lg:flex-row justify-between w-full gap-4">
               <UserActivity
                 count="0"
