@@ -2,6 +2,9 @@ import Input from "../UI/Input";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { updateUserInfo } from "../../api/apiCalls";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../UI/Buttons";
 export const BookDialog = ({ showModal, setShowModal }) => {
   const [isFetching, setisFetching] = useState(false);
@@ -157,22 +160,19 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
 };
 
 export const AccountDialog = ({ showModal, setShowModal }) => {
-  const [isFetching, setisFetching] = useState(false);
+  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+  const userID = currentUser._id;
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    setisFetching(true);
-    try {
-      reset();
-      //   toast.success(`Your request has been sent,we will get back to you soon.`);
-    } catch (error) {
-      console.log(error);
-      setisFetching(false);
-    }
+    updateUserInfo(userID, data, dispatch, navigate);
+    reset();
   };
   const handleClose = () => {
     setShowModal(!showModal);
@@ -187,7 +187,11 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
           <p className="text-base font-body text-pry-100">
             To update your account, enter the information you want to update.
           </p>
-
+          {error && (
+            <p className="text-pry-100 font-normal text-base px-6 font-body">
+              There was a error in updating your account
+            </p>
+          )}
           <form
             className="flex flex-col  h-full w-full gap-4"
             onSubmit={handleSubmit(onSubmit)}
@@ -221,11 +225,12 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
             />
             <PrimaryButton
               name="Submit"
+              isFetching={isFetching}
               bgColor="pry-100"
               textColor="pry-50"
               borderColor="pry-100"
               py="3"
-              click={handleClose}
+              // click={handleClose}
             />
             <button
               className="text-pry-100 font-body hover:text-sec transition duration-300"
