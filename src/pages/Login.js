@@ -1,33 +1,26 @@
-import login from "../images/login.svg";
+import loginImg from "../images/login.svg";
 import Input from "../components/UI/Input";
-import axios from "axios";
 import NavBar from "../components/Navigation/NavBar";
 import Footer from "../components/Layouts/Footer";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { login } from "../api/apiCalls";
 import { PrimaryButton } from "../components/UI/Buttons";
 import { useForm } from "react-hook-form";
 import { Home, LocalHospital } from "@mui/icons-material";
 const Login = () => {
-  const [isFetching, setisFetching] = useState(false);
-
+  const { error, isFetching } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
-    setisFetching(true);
-    try {
-      const res = await axios.post("/api/contact/info", { data });
-      setisFetching(false);
-      reset();
-      //   toast.success(`Your request has been sent,we will get back to you soon.`);
-    } catch (error) {
-      console.log(error);
-      setisFetching(false);
-    }
+  const onSubmit = (data) => {
+    login(dispatch, navigate, { ...data });
+    reset();
   };
   return (
     <div className="lg:h-screen flex justify-center items-center w-full ">
@@ -41,7 +34,7 @@ const Login = () => {
           </NavLink>
         </div>
         <div className="flex flex-col w-full h-full gap-4 items-center justify-center">
-          <img src={login} alt="login" className="w-3/5" />
+          <img src={loginImg} alt="login" className="w-3/5" />
           <h1 className="font-heading text-center text-4xl text-pry-50 font-bold">
             Get access to premium healthcare service
           </h1>
@@ -51,7 +44,7 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <div className="bg-pry-50  flex flex-col  lg:px-16   lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
+      <div className="bg-pry-50  flex flex-col  lg:px-16   lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-6  justify-center  lg:py-36 my-auto">
         <NavLink
           className="text-pry-100 hover:text-sec transition duration-300 px-6 "
           to="/"
@@ -64,16 +57,21 @@ const Login = () => {
         <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-8 lg:mt-16">
           Login
         </h1>
+        {error && (
+          <p className="text-pry-100 font-normal text-base px-6 font-body">
+            The email address or password you entered does not exist
+          </p>
+        )}
         <form
           className="flex flex-col  h-full w-full gap-8 px-6"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            title="Username"
+            title="Email address"
             textColor="pry-100"
-            inputName="username"
-            placeholder="Enter your username"
-            type="text"
+            inputName="email"
+            placeholder="Enter your email address"
+            type="address"
             register={register}
             errors={errors}
           />
@@ -88,6 +86,7 @@ const Login = () => {
           />
           <PrimaryButton
             name="Login"
+            isFetching={isFetching}
             bgColor="pry-100"
             textColor="pry-50"
             borderColor="pry-100"

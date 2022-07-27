@@ -1,19 +1,10 @@
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import { KeyboardArrowRight } from "@mui/icons-material";
-// import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
-// export const FooterIcon = ({ path, icon }) => {
-//   return (
-//     <NavLink
-//       to={path}
-//       className="text-pry-50 hover:text-sec transition duration-300"
-//     >
-//       {icon}
-//     </NavLink>
-//   );
-// };
-
+let loading = true;
+let color = "#83c5be";
 export const PrimaryButton = ({
   path,
   name,
@@ -37,12 +28,11 @@ export const PrimaryButton = ({
           onClick={click}
           disabled={isFetching}
         >
-          {/* {isFetching ? (
+          {isFetching ? (
             <ClipLoader color={color} loading={loading} size={25} />
           ) : (
             <span>{name}</span>
-          )} */}
-          {name}
+          )}
         </button>
       )}
     </>
@@ -71,11 +61,11 @@ export const SecondaryButton = ({
           onClick={click}
           disabled={isFetching}
         >
-          {/* {isFetching ? (
+          {isFetching ? (
             <ClipLoader color={color} loading={loading} size={25} />
           ) : (
             <span>{name}</span>
-          )} */}
+          )}
         </button>
       )}
     </>

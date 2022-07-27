@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { DashboardIcon } from "./Icons";
-import { HeadingTwo } from "../../components/UI/FontStyles";
+
 import {
   Logout,
   Inventory,
   Comment,
   AddShoppingCart,
   LocalPostOffice,
+  LocalHospital,
 } from "@mui/icons-material";
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const navElements = [
@@ -17,7 +18,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     },
     {
       title: "Patients",
-      path: "patients",
+      path: "patients/:id",
       icon: <Inventory />,
     },
     {
@@ -60,12 +61,13 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           />
         </svg>
       </button>
-      <div className=" flex justify-center ">
-        <HeadingTwo
-          title="Infinite Medicare"
-          color="text-pry-50"
-          size="text-2xl"
-        />
+      <div className="flex items-center justify-center">
+        <NavLink to="/">
+          <span className="text-xl font-bold cursor-pointer text-pry-50 gap-2 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
+            <LocalHospital />
+            Infinite Medicare
+          </span>
+        </NavLink>
       </div>
       <div className="flex flex-col justify-between">
         <div className="flex flex-col space-y-4 ">

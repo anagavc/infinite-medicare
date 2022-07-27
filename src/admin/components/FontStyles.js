@@ -1,6 +1,6 @@
 export const HeadingTwo = (props) => {
   return (
-    <h2 className="text-pry-100 font-semibold text-lg">{props.children}</h2>
+    <h2 className="text-pry-50 font-semibold text-lg">{props.children}</h2>
   );
 };
 

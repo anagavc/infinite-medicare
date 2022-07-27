@@ -1,5 +1,3 @@
-import React from "react";
-
 const Input = ({
   inputName,
   title,
@@ -52,6 +50,7 @@ const Input = ({
             name={inputName}
             type={type}
             className={inputStyle}
+            autoComplete="off"
             id={inputName}
             {...register(inputName, {
               required: `${title} is required`,

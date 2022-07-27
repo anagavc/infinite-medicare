@@ -2,32 +2,26 @@ import Input from "../components/UI/Input";
 import NavBar from "../components/Navigation/NavBar";
 import registerImg from "../images/register.svg";
 import Footer from "../components/Layouts/Footer";
-import axios from "axios";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { registration } from "../api/apiCalls";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Home, LocalHospital } from "@mui/icons-material";
 import { PrimaryButton } from "../components/UI/Buttons";
 import { useForm } from "react-hook-form";
-const Register = () => {
-  const [isFetching, setisFetching] = useState(false);
+import { useSelector, useDispatch } from "react-redux";
 
+const Register = () => {
+  const { error, isFetching } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
-    setisFetching(true);
-    try {
-      const res = await axios.post("/api/contact/info", { data });
-      setisFetching(false);
-      reset();
-      //   toast.success(`Your request has been sent,we will get back to you soon.`);
-    } catch (error) {
-      console.log(error);
-      setisFetching(false);
-    }
+  const onSubmit = (data) => {
+    registration(dispatch, navigate, data);
+    reset();
   };
   return (
     <div className="h-screen flex justify-center items-center w-full ">
@@ -51,19 +45,25 @@ const Register = () => {
           </p>
         </div>
       </div>
-      <div className="bg-pry-50  flex flex-col  lg:px-16  lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-8  justify-center  lg:py-48 my-auto">
+      <div className="bg-pry-50  flex flex-col  lg:px-16  lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-6  justify-center  lg:py-36 my-auto">
         <NavLink
           className="text-pry-100 hover:text-sec transition duration-300 px-6 "
           to="/"
         >
           <Home />
         </NavLink>
+
         <div className="lg:hidden flex w-full  h-full">
           <NavBar />
         </div>
         <h1 className="font-heading  text-3xl text-pry-100 font-bold px-6 mt-28 lg:mt-12">
           Register
         </h1>
+        {error && (
+          <p className="text-pry-100 font-normal text-base px-6 font-body">
+            A user with the email address already exists
+          </p>
+        )}
         <form
           className="flex flex-col  h-full w-full gap-8 px-6"
           onSubmit={handleSubmit(onSubmit)}
@@ -78,10 +78,10 @@ const Register = () => {
             errors={errors}
           />
           <Input
-            title="Username"
+            title="Full Name"
             textColor="pry-100"
-            inputName="username"
-            placeholder="Enter your username"
+            inputName="name"
+            placeholder="Enter your name"
             type="text"
             register={register}
             errors={errors}
@@ -96,6 +96,7 @@ const Register = () => {
             errors={errors}
           />
           <PrimaryButton
+            isFetching={isFetching}
             name="Register"
             bgColor="pry-100"
             textColor="pry-50"

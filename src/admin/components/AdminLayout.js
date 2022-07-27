@@ -8,6 +8,9 @@ import {
   Appointments,
   Subscribers,
   AddNews,
+  Blog,
+  PatientDetails,
+  PrescriptionDetails,
 } from "../pages";
 
 const AdminLayout = () => {
@@ -22,7 +25,13 @@ const AdminLayout = () => {
             <Routes>
               <Route path="dashboard/" element={<Dashboard />} />
               <Route path="/patients/*" element={<PatientsGrid />} />
+              <Route path="/patients/:id" element={<PatientDetails />} />
+              <Route
+                path="/prescription/:id"
+                element={<PrescriptionDetails />}
+              />
 
+              <Route path="/blog" element={<Blog />} />
               <Route path="/addNews" element={<AddNews />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/subscribers" element={<Subscribers />} />

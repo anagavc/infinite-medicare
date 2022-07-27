@@ -2,15 +2,22 @@ import NavItem from "./NavItem";
 import { useState } from "react";
 import { Close, LocalHospital, Menu } from "@mui/icons-material";
 import { PrimaryButton } from "../UI/Buttons";
-import { NavLink } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { logoutSuccess } from "../../redux/userSlice";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../api/apiCalls";
+import { logoutSuccess } from "../../redux/userSlice";
 const NavBar = () => {
   const [open, setOpen] = useState(false);
-  // const dispatch = useDispatch();
-  const { currentUser } = true;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+
   const handleClose = () => {
     setOpen(!open);
+  };
+  const logoutHandler = () => {
+    logout(dispatch, navigate);
+    setOpen(false);
   };
   const navItems = [
     {
@@ -30,11 +37,7 @@ const NavBar = () => {
       path: "/contact",
     },
   ];
-  const logoutHandler = () => {
-    // dispatch(logoutSuccess());
-    setOpen(!open);
-    // router.push("/Login");
-  };
+
   return (
     <div className="drop-shadow flex justify-between w-full fixed top-0 left-0 bg-pry-100 px-12 z-50">
       <div className="flex justify-start items-center lg:py-3 lg:px-10  py-4 z-10">
@@ -78,7 +81,13 @@ const NavBar = () => {
               click={handleClose}
             />
 
-            <PrimaryButton name="Signout" click={logoutHandler} />
+            <PrimaryButton
+              name="Sign out"
+              bgColor="pry-50"
+              textColor="pry-100"
+              py="2"
+              click={logoutHandler}
+            />
           </>
         ) : (
           <>
@@ -92,7 +101,8 @@ const NavBar = () => {
               name="Register"
               path="/register"
               bgColor="pry-50"
-              py="4"
+              textColor="pry-100"
+              py="2"
               click={handleClose}
             />
           </>
@@ -111,12 +121,18 @@ const NavBar = () => {
         ))}
       </div>
       <div className="lg:flex  items-center hidden  space-x-8  justify-center  px-12 lg:py-2 pb-12  lg:static bg-pry-100 lg:z-40 z-40 w-full lg:w-auto lg:px-0">
-        <div className="flex justify-center items-center space-x-8">
+        <div className="flex justify-center items-center space-x-6">
           {currentUser ? (
             <>
               <NavItem path="/account" key="accountButton" name="Account" />
 
-              <PrimaryButton name="Signout" click={logoutHandler} />
+              <PrimaryButton
+                name="Sign out"
+                textColor="pry-100"
+                bgColor="pry-50"
+                py="2"
+                click={logoutHandler}
+              />
             </>
           ) : (
             <>

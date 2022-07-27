@@ -1,8 +1,6 @@
-import Layout from "../components/Layouts/Layout";
-import doctor from "../images/doctor.png";
-import CustomizedTables from "../components/Layouts/Table";
-import { PrimaryButton, UserButton } from "../components/UI/Buttons";
-import { UserActivity, UserInfo } from "../components/Layouts/UserData";
+import doctor from "../../images/doctor.png";
+import { PrimaryButton, UserButton } from "../../components/UI/Buttons";
+import { UserActivity, UserInfo } from "../../components/Layouts/UserData";
 import {
   Bloodtype,
   CalendarMonth,
@@ -17,14 +15,13 @@ import {
   BookDialog,
   PasswordDialog,
   AccountDialog,
-} from "../components/Layouts/Modal";
-import { useSelector } from "react-redux";
+} from "../../components/Layouts/Modal";
+import PatientsGrid from "./PatientsGrid";
 const UserDashboard = () => {
-  const user = useSelector((state) => state.user.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
   return (
-    <Layout>
+    <>
       {modalType === "book" && (
         <BookDialog showModal={showModal} setShowModal={setShowModal} />
       )}
@@ -34,13 +31,13 @@ const UserDashboard = () => {
       {modalType === "account" && (
         <AccountDialog showModal={showModal} setShowModal={setShowModal} />
       )}
-      <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
+      <div className="bg-pry-50 py-2 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
-          Patient's dashboard
+          Patient's details
         </h1>
         <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
-          <div className="flex flex-col  w-full  lg:w-2/6 gap-6">
-            <div className="flex flex-col px-2 lg:px-12 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
+          <div className="flex flex-col w-full  lg:w-2/6 gap-6">
+            <div className="flex flex-col px-2 lg:px-6 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
               <div className="rounded-full py-2 w-40 h-40 flex justify-center items-center bg-sec">
                 <img
                   src={doctor}
@@ -48,13 +45,13 @@ const UserDashboard = () => {
                   alt="patient"
                 />
               </div>
-              <UserInfo name={user.name} icon={<Person />} />
+              <UserInfo name="Hospital Patient" icon={<Person />} />
               <UserInfo name="+234-812-345-6789" icon={<Phone />} />
-              <UserInfo name={user.email} icon={<Email />} />
+              <UserInfo name="hospitalpatient@gmail.com" icon={<Email />} />
               <UserInfo name="B positive" icon={<Bloodtype />} />
 
               <PrimaryButton
-                name="Edit account"
+                name="Upgrade to doctor"
                 bgColor="pry-100"
                 textColor="pry-50"
                 borderColor="pry-100"
@@ -64,25 +61,19 @@ const UserDashboard = () => {
                   setModalType("account");
                 }}
               />
+
+              <PrimaryButton
+                name="Delete account"
+                bgColor="red-500"
+                textColor="pry-50"
+                borderColor="pry-100"
+                py="2 lg:py-4"
+              />
             </div>
             <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
-              <UserButton name="Home" />
+              <UserButton name="Encounters" />
               <UserButton name="Appointments" />
               <UserButton name="Prescriptions" />
-              <UserButton
-                name="Change Password"
-                click={() => {
-                  setShowModal(!showModal);
-                  setModalType("password");
-                }}
-              />
-              <UserButton
-                name="Book Appointment"
-                click={() => {
-                  setShowModal(!showModal);
-                  setModalType("book");
-                }}
-              />
             </div>
           </div>
 
@@ -110,12 +101,12 @@ const UserDashboard = () => {
               <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
                 Encounters
               </h1>
-              <CustomizedTables />
+              <PatientsGrid />
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

@@ -2,8 +2,8 @@ import { HeadingTwo } from "./FontStyles";
 
 const Header = ({ setIsOpen }) => {
   return (
-    <div className="flex justify-between w-full py-8 px-4 space-x-2 lg:px-12 mt-12">
-      <div className="flex space-x-2 items-center text-pry-100">
+    <div className="flex justify-between w-full py-8 px-4 space-x-2 lg:px-12  bg-pry-100 drop-shadow mb-4">
+      <div className="flex space-x-2 items-center text-pry-50">
         <button
           onClick={() => setIsOpen(true)}
           className="outline-none lg:hidden"
@@ -59,7 +59,7 @@ const Header = ({ setIsOpen }) => {
           />
         </label>
       </div>
-      <span className="text-pry-100">
+      <span className="text-pry-50">
         <svg
           width="32"
           height="32"
@@ -69,7 +69,7 @@ const Header = ({ setIsOpen }) => {
         >
           <path
             d="M15.9999 29.3334C17.4666 29.3334 18.6666 28.1334 18.6666 26.6667H13.3333C13.3333 28.1334 14.5199 29.3334 15.9999 29.3334ZM23.9999 21.3334V14.6667C23.9999 10.5734 21.8133 7.14671 17.9999 6.24004V5.33337C17.9999 4.22671 17.1066 3.33337 15.9999 3.33337C14.8933 3.33337 13.9999 4.22671 13.9999 5.33337V6.24004C10.1733 7.14671 7.99992 10.56 7.99992 14.6667V21.3334L5.33325 24V25.3334H26.6666V24L23.9999 21.3334Z"
-            fill="#01595A"
+            fill="currentColor"
           />
         </svg>
       </span>
