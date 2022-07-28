@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     },
     {
       title: "Patients",
-      path: "patients/:id",
+      path: "patients",
       icon: <Inventory />,
     },
     {

@@ -1,8 +1,9 @@
 import Layout from "../components/Layouts/Layout";
 import doctor from "../images/doctor.png";
-import CustomizedTables from "../components/Layouts/Table";
+import AppointmentsTable from "../components/Layouts/AppointmentsTable";
 import { PrimaryButton, UserButton } from "../components/UI/Buttons";
 import { UserActivity, UserInfo } from "../components/Layouts/UserData";
+import { useEffect, useState } from "react";
 import {
   Bloodtype,
   CalendarMonth,
@@ -12,17 +13,24 @@ import {
   Person,
   Phone,
 } from "@mui/icons-material";
-import { useState } from "react";
 import {
   BookDialog,
   PasswordDialog,
   AccountDialog,
+  UserPaymentDialog,
 } from "../components/Layouts/Modal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserAppointments } from "../api/apiCalls";
 const UserDashboard = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
+  const appointments = useSelector((state) => state.appointment.appointments);
+  const userID = user._id;
+  useEffect(() => {
+    getUserAppointments(dispatch, userID);
+  }, [dispatch]);
   return (
     <Layout>
       {modalType === "book" && (
@@ -33,6 +41,9 @@ const UserDashboard = () => {
       )}
       {modalType === "account" && (
         <AccountDialog showModal={showModal} setShowModal={setShowModal} />
+      )}
+      {modalType === "payment" && (
+        <UserPaymentDialog showModal={showModal} setShowModal={setShowModal} />
       )}
       <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
@@ -98,8 +109,8 @@ const UserDashboard = () => {
               />
 
               <UserActivity
-                count="0"
-                name="Appointment"
+                count={appointments.length}
+                name={appointments.length > 1 ? "Appointments" : "Appointment"}
                 icon={<CalendarMonth />}
               />
 
@@ -111,9 +122,9 @@ const UserDashboard = () => {
             </div>
             <div className="w-full">
               <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
-                Encounters
+                Appointments
               </h1>
-              <CustomizedTables />
+              <AppointmentsTable appointments={appointments} />
             </div>
           </div>
         </div>

@@ -4,39 +4,39 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, deleteProduct } from "../../api/apiCalls";
+import { getAllUsers, deleteUser } from "../../api/apiCalls";
 const PatientsGrid = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  const users = useSelector((state) => state.user.user);
   const [pageSize, setPageSize] = useState(10);
   useEffect(() => {
-    getProducts(dispatch);
+    getAllUsers(dispatch);
   }, [dispatch]);
   const handleDelete = (id) => {
-    deleteProduct(id, dispatch);
+    deleteUser(id, dispatch);
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "ID", flex: 1 },
     {
-      field: "product",
-      headerName: "Product",
-      width: 200,
+      field: "user",
+      headerName: "User",
+      flex: 1,
       renderCell: (params) => {
         return (
           <div className="flex items-center justify-center">
-            <img
+            {/* <img
               className="w-12 h-12"
               src={params.row.img}
-              alt={params.row.title}
-            />
-            {params.row.title}
+              alt={params.row.name}
+            /> */}
+            {params.row.name}
           </div>
         );
       },
     },
-    { field: "inStock", headerName: "Stock", width: 200 },
-    { field: "material", headerName: "Material", width: 160 },
-    { field: "price", headerName: "Price", width: 160 },
+    { field: "email", headerName: "Email", flex: 1 },
+    { field: "phoneNumber", headerName: "Phone Number", width: 160 },
+
     {
       field: "action",
       headerName: "Action",
@@ -44,9 +44,9 @@ const PatientsGrid = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`../product/${params.row._id}`}>
+            <Link to={`../patients/${params.row._id}`}>
               <button className="border-0 rounded-sm px-4 py-2 bg-pry-100 text-gold my-4">
-                Edit
+                View User
               </button>
             </Link>
             <DeleteOutline
@@ -62,7 +62,7 @@ const PatientsGrid = () => {
     <div className="flex h-screen">
       <div className="flex-1">
         <DataGrid
-          rows={products}
+          rows={users}
           disableSelectionOnClick
           columns={columns}
           getRowId={(row) => row._id}

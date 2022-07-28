@@ -10,14 +10,14 @@ import {
   updateUserSuccess,
   updateUserFailure,
   logoutSuccess,
+  getUsersStart,
+  getUsersSuccess,
+  getUsersFailure,
 } from "../redux/userSlice";
 import {
   addProductStart,
   addProductSuccess,
   addProductFailure,
-  getProductStart,
-  getProductSuccess,
-  getProductFailure,
   deleteProductStart,
   deleteProductSuccess,
   deleteProductFailure,
@@ -116,6 +116,7 @@ export const addProduct = async (dispatch, product) => {
     dispatch(addProductFailure());
   }
 };
+//appointment api calss begin
 export const bookAppointment = async (dispatch, appointment) => {
   dispatch(addAppointmentStart());
   try {
@@ -133,18 +134,29 @@ export const makeAppointment = async (dispatch, appointment) => {
     dispatch(addAppointmentFailure());
   }
 };
-
-export const getProducts = async (dispatch) => {
-  dispatch(getProductStart());
+export const getUserAppointments = async (dispatch, userID) => {
+  dispatch(getAppointmentStart());
   try {
-    const res = await publicRequest.get("/products");
-    dispatch(getProductSuccess(res.data));
+    const res = await userRequest.get(`/appointments/${userID}`);
+    dispatch(getAppointmentSuccess(res.data));
+  } catch (error) {
+    dispatch(getAppointmentFailure());
+    console.log(error);
+  }
+};
+//appointments api calls ends
+
+export const getAllUsers = async (dispatch) => {
+  dispatch(getUsersStart());
+  try {
+    const res = await userRequest.get("/users");
+    dispatch(getUsersSuccess(res.data));
   } catch (err) {
-    dispatch(getProductFailure());
+    dispatch(getUsersFailure());
   }
 };
 
-export const deleteProduct = async (id, dispatch) => {
+export const deleteUser = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
     await userRequest.delete(`/products/${id}`);
