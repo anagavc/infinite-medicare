@@ -38,6 +38,21 @@ import {
   updatePrescriptionSuccess,
   updatePrescriptionFailure,
 } from "../redux/prescriptionSlice";
+import {
+  addAppointmentStart,
+  addAppointmentSuccess,
+  addAppointmentFailure,
+  updateUserAppointment,
+  getAppointmentStart,
+  getAppointmentSuccess,
+  getAppointmentFailure,
+  deleteAppointmentStart,
+  deleteAppointmentSuccess,
+  deleteAppointmentFailure,
+  updateAppointmentStart,
+  updateAppointmentSuccess,
+  updateAppointmentFailure,
+} from "../redux/appointmentSlice";
 
 export const registration = async (dispatch, navigate, user) => {
   dispatch(registrationStart());
@@ -73,6 +88,18 @@ export const updateUserInfo = async (id, user, dispatch, navigate) => {
   try {
     const res = await publicRequest.patch(`users/${id}`, user);
     dispatch(updateUserSuccess(res.data));
+    dispatch(logoutSuccess());
+    navigate("/login", { replace: true });
+  } catch (error) {
+    console.log(error.message);
+    dispatch(updateUserFailure());
+  }
+};
+export const updateUserPassword = async (id, user, dispatch, navigate) => {
+  dispatch(updateUserStart());
+  try {
+    const res = await publicRequest.put(`users/${id}`, user);
+    dispatch(updateUserSuccess(res.data));
     navigate("/account");
   } catch (error) {
     console.log(error.message);
@@ -87,6 +114,23 @@ export const addProduct = async (dispatch, product) => {
     dispatch(addProductSuccess(res.data));
   } catch (err) {
     dispatch(addProductFailure());
+  }
+};
+export const bookAppointment = async (dispatch, appointment) => {
+  dispatch(addAppointmentStart());
+  try {
+    const res = await userRequest.post("/appointments", appointment);
+    dispatch(addAppointmentSuccess(res.data));
+  } catch (err) {
+    dispatch(addAppointmentFailure());
+  }
+};
+export const makeAppointment = async (dispatch, appointment) => {
+  dispatch(addAppointmentStart());
+  try {
+    dispatch(addAppointmentSuccess(appointment));
+  } catch (err) {
+    dispatch(addAppointmentFailure());
   }
 };
 

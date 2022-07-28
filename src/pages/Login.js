@@ -74,6 +74,7 @@ const Login = () => {
             type="address"
             register={register}
             errors={errors}
+            errorColor="pry-100"
           />
           <Input
             title="Password"
@@ -83,6 +84,7 @@ const Login = () => {
             type="password"
             register={register}
             errors={errors}
+            errorColor="pry-100"
           />
           <PrimaryButton
             name="Login"

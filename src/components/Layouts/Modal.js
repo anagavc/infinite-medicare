@@ -2,9 +2,14 @@ import Input from "../UI/Input";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { updateUserInfo } from "../../api/apiCalls";
+import {
+  bookAppointment,
+  updateUserInfo,
+  updateUserPassword,
+} from "../../api/apiCalls";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { PaystackButton } from "react-paystack";
 import { PrimaryButton } from "../UI/Buttons";
 export const BookDialog = ({ showModal, setShowModal }) => {
   const [isFetching, setisFetching] = useState(false);
@@ -53,6 +58,7 @@ export const BookDialog = ({ showModal, setShowModal }) => {
               options={["Dermatology", "Gynaecology", "Family Health"]}
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <Input
               title="Date"
@@ -61,6 +67,7 @@ export const BookDialog = ({ showModal, setShowModal }) => {
               type="date"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
 
             <PrimaryButton
@@ -84,25 +91,24 @@ export const BookDialog = ({ showModal, setShowModal }) => {
   );
 };
 export const PasswordDialog = ({ showModal, setShowModal }) => {
-  const [isFetching, setisFetching] = useState(false);
+  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+  const userID = currentUser._id;
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
-    setisFetching(true);
-    try {
-      reset();
-      //   toast.success(`Your request has been sent,we will get back to you soon.`);
-    } catch (error) {
-      console.log(error);
-      setisFetching(false);
-    }
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleClose = () => {
     setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    console.log(data);
+    updateUserPassword(userID, data, dispatch, navigate);
+    reset();
+    // setShowModal(false);
   };
   return (
     <div>
@@ -115,7 +121,11 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
             To change your password, enter your old password and you new
             password.
           </p>
-
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              Your old password does not match your new password
+            </p>
+          )}
           <form
             className="flex flex-col  h-full w-full gap-4"
             onSubmit={handleSubmit(onSubmit)}
@@ -128,6 +138,7 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
               type="password"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <Input
               title="New Password"
@@ -137,14 +148,16 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
               type="password"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <PrimaryButton
               name="Submit"
+              isFetching={isFetching}
               bgColor="pry-100"
               textColor="pry-50"
               borderColor="pry-100"
               py="3"
-              click={handleClose}
+              // click={handleClose}
             />
             <button
               className="text-pry-100 font-body hover:text-sec transition duration-300"
@@ -170,12 +183,14 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
   const onSubmit = async (data) => {
     updateUserInfo(userID, data, dispatch, navigate);
     reset();
-  };
-  const handleClose = () => {
-    setShowModal(!showModal);
+    setShowModal(false);
   };
   return (
     <div>
@@ -188,7 +203,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
             To update your account, enter the information you want to update.
           </p>
           {error && (
-            <p className="text-pry-100 font-normal text-base px-6 font-body">
+            <p className="text-pry-100 font-normal text-base font-body">
               There was a error in updating your account
             </p>
           )}
@@ -204,6 +219,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               type="text"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <Input
               title="Phone Number"
@@ -213,6 +229,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               type="text"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <Input
               title="Email Address"
@@ -222,6 +239,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               type="email"
               register={register}
               errors={errors}
+              errorColor="pry-100"
             />
             <PrimaryButton
               name="Submit"
@@ -239,6 +257,57 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               Cancel
             </button>
           </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+export const PaymentDialog = ({ showModal, setShowModal }) => {
+  const { appointments } = useSelector((state) => state.appointment);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handlePaystackSuccessAction = (appointment) => {
+    bookAppointment(dispatch, appointments);
+    handleClose();
+  };
+  const handlePaystackCloseAction = () => {
+    console.log("closed");
+    handleClose();
+  };
+  const componentProps = {
+    aapointment: appointments,
+    reference: new Date().getTime().toString(),
+    email: appointments?.email,
+    amount: 200000,
+    publicKey: "pk_test_dfe822981cc4a0d3d96f802f178d1ff62953e120",
+    text: "Make Payment",
+    onSuccess: (appointment) => handlePaystackSuccessAction(appointment),
+    onClose: handlePaystackCloseAction,
+  };
+
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-8 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Confirm appointment
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Hi, {appointments.name} to confirm your appointment on{" "}
+            {appointments.date} with a {appointments.specialty} consultant,
+            click on the make payment button to pay with Paystack. Thank you
+          </p>
+          <PaystackButton
+            {...componentProps}
+            type="submit"
+            onClick={handleClose}
+            className="text-base bg-pry-100 py-3 text-pry-50 hover:text-pry-50 hover:bg-sec rounded-full flex justify-center w-full items-center  px-8 font-body transition duration-300"
+          />
         </div>
       </Dialog>
     </div>

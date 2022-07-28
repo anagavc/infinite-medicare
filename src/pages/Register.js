@@ -76,6 +76,7 @@ const Register = () => {
             type="text"
             register={register}
             errors={errors}
+            errorColor="pry-100"
           />
           <Input
             title="Full Name"
@@ -85,6 +86,7 @@ const Register = () => {
             type="text"
             register={register}
             errors={errors}
+            errorColor="pry-100"
           />
           <Input
             title="Password"
@@ -94,6 +96,7 @@ const Register = () => {
             type="password"
             register={register}
             errors={errors}
+            errorColor="pry-100"
           />
           <PrimaryButton
             isFetching={isFetching}

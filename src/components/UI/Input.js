@@ -63,7 +63,7 @@ const Input = ({
           <p
             className={` ${
               errorColor && errorColor
-            } text-pry-100 font-normal text-sm font-body`}
+            } text-${errorColor} font-normal text-sm font-body`}
           >
             {errors[inputName] && errors[inputName]?.message}
           </p>

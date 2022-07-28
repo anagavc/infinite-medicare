@@ -49,7 +49,10 @@ const UserDashboard = () => {
                 />
               </div>
               <UserInfo name={user.name} icon={<Person />} />
-              <UserInfo name="+234-812-345-6789" icon={<Phone />} />
+              <UserInfo
+                name={user.phoneNumber || "+234-123-456-7890"}
+                icon={<Phone />}
+              />
               <UserInfo name={user.email} icon={<Email />} />
               <UserInfo name="B positive" icon={<Bloodtype />} />
 

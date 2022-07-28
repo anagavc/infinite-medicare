@@ -15,7 +15,7 @@ const prescriptionSlice = createSlice({
         state.prescriptions.findIndex(
           (prescription) => prescription._id === action.payload.id
         )
-      ] = action.payload.Ppescription;
+      ] = action.payload.prescription;
     },
     getPrescriptionStart: (state) => {
       state.isFetching = true;
