@@ -23,7 +23,7 @@ const AdminLayout = () => {
         <div className="flex flex-col flex-1 overflow-y-auto">
           <div className="lg:px-12 px-0 pb-10">
             <Routes>
-              <Route path="dashboard/" element={<Dashboard />} />
+              <Route path="/dashboard/" element={<Dashboard />} />
               <Route path="/patients/*" element={<PatientsGrid />} />
               <Route path="/patients/:id" element={<PatientDetails />} />
               <Route

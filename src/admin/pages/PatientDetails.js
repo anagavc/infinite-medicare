@@ -1,35 +1,58 @@
 import doctor from "../../images/doctor.png";
 import { PrimaryButton, UserButton } from "../../components/UI/Buttons";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser, getUserAppointments } from "../../api/apiCalls";
+import { useLocation } from "react-router-dom";
 import { UserActivity, UserInfo } from "../../components/Layouts/UserData";
 import {
   Bloodtype,
+  Cake,
   CalendarMonth,
   Email,
+  Female,
+  LocationCity,
+  Male,
   MedicalInformation,
   MeetingRoom,
   Person,
   Phone,
 } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  BookDialog,
-  PasswordDialog,
-  AccountDialog,
+  AdminUpdateAccountDialog,
+  DeletePatientDialog,
 } from "../../components/Layouts/Modal";
-import PatientsGrid from "./PatientsGrid";
+import AppointmentsTable from "../../components/Layouts/AppointmentsTable";
 const UserDashboard = () => {
+  const location = useLocation();
+  const userID = location.pathname.split("/")[3];
+  const user = useSelector((state) => state.patient.patients);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
+  useEffect(() => {
+    getUser(dispatch, userID);
+    getUserAppointments(dispatch, userID);
+  }, [dispatch]);
+  const appointments = useSelector((state) => state.appointment.appointments);
+
   return (
     <>
-      {modalType === "book" && (
-        <BookDialog showModal={showModal} setShowModal={setShowModal} />
+      {modalType === "update" && (
+        <AdminUpdateAccountDialog
+          userID={userID}
+          user={user}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
       )}
-      {modalType === "password" && (
-        <PasswordDialog showModal={showModal} setShowModal={setShowModal} />
-      )}
-      {modalType === "account" && (
-        <AccountDialog showModal={showModal} setShowModal={setShowModal} />
+      {modalType === "delete" && (
+        <DeletePatientDialog
+          userID={userID}
+          user={user}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
       )}
       <div className="bg-pry-50 py-2 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
@@ -37,28 +60,44 @@ const UserDashboard = () => {
         </h1>
         <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
           <div className="flex flex-col w-full  lg:w-2/6 gap-6">
-            <div className="flex flex-col px-2 lg:px-6 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
-              <div className="rounded-full py-2 w-40 h-40 flex justify-center items-center bg-sec">
+            <div className="flex flex-col px-2 lg:px-6 py-8 rounded items-center  drop-shadow justify-between gap-4 bg-pry-50">
+              <div className="rounded-full py-2 w-40 h-40 flex justify-center mx-auto items-center bg-sec">
                 <img
                   src={doctor}
                   className="w-3/5 h-4/5 bg-pry-100 p-4 rounded-full"
                   alt="patient"
                 />
               </div>
-              <UserInfo name="Hospital Patient" icon={<Person />} />
-              <UserInfo name="+234-812-345-6789" icon={<Phone />} />
-              <UserInfo name="hospitalpatient@gmail.com" icon={<Email />} />
-              <UserInfo name="B positive" icon={<Bloodtype />} />
+              <UserInfo
+                name={user.bloodGroup || "Not yet specified"}
+                icon={<Bloodtype />}
+              />
+              <UserInfo
+                name={user.gender || "Not yet specified"}
+                icon={user.gender === "female" ? <Female /> : <Male />}
+              />
+              <UserInfo name={user.name} icon={<Person />} />
+              <UserInfo name={user.dob || "Not yet added"} icon={<Cake />} />
 
+              <UserInfo
+                name={user.phoneNumber || "+234-123-456-7890"}
+                icon={<Phone />}
+              />
+              <UserInfo name={user.email} icon={<Email />} />
+
+              <UserInfo
+                name={user.address || "Not yet added"}
+                icon={<LocationCity />}
+              />
               <PrimaryButton
-                name="Upgrade to doctor"
+                name="Edit Account"
                 bgColor="pry-100"
                 textColor="pry-50"
                 borderColor="pry-100"
                 py="2 lg:py-4"
                 click={() => {
                   setShowModal(!showModal);
-                  setModalType("account");
+                  setModalType("update");
                 }}
               />
 
@@ -68,6 +107,10 @@ const UserDashboard = () => {
                 textColor="pry-50"
                 borderColor="pry-100"
                 py="2 lg:py-4"
+                click={() => {
+                  setShowModal(!showModal);
+                  setModalType("delete");
+                }}
               />
             </div>
             <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
@@ -86,8 +129,8 @@ const UserDashboard = () => {
               />
 
               <UserActivity
-                count="0"
-                name="Appointment"
+                count={appointments?.length}
+                name={appointments?.length > 1 ? "Appointments" : "Appointment"}
                 icon={<CalendarMonth />}
               />
 
@@ -99,9 +142,9 @@ const UserDashboard = () => {
             </div>
             <div className="w-full">
               <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
-                Encounters
+                Appointments
               </h1>
-              <PatientsGrid />
+              <AppointmentsTable appointments={appointments} />
             </div>
           </div>
         </div>

@@ -17,7 +17,6 @@ import {
   BookDialog,
   PasswordDialog,
   AccountDialog,
-  UserPaymentDialog,
 } from "../components/Layouts/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserAppointments } from "../api/apiCalls";
@@ -42,9 +41,7 @@ const UserDashboard = () => {
       {modalType === "account" && (
         <AccountDialog showModal={showModal} setShowModal={setShowModal} />
       )}
-      {modalType === "payment" && (
-        <UserPaymentDialog showModal={showModal} setShowModal={setShowModal} />
-      )}
+
       <div className="bg-pry-50 h-full px-8 lg:px-24 py-24 flex flex-col justify-between w-full">
         <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
           Patient's dashboard

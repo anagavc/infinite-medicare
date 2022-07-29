@@ -10,10 +10,15 @@ import {
   updateUserSuccess,
   updateUserFailure,
   logoutSuccess,
-  getUsersStart,
-  getUsersSuccess,
-  getUsersFailure,
 } from "../redux/userSlice";
+import {
+  getPatientsStart,
+  getPatientsSuccess,
+  getPatientsFailure,
+  deletePatientStart,
+  deletePatientSuccess,
+  deletePatientFailure,
+} from "../redux/patientSlice";
 import {
   addProductStart,
   addProductSuccess,
@@ -83,13 +88,11 @@ export const logout = (dispatch, navigate) => {
   navigate("/login", { replace: true });
 };
 
-export const updateUserInfo = async (id, user, dispatch, navigate) => {
+export const updateUserInfo = async (id, user, dispatch) => {
   dispatch(updateUserStart());
   try {
     const res = await publicRequest.patch(`users/${id}`, user);
     dispatch(updateUserSuccess(res.data));
-    dispatch(logoutSuccess());
-    navigate("/login", { replace: true });
   } catch (error) {
     console.log(error.message);
     dispatch(updateUserFailure());
@@ -146,23 +149,34 @@ export const getUserAppointments = async (dispatch, userID) => {
 };
 //appointments api calls ends
 
-export const getAllUsers = async (dispatch) => {
-  dispatch(getUsersStart());
+//user api calls begins
+export const getAllPatients = async (dispatch) => {
+  dispatch(getPatientsStart());
   try {
     const res = await userRequest.get("/users");
-    dispatch(getUsersSuccess(res.data));
+    dispatch(getPatientsSuccess(res.data));
   } catch (err) {
-    dispatch(getUsersFailure());
+    dispatch(getPatientsFailure());
+  }
+};
+export const getUser = async (dispatch, userID) => {
+  dispatch(getPatientsStart());
+  try {
+    const res = await userRequest.get(`/users/find/${userID}`);
+    dispatch(getPatientsSuccess(res.data));
+  } catch (err) {
+    dispatch(getPatientsFailure());
   }
 };
 
-export const deleteUser = async (id, dispatch) => {
-  dispatch(deleteProductStart());
+export const deletePatient = async (dispatch, id, navigate) => {
+  dispatch(deletePatientStart());
   try {
-    await userRequest.delete(`/products/${id}`);
-    dispatch(deleteProductSuccess(id));
+    await userRequest.delete(`/users/${id}`);
+    dispatch(deletePatientSuccess(id));
+    navigate("../patients");
   } catch (err) {
-    dispatch(deleteProductFailure());
+    dispatch(deletePatientFailure());
   }
 };
 

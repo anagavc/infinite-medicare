@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import {
   bookAppointment,
+  deletePatient,
   makeAppointment,
   updateUserInfo,
   updateUserPassword,
@@ -12,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
 import { PrimaryButton } from "../UI/Buttons";
+//modal for booking appointments
 export const BookDialog = ({ showModal, setShowModal }) => {
   const [modalType, setModalType] = useState("details");
   const dispatch = useDispatch();
@@ -135,6 +137,7 @@ export const BookDialog = ({ showModal, setShowModal }) => {
     </div>
   );
 };
+//modal for updating user's password
 export const PasswordDialog = ({ showModal, setShowModal }) => {
   const { isFetching, error, currentUser } = useSelector((state) => state.user);
   const userID = currentUser._id;
@@ -153,7 +156,7 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
     console.log(data);
     updateUserPassword(userID, data, dispatch, navigate);
     reset();
-    // setShowModal(false);
+    setShowModal(false);
   };
   return (
     <div>
@@ -202,7 +205,6 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
               textColor="pry-50"
               borderColor="pry-100"
               py="3"
-              // click={handleClose}
             />
             <button
               className="text-pry-100 font-body hover:text-sec transition duration-300"
@@ -217,6 +219,7 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
   );
 };
 
+//modal for the user to update their account
 export const AccountDialog = ({ showModal, setShowModal }) => {
   const { isFetching, error, currentUser } = useSelector((state) => state.user);
   const userID = currentUser._id;
@@ -233,7 +236,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
     setShowModal(!showModal);
   };
   const onSubmit = async (data) => {
-    updateUserInfo(userID, data, dispatch, navigate);
+    updateUserInfo(userID, data, dispatch);
     reset();
     setShowModal(false);
   };
@@ -293,7 +296,6 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               textColor="pry-50"
               borderColor="pry-100"
               py="3"
-              // click={handleClose}
             />
             <button
               className="text-pry-100 font-body hover:text-sec transition duration-300"
@@ -307,9 +309,9 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
     </div>
   );
 };
+//Modal for unregistered users to book and make payments
 export const PaymentDialog = ({ showModal, setShowModal }) => {
   const { appointments } = useSelector((state) => state.appointment);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handlePaystackSuccessAction = (appointment) => {
@@ -358,30 +360,124 @@ export const PaymentDialog = ({ showModal, setShowModal }) => {
     </div>
   );
 };
-export const UserPaymentDialog = ({ setShowModal }) => {
-  const { appointments } = useSelector((state) => state.appointment);
+
+//modal for the admin to update their account
+export const AdminUpdateAccountDialog = ({
+  showModal,
+  setShowModal,
+  userID,
+}) => {
+  const { error, isFetching } = useSelector((state) => state.user);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { showModal } = useLocation();
-  const handlePaystackSuccessAction = (appointment) => {
-    bookAppointment(dispatch, appointments);
-    handleClose();
-  };
-  const handlePaystackCloseAction = () => {
-    console.log("closed");
-    handleClose();
-  };
-  const componentProps = {
-    aapointment: appointments,
-    reference: new Date().getTime().toString(),
-    email: appointments?.email,
-    amount: 200000,
-    publicKey: "pk_test_dfe822981cc4a0d3d96f802f178d1ff62953e120",
-    text: "Make Payment",
-    onSuccess: (appointment) => handlePaystackSuccessAction(appointment),
-    onClose: handlePaystackCloseAction,
-  };
 
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    updateUserInfo(userID, data, dispatch);
+    reset();
+    setShowModal(false);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Update account
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            To update your account, enter the information you want to update.
+          </p>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was a error in updating your account
+            </p>
+          )}
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Date of Birth"
+              textColor="pry-100"
+              inputName="dob"
+              placeholder="Enter user's date of birth"
+              type="date"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+            <Input
+              title="Blood Group"
+              textColor="pry-100"
+              inputName="bloodGroup"
+              placeholder="Enter user's blood group"
+              type="select"
+              options={["O+", "O-", "A+", "A-", "B-", "B+", "AB+", "AB-"]}
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+            <Input
+              title="Gender"
+              textColor="pry-100"
+              inputName="gender"
+              placeholder="Enter user's blood group"
+              type="select"
+              options={["Male", "Female"]}
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+
+            <Input
+              title="Address"
+              textColor="pry-100"
+              inputName="address"
+              placeholder="Enter user's address"
+              type="text"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+            <PrimaryButton
+              name="Submit"
+              isFetching={isFetching}
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//Modal for unregistered users to book and make payments
+export const DeletePatientDialog = ({
+  userID,
+  user,
+  showModal,
+  setShowModal,
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClose = () => {
     setShowModal(!showModal);
   };
@@ -391,19 +487,29 @@ export const UserPaymentDialog = ({ setShowModal }) => {
       <Dialog open={showModal} onClose={handleClose}>
         <div className="flex flex-col justify-between gap-8 px-4 lg:px-8 py-6">
           <h1 className="text-lg font-body font-bold text-pry-100">
-            Confirm appointment
+            Confirm deletion
           </h1>
           <p className="text-base font-body text-pry-100">
-            Hi, {appointments.name} to confirm your appointment on{" "}
-            {appointments.date} with a {appointments.specialty} consultant,
-            click on the make payment button to pay with Paystack. Thank you
+            Do you want to delete {user.name} from the database? This is an
+            irreversible action.
           </p>
-          <PaystackButton
-            {...componentProps}
-            type="submit"
-            onClick={handleClose}
-            className="text-base bg-pry-100 py-3 text-pry-50 hover:text-pry-50 hover:bg-sec rounded-full flex justify-center w-full items-center  px-8 font-body transition duration-300"
+          <PrimaryButton
+            name="Yes, I am certain"
+            bgColor="red-500"
+            textColor="pry-50"
+            borderColor="pry-100"
+            py="2 lg:py-4"
+            click={() => {
+              deletePatient(dispatch, userID, navigate);
+              handleClose();
+            }}
           />
+          <button
+            className="text-pry-100 font-body hover:text-sec transition duration-300"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
       </Dialog>
     </div>

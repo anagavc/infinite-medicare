@@ -5,7 +5,7 @@ export const PrimaryButton = ({ children, onClick, path }) => {
       {path ? (
         <NavLink
           to={{ pathname: path }}
-          className="bg-pry-100 w-full  py-2 flex justify-center px-4 text-gold text-base hover:bg-gold hover:text-pry-100 transition duration-300"
+          className="bg-red-500 w-full  py-2 flex justify-center px-4 text-gold text-base hover:bg-gold hover:text-pry-100 transition duration-300"
         >
           {children}
         </NavLink>

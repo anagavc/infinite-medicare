@@ -13,7 +13,7 @@ export const UserActivity = ({ count, name, icon }) => {
 };
 export const UserInfo = ({ name, icon }) => {
   return (
-    <div className="flex  justify-between gap-2 text-pry-100">
+    <div className="flex   gap-2 text-pry-100">
       {icon}
       <p className="font-body text-base  text-pry-100 ">{name}</p>
     </div>

@@ -3,6 +3,7 @@ import userReducer from "./userSlice";
 import productReducer from "./productSlice";
 import prescriptionReducer from "./prescriptionSlice";
 import appointmentReducer from "./appointmentSlice";
+import patientReducer from "./patientSlice";
 import {
   persistStore,
   persistReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   prescription: prescriptionReducer,
   appointment: appointmentReducer,
+  patient: patientReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

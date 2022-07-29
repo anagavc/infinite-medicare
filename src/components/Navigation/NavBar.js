@@ -5,7 +5,6 @@ import { PrimaryButton } from "../UI/Buttons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../api/apiCalls";
-import { logoutSuccess } from "../../redux/userSlice";
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();

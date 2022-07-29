@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { DashboardIcon } from "./Icons";
+import { logout } from "../../api/apiCalls";
+import { useDispatch } from "react-redux";
 
 import {
   Logout,
@@ -37,7 +39,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       icon: <LocalPostOffice />,
     },
   ];
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    logout(dispatch, navigate);
+  };
   return (
     <aside
       className={`${
@@ -86,7 +92,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               <p>{element.title}</p>
             </NavLink>
           ))}
-          <button className="text-pry-50  flex  items-center space-x-4 py-4 px-8   hover:text-pry-100 rounded-r-full mr-8 hover:bg-sec transition duration-300 ">
+          <button
+            onClick={logoutHandler}
+            className="text-pry-50  flex  items-center space-x-4 py-4 px-8   hover:text-pry-100 rounded-r-full mr-8 hover:bg-sec transition duration-300 "
+          >
             <Logout />
             <span>Logout</span>
           </button>

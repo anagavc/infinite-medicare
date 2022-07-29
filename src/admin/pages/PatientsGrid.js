@@ -4,17 +4,15 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, deleteUser } from "../../api/apiCalls";
+import { getAllPatients } from "../../api/apiCalls";
 const PatientsGrid = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.user.user);
   const [pageSize, setPageSize] = useState(10);
   useEffect(() => {
-    getAllUsers(dispatch);
+    getAllPatients(dispatch);
   }, [dispatch]);
-  const handleDelete = (id) => {
-    deleteUser(id, dispatch);
-  };
+  const patients = useSelector((state) => state.patient.patients);
+
   const columns = [
     { field: "_id", headerName: "ID", flex: 1 },
     {
@@ -35,24 +33,20 @@ const PatientsGrid = () => {
       },
     },
     { field: "email", headerName: "Email", flex: 1 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 160 },
+    { field: "phoneNumber", headerName: "Phone Number", flex: 1 },
 
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
             <Link to={`../patients/${params.row._id}`}>
-              <button className="border-0 rounded-sm px-4 py-2 bg-pry-100 text-gold my-4">
-                View User
+              <button className="border-0 w-full font-body text-base hover:bg-sec hover:text-pry-100 transition duration-300 px-6 py-2 bg-pry-100 text-pry-50 rounded-full">
+                Manage patient
               </button>
             </Link>
-            <DeleteOutline
-              className="text-red-100"
-              onClick={() => handleDelete(params.row._id)}
-            />
           </>
         );
       },
@@ -62,7 +56,7 @@ const PatientsGrid = () => {
     <div className="flex h-screen">
       <div className="flex-1">
         <DataGrid
-          rows={users}
+          rows={patients?.length ? patients : patients}
           disableSelectionOnClick
           columns={columns}
           getRowId={(row) => row._id}
