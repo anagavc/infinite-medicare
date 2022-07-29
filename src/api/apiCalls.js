@@ -161,7 +161,7 @@ export const getUserAppointments = async (dispatch, userID) => {
     console.log(error);
   }
 };
-export const getAllAppointments = async (dispatch, userID) => {
+export const getAllAppointments = async (dispatch) => {
   dispatch(getAppointmentStart());
   try {
     const res = await userRequest.get(`/appointments`);
@@ -169,6 +169,21 @@ export const getAllAppointments = async (dispatch, userID) => {
   } catch (error) {
     dispatch(getAppointmentFailure());
     console.log(error);
+  }
+};
+export const updateAppointment = async (
+  id,
+  appointment,
+  dispatch,
+  navigate
+) => {
+  dispatch(updateAppointmentStart());
+  try {
+    const res = await userRequest.put(`/appointments/${id}`, appointment);
+    dispatch(updateAppointmentSuccess(res.data));
+    navigate("../appointments");
+  } catch (err) {
+    dispatch(updateAppointmentFailure());
   }
 };
 //appointments api calls ends

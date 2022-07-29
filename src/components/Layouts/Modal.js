@@ -6,6 +6,7 @@ import {
   bookAppointment,
   deletePatient,
   makeAppointment,
+  updateAppointment,
   updateUserInfo,
   updateUserInfoByAdmin,
   updateUserPassword,
@@ -362,7 +363,7 @@ export const PaymentDialog = ({ showModal, setShowModal }) => {
   );
 };
 
-//modal for the admin to update their account
+//modal for the admin to update a patient's account
 export const AdminUpdateAccountDialog = ({
   showModal,
   setShowModal,
@@ -511,6 +512,83 @@ export const DeletePatientDialog = ({
           >
             Cancel
           </button>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//modal for the admin to update a patient's appoinment report
+export const UpdateAppointmentDialog = ({
+  showModal,
+  setShowModal,
+  appointmentId,
+}) => {
+  const { error, isFetching } = useSelector((state) => state.appointment);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    updateAppointment(appointmentId, data, dispatch, navigate);
+    reset();
+    setShowModal(false);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Consultation report
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Leave a report about your findings during the consultation with the
+            Patient
+          </p>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was a error in leaving a report
+            </p>
+          )}
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Report"
+              textColor="pry-100"
+              inputName="report"
+              placeholder="Enter your report"
+              type="text"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+
+            <PrimaryButton
+              name="Submit"
+              // isFetching={isFetching}
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
         </div>
       </Dialog>
     </div>

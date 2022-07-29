@@ -39,7 +39,7 @@ const PatientsGrid = () => {
         return (
           <>
             <Link to={`../patients/${params.row._id}`}>
-              <button className="border-0 w-full font-body text-base hover:bg-sec hover:text-pry-100 transition duration-300 px-6 py-2 bg-pry-100 text-pry-50 rounded-full">
+              <button className="border-0 w-full font-body text-base hover:bg-sec hover:text-pry-50 transition duration-300 px-6 py-2 bg-pry-100 text-pry-50 rounded-full">
                 Manage patient
               </button>
             </Link>
