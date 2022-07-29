@@ -7,6 +7,7 @@ import {
   deletePatient,
   makeAppointment,
   updateUserInfo,
+  updateUserInfoByAdmin,
   updateUserPassword,
 } from "../../api/apiCalls";
 import { useSelector, useDispatch } from "react-redux";
@@ -382,7 +383,7 @@ export const AdminUpdateAccountDialog = ({
     setShowModal(!showModal);
   };
   const onSubmit = async (data) => {
-    updateUserInfo(userID, data, dispatch);
+    updateUserInfoByAdmin(userID, data, dispatch, navigate);
     reset();
     setShowModal(false);
   };

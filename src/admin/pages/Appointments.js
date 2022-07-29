@@ -1,71 +1,22 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { userRequest } from "../../api/requests";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAppointments } from "../../api/apiCalls";
 const Appointments = () => {
-  const [bookings, setBookings] = useState([]);
+  const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState(10);
+  const appointments = useSelector((state) => state.appointment.appointments);
   useEffect(() => {
-    const getBookings = async () => {
-      try {
-        const res = await userRequest.get("/bookings");
-        setBookings(res.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getBookings();
-  }, []);
+    getAllAppointments(dispatch);
+  }, [dispatch]);
 
   const columns = [
-    {
-      field: "_id",
-      headerName: "ID",
-      width: 280,
-      renderCell: (params) => {
-        return (
-          <div className="flex items-center justify-center">
-            {params.row._id}
-          </div>
-        );
-      },
-    },
-    {
-      field: "name",
-      headerName: "Name",
-      width: 250,
-      renderCell: (params) => {
-        return (
-          <div className="flex items-center justify-center">
-            {params.row.name}
-          </div>
-        );
-      },
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      width: 250,
-      renderCell: (params) => {
-        return (
-          <div className="flex items-center justify-center">
-            {params.row.email}
-          </div>
-        );
-      },
-    },
-    {
-      field: "comment",
-      headerName: "Comment",
-      width: 1000,
-      renderCell: (params) => {
-        return (
-          <div className="flex items-center justify-center">
-            {params.row.comment}
-          </div>
-        );
-      },
-    },
+    { field: "date", headerName: "Date", flex: 1 },
+    { field: "name", headerName: "Patient's name", flex: 1 },
+    { field: "email", headerName: "Patient's email", flex: 1 },
+    { field: "specialty", headerName: "Specialty", flex: 1 },
+    { field: "status", headerName: "Appointment status", flex: 1 },
+    { field: "report", headerName: "Consultation report", flex: 1 },
   ];
   return (
     <div className="flex h-screen flex-col">
@@ -74,7 +25,7 @@ const Appointments = () => {
       </h1>
       <div className="flex-1">
         <DataGrid
-          rows={bookings}
+          rows={appointments}
           disableSelectionOnClick
           columns={columns}
           getRowId={(row) => row._id}

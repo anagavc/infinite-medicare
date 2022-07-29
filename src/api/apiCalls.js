@@ -15,6 +15,9 @@ import {
   getPatientsStart,
   getPatientsSuccess,
   getPatientsFailure,
+  updatePatientStart,
+  updatePatientSuccess,
+  updatePatientFailure,
   deletePatientStart,
   deletePatientSuccess,
   deletePatientFailure,
@@ -98,6 +101,17 @@ export const updateUserInfo = async (id, user, dispatch) => {
     dispatch(updateUserFailure());
   }
 };
+export const updateUserInfoByAdmin = async (id, user, dispatch, navigate) => {
+  dispatch(updatePatientStart());
+  try {
+    await userRequest.patch(`users/${id}`, user);
+    dispatch(updatePatientSuccess({ id, user }));
+    navigate("../patients", { replace: true });
+  } catch (error) {
+    console.log(error.message);
+    dispatch(updatePatientFailure());
+  }
+};
 export const updateUserPassword = async (id, user, dispatch, navigate) => {
   dispatch(updateUserStart());
   try {
@@ -119,7 +133,7 @@ export const addProduct = async (dispatch, product) => {
     dispatch(addProductFailure());
   }
 };
-//appointment api calss begin
+//appointment api calls begin
 export const bookAppointment = async (dispatch, appointment) => {
   dispatch(addAppointmentStart());
   try {
@@ -141,6 +155,16 @@ export const getUserAppointments = async (dispatch, userID) => {
   dispatch(getAppointmentStart());
   try {
     const res = await userRequest.get(`/appointments/${userID}`);
+    dispatch(getAppointmentSuccess(res.data));
+  } catch (error) {
+    dispatch(getAppointmentFailure());
+    console.log(error);
+  }
+};
+export const getAllAppointments = async (dispatch, userID) => {
+  dispatch(getAppointmentStart());
+  try {
+    const res = await userRequest.get(`/appointments`);
     dispatch(getAppointmentSuccess(res.data));
   } catch (error) {
     dispatch(getAppointmentFailure());

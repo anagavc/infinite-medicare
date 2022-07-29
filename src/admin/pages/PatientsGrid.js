@@ -1,6 +1,4 @@
 import { DataGrid } from "@mui/x-data-grid";
-
-import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +10,10 @@ const PatientsGrid = () => {
     getAllPatients(dispatch);
   }, [dispatch]);
   const patients = useSelector((state) => state.patient.patients);
-
   const columns = [
-    { field: "_id", headerName: "ID", flex: 1 },
     {
       field: "user",
-      headerName: "User",
+      headerName: "Patient",
       flex: 1,
       renderCell: (params) => {
         return (

@@ -21,6 +21,22 @@ const patientSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+    updatePatientStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+    },
+    updatePatientSuccess: (state, action) => {
+      state.isFetching = false;
+      state.patients[
+        state.patients.findIndex(
+          (patient) => patient._id === action.payload._id
+        )
+      ] = action.payload.patient;
+    },
+    updatePatientFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
     deletePatientStart: (state) => {
       state.isFetching = true;
       state.error = false;
@@ -44,6 +60,9 @@ export const {
   getPatientsStart,
   getPatientsSuccess,
   getPatientsFailure,
+  updatePatientStart,
+  updatePatientSuccess,
+  updatePatientFailure,
   deletePatientStart,
   deletePatientSuccess,
   deletePatientFailure,
