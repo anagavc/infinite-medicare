@@ -10,7 +10,6 @@ import {
   AddNews,
   Blog,
   PatientDetails,
-  PrescriptionDetails,
 } from "../pages";
 import Prescriptions from "../pages/Prescriptions";
 
@@ -27,11 +26,6 @@ const AdminLayout = () => {
               <Route path="/dashboard/" element={<Dashboard />} />
               <Route path="/patients/*" element={<PatientsGrid />} />
               <Route path="/patients/:id" element={<PatientDetails />} />
-              <Route
-                path="/prescription/:id"
-                element={<PrescriptionDetails />}
-              />
-
               <Route path="/blog" element={<Blog />} />
               <Route path="/addNews" element={<AddNews />} />
               <Route path="/appointments" element={<Appointments />} />

@@ -1,13 +1,19 @@
-import { useForm } from "react-hook-form";
+import app from "../../firebase";
 import Input from "../../components/UI/Input";
-import { PrimaryButton } from "../../components/UI/Buttons";
-
-import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-
+import { createBlog } from "../../api/apiCalls";
+import { PrimaryButton } from "../../components/UI/Buttons";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 const AddNews = () => {
-  const [isFetching, setisFetching] = useState(false);
-
+  const dispatch = useDispatch();
+  const [isFetching, setIsFetching] = useState(false);
   const {
     register,
     handleSubmit,
@@ -15,16 +21,27 @@ const AddNews = () => {
     reset,
   } = useForm();
   const onSubmit = async (data) => {
-    setisFetching(true);
-    try {
-      const res = await axios.post("/api/contact/info", { data });
-      setisFetching(false);
-      reset();
-      //   toast.success(`Your request has been sent,we will get back to you soon.`);
-    } catch (error) {
-      console.log(error);
-      setisFetching(false);
-    }
+    // setIsFetching(true);
+    const fileName = new Date().getTime() + data.img[0].name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, data.img[0]);
+    uploadTask.on(
+      "state_changed",
+      (progress) => {
+        console.group(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const blog = { ...data, img: downloadURL };
+          createBlog(dispatch, blog);
+        });
+      }
+    );
+    reset();
   };
   return (
     <div className="bg-pry-50 flex flex-col px-12 rounded py-6 drop-shadow h-screen">
@@ -56,7 +73,7 @@ const AddNews = () => {
         <Input
           title="News"
           textColor="pry-100"
-          inputName="news"
+          inputName="content"
           placeholder="Enter the details of the news"
           type="text"
           register={register}

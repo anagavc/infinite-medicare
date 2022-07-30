@@ -23,17 +23,6 @@ import {
   deletePatientFailure,
 } from "../redux/patientSlice";
 import {
-  addProductStart,
-  addProductSuccess,
-  addProductFailure,
-  deleteProductStart,
-  deleteProductSuccess,
-  deleteProductFailure,
-  updateProductStart,
-  updateProductSuccess,
-  updateProductFailure,
-} from "../redux/productSlice";
-import {
   addPrescriptionStart,
   addPrescriptionSuccess,
   addPrescriptionFailure,
@@ -47,6 +36,20 @@ import {
   updatePrescriptionSuccess,
   updatePrescriptionFailure,
 } from "../redux/prescriptionSlice";
+import {
+  addBlogsStart,
+  addBlogsSuccess,
+  addBlogsFailure,
+  getBlogsStart,
+  getBlogsSuccess,
+  getBlogsFailure,
+  deleteBlogStart,
+  deleteBlogSuccess,
+  deleteBlogFailure,
+  updateBlogStart,
+  updateBlogSuccess,
+  updateBlogFailure,
+} from "../redux/blogSlice";
 import {
   addAppointmentStart,
   addAppointmentSuccess,
@@ -121,15 +124,6 @@ export const updateUserPassword = async (id, user, dispatch, navigate) => {
   }
 };
 
-export const addProduct = async (dispatch, product) => {
-  dispatch(addProductStart());
-  try {
-    const res = await userRequest.post("/products", product);
-    dispatch(addProductSuccess(res.data));
-  } catch (err) {
-    dispatch(addProductFailure());
-  }
-};
 //appointment api calls begin
 export const bookAppointment = async (dispatch, appointment) => {
   dispatch(addAppointmentStart());
@@ -216,17 +210,6 @@ export const deletePatient = async (dispatch, id, navigate) => {
   }
 };
 
-export const updateProduct = async (id, product, dispatch, navigate) => {
-  dispatch(updateProductStart());
-  try {
-    await userRequest.put(`/products/${id}`, product);
-    dispatch(updateProductSuccess({ id, product }));
-    navigate("../products");
-  } catch (err) {
-    dispatch(updateProductFailure());
-  }
-};
-
 // prescriptions apiCalls begins
 export const createPrescription = async (dispatch, prescription) => {
   dispatch(addPrescriptionStart());
@@ -270,7 +253,6 @@ export const deletePrescription = async (dispatch, id, navigate) => {
     console.error(error);
   }
 };
-
 export const updatePrescription = async (
   id,
   prescription,
@@ -284,6 +266,61 @@ export const updatePrescription = async (
     navigate("../prescriptions");
   } catch (error) {
     dispatch(updatePrescriptionFailure());
+  }
+};
+// prescriptions apiCalls ends
+
+// blogs apiCalls begins
+export const createBlog = async (dispatch, blog) => {
+  dispatch(addBlogsStart());
+  try {
+    const res = await userRequest.post("/blogs", blog);
+    dispatch(addBlogsSuccess(res.data));
+  } catch (err) {
+    dispatch(addBlogsFailure());
+  }
+};
+export const getSingleBlog = async (dispatch, blogID) => {
+  dispatch(getBlogsStart());
+  try {
+    const res = await publicRequest.get(`blogs/${blogID}`);
+    dispatch(getBlogsSuccess(res.data));
+  } catch (error) {
+    dispatch(getBlogsFailure());
+    console.log(error);
+  }
+};
+
+export const getAllBlogs = async (dispatch) => {
+  dispatch(getBlogsStart());
+  try {
+    const res = await publicRequest.get("blogs");
+    dispatch(getBlogsSuccess(res.data));
+  } catch (error) {
+    dispatch(getBlogsFailure());
+    console.error(error);
+  }
+};
+
+export const deleteBlog = async (dispatch, id, navigate) => {
+  dispatch(deleteBlogStart());
+  try {
+    await userRequest.delete(`blogs/${id}`);
+    dispatch(deleteBlogSuccess(id));
+    navigate("../blogs");
+  } catch (error) {
+    dispatch(deleteBlogFailure());
+    console.error(error);
+  }
+};
+export const updateBlog = async (id, blog, dispatch, navigate) => {
+  dispatch(updateBlogStart());
+  try {
+    const res = await userRequest.patch(`/blogs/${id}`, blog);
+    dispatch(updateBlogSuccess(res.data));
+    navigate("../blogs");
+  } catch (error) {
+    dispatch(updateBlogFailure());
   }
 };
 // prescriptions apiCalls ends
