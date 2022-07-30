@@ -5,14 +5,14 @@ const PrescriptionsTable = ({ prescriptions }) => {
   const [pageSize, setPageSize] = useState(10);
 
   const columns = [
-    { field: "date", headerName: "Date", flex: 1 },
+    { field: "date", headerName: "Date to commence medication", flex: 1 },
     { field: "drug", headerName: "Drugs", flex: 1 },
   ];
   return (
     <div className="flex h-full">
       <div className="w-full h-full mb-48">
         <DataGrid
-          rows={prescriptions?.length ? prescriptions : prescriptions}
+          rows={prescriptions?.length ? prescriptions : []}
           disableSelectionOnClick
           columns={columns}
           getRowId={(row) => row._id}

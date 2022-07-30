@@ -228,7 +228,7 @@ export const updateProduct = async (id, product, dispatch, navigate) => {
 };
 
 // prescriptions apiCalls begins
-export const createPrescription = async (dispatch,  prescription) => {
+export const createPrescription = async (dispatch, prescription) => {
   dispatch(addPrescriptionStart());
   try {
     const res = await userRequest.post("/prescriptions", prescription);
@@ -240,7 +240,7 @@ export const createPrescription = async (dispatch,  prescription) => {
 export const getUserPrescriptions = async (dispatch, userID) => {
   dispatch(getPrescriptionStart());
   try {
-    const res = await publicRequest.get(`prescriptions/${userID}`);
+    const res = await userRequest.get(`prescriptions/${userID}`);
     dispatch(getPrescriptionSuccess(res.data));
   } catch (error) {
     dispatch(getPrescriptionFailure());

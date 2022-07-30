@@ -49,7 +49,10 @@ const PatientsGrid = () => {
     },
   ];
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col">
+      <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
+        Patients
+      </h1>
       <div className="flex-1">
         <DataGrid
           rows={patients?.length ? patients : patients}

@@ -10,6 +10,7 @@ import {
   AddShoppingCart,
   LocalPostOffice,
   LocalHospital,
+  MedicalInformation,
 } from "@mui/icons-material";
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const navElements = [
@@ -27,6 +28,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       title: "Appointments",
       path: "appointments",
       icon: <AddShoppingCart />,
+    },
+    {
+      title: "Prescriptions",
+      path: "prescriptions",
+      icon: <MedicalInformation />,
     },
     {
       title: "Blog",

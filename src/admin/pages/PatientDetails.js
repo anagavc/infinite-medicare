@@ -1,16 +1,22 @@
 import doctor from "../../images/doctor.png";
-import { PrimaryButton, UserButton } from "../../components/UI/Buttons";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { PrimaryButton, UserButton } from "../../components/UI/Buttons";
+import { UserActivity, UserInfo } from "../../components/Layouts/UserData";
+import PrescriptionsTable from "../../components/Layouts/PrescriptionsTable";
+import AppointmentsTable from "../../components/Layouts/AppointmentsTable";
 import {
-  getAllPrescriptions,
   getUser,
   getUserAppointments,
   getUserPrescriptions,
 } from "../../api/apiCalls";
-import { useLocation } from "react-router-dom";
-import { UserActivity, UserInfo } from "../../components/Layouts/UserData";
 import {
-  AddPhotoAlternateTwoTone,
+  AddPrescriptionDialog,
+  AdminUpdateAccountDialog,
+  DeletePatientDialog,
+} from "../../components/Layouts/Modal";
+import {
   Bloodtype,
   Cake,
   CalendarMonth,
@@ -22,33 +28,29 @@ import {
   MeetingRoom,
   Person,
   Phone,
+  ArrowRightAlt,
 } from "@mui/icons-material";
-import { useState, useEffect } from "react";
-import {
-  AddPrescriptionDialog,
-  AdminUpdateAccountDialog,
-  DeletePatientDialog,
-} from "../../components/Layouts/Modal";
-import PrescriptionsTable from "../../components/Layouts/PrescriptionsTable";
-import AppointmentsTable from "../../components/Layouts/AppointmentsTable";
 const UserDashboard = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const userID = location.pathname.split("/")[3];
   const user = useSelector((state) => state.patient.patients);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [dataType, setDataType] = useState("appointments");
   const [modalType, setModalType] = useState("");
   useEffect(() => {
     getUser(dispatch, userID);
     getUserAppointments(dispatch, userID);
+    getUserPrescriptions(dispatch, userID);
   }, [dispatch]);
-  useEffect(() => {
-    getAllPrescriptions(dispatch);
-  }, [dispatch]);
+
   const appointments = useSelector((state) => state.appointment.appointments);
   const prescriptions = useSelector(
     (state) => state.prescription.prescriptions
   );
+  const visited = appointments.map((appointment) => appointment.status);
+
   return (
     <>
       {modalType === "update" && (
@@ -76,7 +78,15 @@ const UserDashboard = () => {
         />
       )}
       <div className="bg-pry-50 py-2 flex flex-col justify-between w-full">
-        <h1 className="font-heading text-lg lg:text-2xl text-pry-100 mb-6">
+        <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 gap-4 flex w-full">
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="text-pry-100 hover:text-sec transition duration-300"
+          >
+            <ArrowRightAlt style={{ transform: "rotate(180deg)" }} />
+          </button>
           Patient's details
         </h1>
         <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
@@ -135,17 +145,25 @@ const UserDashboard = () => {
               />
             </div>
             <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
-              <UserButton name="Encounters" />
-              <UserButton name="Appointments" />
-              <UserButton name="Prescriptions" />
+              <UserButton
+                name="Appointments"
+                click={() => {
+                  setDataType("appointments");
+                }}
+              />
+              <UserButton
+                name="Prescriptions"
+                click={() => {
+                  setDataType("prescriptions");
+                }}
+              />
             </div>
           </div>
-
           <div className="flex w-full lg:w-4/6  flex-col  gap-8">
             <div className="flex flex-col lg:flex-row justify-between w-full gap-4">
               <UserActivity
-                count="0"
-                name="Total Visits"
+                count={visited.length}
+                name={visited.length > 1 ? "Total Visits" : "Visitation"}
                 icon={<MeetingRoom />}
               />
 
@@ -156,30 +174,42 @@ const UserDashboard = () => {
               />
 
               <UserActivity
-                count="0"
-                name="Prescriptions"
+                count={prescriptions?.length}
+                name={
+                  prescriptions?.length > 1 ? "Prescriptions" : "Prescription"
+                }
                 icon={<MedicalInformation />}
               />
             </div>
-            <div className="w-full">
-              <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
-                Appointments
-              </h1>
-              <PrimaryButton
-                name="Give prescription"
-                bgColor="pry-100"
-                textColor="pry-50"
-                borderColor="pry-100"
-                py="2 lg:py-4"
-                click={() => {
-                  setShowModal(!showModal);
-                  setModalType("prescribe");
-                }}
-              />
-              <PrescriptionsTable prescriptions={prescriptions} />
+            {dataType === "appointments" ? (
+              <div className="w-full">
+                <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
+                  Patients appointments
+                </h1>
+                <AppointmentsTable appointments={appointments} />
+              </div>
+            ) : (
+              <div className="w-full flex flex-col justify-between gap-2">
+                <h1 className="font-heading text-lg lg:text-xl text-pry-100 font-bold">
+                  Patient's prescriptions
+                </h1>
+                <div className="w-2/5">
+                  <PrimaryButton
+                    name="Give prescription"
+                    bgColor="pry-100"
+                    textColor="pry-50"
+                    borderColor="pry-100"
+                    py="2 lg:py-4 rounded-none"
+                    click={() => {
+                      setShowModal(!showModal);
+                      setModalType("prescribe");
+                    }}
+                  />
+                </div>
 
-              {/* <AppointmentsTable appointments={appointments} /> */}
-            </div>
+                <PrescriptionsTable prescriptions={prescriptions} />
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -598,8 +598,6 @@ export const UpdateAppointmentDialog = ({
 //modal for the admin to update a patient's prescription
 export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
   const { error, isFetching } = useSelector((state) => state.appointment);
-  // const patient = useSelector((state) => state.patient.patients);
-  console.log(patient);
   const {
     register,
     handleSubmit,
@@ -614,7 +612,6 @@ export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
   };
   const onSubmit = async (data) => {
     createPrescription(dispatch, {
-      date: new Date().getTime().toString(),
       patientName: patient.name,
       patientId: patient._id,
       email: patient.email,
@@ -642,6 +639,16 @@ export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
             className="flex flex-col  h-full w-full gap-4"
             onSubmit={handleSubmit(onSubmit)}
           >
+            <Input
+              title="Date to commence medication"
+              textColor="pry-100"
+              inputName="date"
+              placeholder="Select date to begin medication"
+              type="date"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
             <Input
               title="Drugs"
               textColor="pry-100"
