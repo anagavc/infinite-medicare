@@ -19,16 +19,21 @@ import {
   AccountDialog,
 } from "../components/Layouts/Modal";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserAppointments } from "../api/apiCalls";
+import { getUserAppointments, getUserPrescriptions } from "../api/apiCalls";
+import PrescriptionsTable from "../components/Layouts/PrescriptionsTable";
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const appointments = useSelector((state) => state.appointment.appointments);
+  const prescriptions = useSelector(
+    (state) => state.prescription.prescriptions
+  );
   const userID = user._id;
   useEffect(() => {
     getUserAppointments(dispatch, userID);
+    getUserPrescriptions(dispatch, userID);
   }, [dispatch]);
   return (
     <Layout>
@@ -121,7 +126,8 @@ const UserDashboard = () => {
               <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
                 Appointments
               </h1>
-              <AppointmentsTable appointments={appointments} />
+              {/* <AppointmentsTable appointments={appointments} /> */}
+              <PrescriptionsTable prescriptions={prescriptions} />
             </div>
           </div>
         </div>

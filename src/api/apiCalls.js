@@ -34,8 +34,9 @@ import {
   updateProductFailure,
 } from "../redux/productSlice";
 import {
-  addPrescription,
-  updateUserPrescription,
+  addPrescriptionStart,
+  addPrescriptionSuccess,
+  addPrescriptionFailure,
   getPrescriptionStart,
   getPrescriptionSuccess,
   getPrescriptionFailure,
@@ -50,13 +51,9 @@ import {
   addAppointmentStart,
   addAppointmentSuccess,
   addAppointmentFailure,
-  updateUserAppointment,
   getAppointmentStart,
   getAppointmentSuccess,
   getAppointmentFailure,
-  deleteAppointmentStart,
-  deleteAppointmentSuccess,
-  deleteAppointmentFailure,
   updateAppointmentStart,
   updateAppointmentSuccess,
   updateAppointmentFailure,
@@ -231,13 +228,22 @@ export const updateProduct = async (id, product, dispatch, navigate) => {
 };
 
 // prescriptions apiCalls begins
-export const getUserPrescriptions = async (userID, dispatch) => {
+export const createPrescription = async (dispatch,  prescription) => {
+  dispatch(addPrescriptionStart());
+  try {
+    const res = await userRequest.post("/prescriptions", prescription);
+    dispatch(addPrescriptionSuccess(res.data));
+  } catch (err) {
+    dispatch(addPrescriptionFailure());
+  }
+};
+export const getUserPrescriptions = async (dispatch, userID) => {
+  dispatch(getPrescriptionStart());
   try {
     const res = await publicRequest.get(`prescriptions/${userID}`);
-    dispatch(addPrescription(res.data));
+    dispatch(getPrescriptionSuccess(res.data));
   } catch (error) {
     dispatch(getPrescriptionFailure());
-
     console.log(error);
   }
 };

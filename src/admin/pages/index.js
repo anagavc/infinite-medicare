@@ -5,4 +5,5 @@ export { default as Subscribers } from "./Subscribers";
 export { default as Blog } from "./Blog";
 export { default as AddNews } from "./AddNews";
 export { default as PatientDetails } from "./PatientDetails";
+export { default as Prescriptions } from "./Prescriptions";
 export { default as PrescriptionDetails } from "./PrescriptionDetails";

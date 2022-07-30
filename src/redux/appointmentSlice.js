@@ -7,7 +7,7 @@ const appointmentSlice = createSlice({
     error: false,
   },
   reducers: {
-    addAppointmentStart: (state, action) => {
+    addAppointmentStart: (state) => {
       state.isFetching = true;
       state.error = false;
     },

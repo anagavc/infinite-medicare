@@ -1,10 +1,16 @@
 import doctor from "../../images/doctor.png";
 import { PrimaryButton, UserButton } from "../../components/UI/Buttons";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser, getUserAppointments } from "../../api/apiCalls";
+import {
+  getAllPrescriptions,
+  getUser,
+  getUserAppointments,
+  getUserPrescriptions,
+} from "../../api/apiCalls";
 import { useLocation } from "react-router-dom";
 import { UserActivity, UserInfo } from "../../components/Layouts/UserData";
 import {
+  AddPhotoAlternateTwoTone,
   Bloodtype,
   Cake,
   CalendarMonth,
@@ -19,9 +25,11 @@ import {
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import {
+  AddPrescriptionDialog,
   AdminUpdateAccountDialog,
   DeletePatientDialog,
 } from "../../components/Layouts/Modal";
+import PrescriptionsTable from "../../components/Layouts/PrescriptionsTable";
 import AppointmentsTable from "../../components/Layouts/AppointmentsTable";
 const UserDashboard = () => {
   const location = useLocation();
@@ -34,14 +42,27 @@ const UserDashboard = () => {
     getUser(dispatch, userID);
     getUserAppointments(dispatch, userID);
   }, [dispatch]);
+  useEffect(() => {
+    getAllPrescriptions(dispatch);
+  }, [dispatch]);
   const appointments = useSelector((state) => state.appointment.appointments);
-
+  const prescriptions = useSelector(
+    (state) => state.prescription.prescriptions
+  );
   return (
     <>
       {modalType === "update" && (
         <AdminUpdateAccountDialog
           userID={userID}
           user={user}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
+      {modalType === "prescribe" && (
+        <AddPrescriptionDialog
+          userID={userID}
+          patient={user}
           showModal={showModal}
           setShowModal={setShowModal}
         />
@@ -144,7 +165,20 @@ const UserDashboard = () => {
               <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
                 Appointments
               </h1>
-              <AppointmentsTable appointments={appointments} />
+              <PrimaryButton
+                name="Give prescription"
+                bgColor="pry-100"
+                textColor="pry-50"
+                borderColor="pry-100"
+                py="2 lg:py-4"
+                click={() => {
+                  setShowModal(!showModal);
+                  setModalType("prescribe");
+                }}
+              />
+              <PrescriptionsTable prescriptions={prescriptions} />
+
+              {/* <AppointmentsTable appointments={appointments} /> */}
             </div>
           </div>
         </div>

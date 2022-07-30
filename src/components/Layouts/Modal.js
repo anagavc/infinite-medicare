@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import {
   bookAppointment,
+  createPrescription,
   deletePatient,
   makeAppointment,
   updateAppointment,
@@ -254,7 +255,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
           </p>
           {error && (
             <p className="text-pry-100 font-normal text-base font-body">
-              There was a error in updating your account
+              There was an error in updating your account
             </p>
           )}
           <form
@@ -400,7 +401,7 @@ export const AdminUpdateAccountDialog = ({
           </p>
           {error && (
             <p className="text-pry-100 font-normal text-base font-body">
-              There was a error in updating your account
+              There was an error in updating your account
             </p>
           )}
           <form
@@ -518,7 +519,7 @@ export const DeletePatientDialog = ({
   );
 };
 
-//modal for the admin to update a patient's appoinment report
+//modal for the admin to update a patient's appointment report
 export const UpdateAppointmentDialog = ({
   showModal,
   setShowModal,
@@ -556,7 +557,7 @@ export const UpdateAppointmentDialog = ({
           </p>
           {error && (
             <p className="text-pry-100 font-normal text-base font-body">
-              There was a error in leaving a report
+              There was an error in leaving a report
             </p>
           )}
           <form
@@ -568,6 +569,84 @@ export const UpdateAppointmentDialog = ({
               textColor="pry-100"
               inputName="report"
               placeholder="Enter your report"
+              type="text"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+
+            <PrimaryButton
+              name="Submit"
+              // isFetching={isFetching}
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+//modal for the admin to update a patient's prescription
+export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
+  const { error, isFetching } = useSelector((state) => state.appointment);
+  // const patient = useSelector((state) => state.patient.patients);
+  console.log(patient);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    createPrescription(dispatch, {
+      date: new Date().getTime().toString(),
+      patientName: patient.name,
+      patientId: patient._id,
+      email: patient.email,
+      ...data,
+    });
+    reset();
+    setShowModal(false);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Give prescription
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Give a prescription of drugs for the patient to folllow
+          </p>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was an error in giving a prescription
+            </p>
+          )}
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Drugs"
+              textColor="pry-100"
+              inputName="drug"
+              placeholder="Prescribe drugs"
               type="text"
               register={register}
               errors={errors}

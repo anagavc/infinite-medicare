@@ -12,6 +12,7 @@ import {
   PatientDetails,
   PrescriptionDetails,
 } from "../pages";
+import Prescriptions from "../pages/Prescriptions";
 
 const AdminLayout = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -34,6 +35,7 @@ const AdminLayout = () => {
               <Route path="/blog" element={<Blog />} />
               <Route path="/addNews" element={<AddNews />} />
               <Route path="/appointments" element={<Appointments />} />
+              <Route path="/prescriptions" element={<Prescriptions />} />
               <Route path="/subscribers" element={<Subscribers />} />
             </Routes>
           </div>

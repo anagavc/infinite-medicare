@@ -7,8 +7,18 @@ const prescriptionSlice = createSlice({
     error: false,
   },
   reducers: {
-    addPrescription: (state, action) => {
+    addPrescriptionStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+    },
+    addPrescriptionSuccess: (state, action) => {
+      state.isFetching = false;
       state.prescriptions = action.payload;
+      state.error = false;
+    },
+    addPrescriptionFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
     },
     updateUserPrescription: (state, action) => {
       state.prescriptions[
@@ -61,8 +71,9 @@ const prescriptionSlice = createSlice({
   },
 });
 export const {
-  addPrescription,
-  updateUserPrescription,
+  addPrescriptionStart,
+  addPrescriptionSuccess,
+  addPrescriptionFailure,
   getPrescriptionStart,
   getPrescriptionSuccess,
   getPrescriptionFailure,
