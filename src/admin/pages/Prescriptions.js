@@ -3,7 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPrescriptions } from "../../api/apiCalls";
-import { UpdatePrescriptionDialog } from "../../components/Layouts/Modal";
+import {
+  UpdatePrescriptionDialog,
+  DeletePrescriptionDialog,
+} from "../../components/Layouts/Modal";
 const Prescriptions = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -59,6 +62,13 @@ const Prescriptions = () => {
     <div className="flex h-screen flex-col">
       {modalType === "update" && (
         <UpdatePrescriptionDialog
+          prescriptionId={prescriptionId}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
+      {modalType === "delete" && (
+        <DeletePrescriptionDialog
           prescriptionId={prescriptionId}
           showModal={showModal}
           setShowModal={setShowModal}

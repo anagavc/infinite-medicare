@@ -259,12 +259,12 @@ export const getAllPrescriptions = async (dispatch) => {
   }
 };
 
-export const deletePrescription = async (dispatch, id) => {
+export const deletePrescription = async (dispatch, id, navigate) => {
   dispatch(deletePrescriptionStart());
   try {
     await userRequest.delete(`prescriptions/${id}`);
-    console.log(id);
     dispatch(deletePrescriptionSuccess(id));
+    navigate("../prescriptions");
   } catch (error) {
     dispatch(deletePrescriptionFailure());
     console.error(error);

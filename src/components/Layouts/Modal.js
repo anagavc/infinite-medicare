@@ -6,6 +6,7 @@ import {
   bookAppointment,
   createPrescription,
   deletePatient,
+  deletePrescription,
   makeAppointment,
   updateAppointment,
   updatePrescription,
@@ -788,7 +789,7 @@ export const DeletePrescriptionDialog = ({
             borderColor="pry-100"
             py="2 lg:py-4"
             click={() => {
-              deletePatient(dispatch, prescriptionId, navigate);
+              deletePrescription(dispatch, prescriptionId, navigate);
               handleClose();
             }}
           />
