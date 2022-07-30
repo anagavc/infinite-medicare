@@ -259,7 +259,7 @@ export const getAllPrescriptions = async (dispatch) => {
   }
 };
 
-export const deletePrescription = async (id, dispatch) => {
+export const deletePrescription = async (dispatch, id) => {
   dispatch(deletePrescriptionStart());
   try {
     await userRequest.delete(`prescriptions/${id}`);
@@ -281,7 +281,7 @@ export const updatePrescription = async (
   try {
     const res = await userRequest.patch(`/prescriptions/${id}`, prescription);
     dispatch(updatePrescriptionSuccess(res.data));
-    navigate("prescriptions");
+    navigate("../prescriptions");
   } catch (error) {
     dispatch(updatePrescriptionFailure());
   }

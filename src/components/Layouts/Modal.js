@@ -8,6 +8,7 @@ import {
   deletePatient,
   makeAppointment,
   updateAppointment,
+  updatePrescription,
   updateUserInfo,
   updateUserInfoByAdmin,
   updateUserPassword,
@@ -472,7 +473,7 @@ export const AdminUpdateAccountDialog = ({
   );
 };
 
-//Modal for unregistered users to book and make payments
+//Modal for deletion of patients
 export const DeletePatientDialog = ({
   userID,
   user,
@@ -595,9 +596,9 @@ export const UpdateAppointmentDialog = ({
     </div>
   );
 };
-//modal for the admin to update a patient's prescription
+//modal for the admin to give a prescription to a patient
 export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
-  const { error, isFetching } = useSelector((state) => state.appointment);
+  const { error, isFetching } = useSelector((state) => state.prescription);
   const {
     register,
     handleSubmit,
@@ -675,6 +676,128 @@ export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
               Cancel
             </button>
           </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//modal for the admin to update a patient's prescription
+export const UpdatePrescriptionDialog = ({
+  showModal,
+  setShowModal,
+  prescriptionId,
+}) => {
+  const { error, isFetching } = useSelector((state) => state.prescription);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    updatePrescription(prescriptionId, data, dispatch, navigate);
+    reset();
+    setShowModal(false);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Update prescription
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Make changes on the drug prescriptions issued to the patient
+          </p>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was an error in updating the prescription
+            </p>
+          )}
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Prescription"
+              textColor="pry-100"
+              inputName="drug"
+              placeholder="Enter the updated prescription"
+              type="text"
+              register={register}
+              errors={errors}
+              errorColor="pry-100"
+            />
+
+            <PrimaryButton
+              name="Submit"
+              // isFetching={isFetching}
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//Modal for deltetion of a prescription
+export const DeletePrescriptionDialog = ({
+  prescriptionId,
+  showModal,
+  setShowModal,
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-8 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Confirm deletion
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Do you want to delete this prescription from the database ? This is
+            an irreversible action.
+          </p>
+          <PrimaryButton
+            name="Yes, I am certain"
+            bgColor="red-500"
+            textColor="pry-50"
+            borderColor="pry-100"
+            py="2 lg:py-4"
+            click={() => {
+              deletePatient(dispatch, prescriptionId, navigate);
+              handleClose();
+            }}
+          />
+          <button
+            className="text-pry-100 font-body hover:text-sec transition duration-300"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
       </Dialog>
     </div>
