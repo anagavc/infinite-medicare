@@ -2,6 +2,13 @@ import Input from "../UI/Input";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import app from "../../firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import {
   bookAppointment,
   createPrescription,
@@ -13,6 +20,7 @@ import {
   updateUserInfo,
   updateUserInfoByAdmin,
   updateUserPassword,
+  updateBlog,
 } from "../../api/apiCalls";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
@@ -799,6 +807,122 @@ export const DeletePrescriptionDialog = ({
           >
             Cancel
           </button>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//modal for the admin to update a blog item
+export const UpdateBlogDialog = ({ showModal, setShowModal, blogId }) => {
+  const { error, isFetching } = useSelector((state) => state.blog);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const blog = useSelector((state) =>
+    state.blog.blogs.find((blog) => blog._id === blogId)
+  );
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+  const onSubmit = async (data) => {
+    const fileName = new Date().getTime() + data.img[0]?.name;
+
+    if (data.img[0]) {
+      const storage = getStorage(app);
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, data.img[0]);
+      uploadTask.on(
+        "state_changed",
+        (progress) => {
+          console.group(progress);
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File is availabe for download at", downloadURL);
+            const updatedBlog = { ...data, img: downloadURL };
+            updateBlog(blogId, updatedBlog, dispatch, navigate);
+          });
+        }
+      );
+    } else if (!data.img[0]) {
+      const updatedBlog = { ...data, img: blog.img };
+      updateBlog(blogId, updatedBlog, dispatch, navigate);
+    }
+    reset();
+    setShowModal(false);
+  };
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Update blog post
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Make changes on the news item
+          </p>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was an error in updating the post
+            </p>
+          )}
+          <form
+            className="flex flex-col  h-full w-full gap-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              title="Image"
+              textColor="pry-100"
+              inputName="img"
+              placeholder="Upload Image"
+              type="file"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              title="Title"
+              textColor="pry-100"
+              inputName="title"
+              placeholder="Enter the title of the news item"
+              type="text"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              title="News"
+              textColor="pry-100"
+              inputName="content"
+              placeholder="Enter the details of the news"
+              type="text"
+              register={register}
+              errors={errors}
+            />
+
+            <PrimaryButton
+              name="Submit"
+              // isFetching={isFetching}
+              bgColor="pry-100"
+              textColor="pry-50"
+              borderColor="pry-100"
+              py="3"
+            />
+            <button
+              className="text-pry-100 font-body hover:text-sec transition duration-300"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </form>
         </div>
       </Dialog>
     </div>

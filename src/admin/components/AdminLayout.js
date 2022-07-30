@@ -21,7 +21,7 @@ const AdminLayout = () => {
       <main className="flex flex-col flex-1 bg-pry-50  ">
         <Header setIsOpen={setIsOpen} />
         <div className="flex flex-col flex-1 overflow-y-auto">
-          <div className="lg:px-12 px-0 pb-10">
+          <div className="lg:px-12 px-4 pb-10">
             <Routes>
               <Route path="/dashboard/" element={<Dashboard />} />
               <Route path="/patients/*" element={<PatientsGrid />} />

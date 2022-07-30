@@ -307,7 +307,7 @@ export const deleteBlog = async (dispatch, id, navigate) => {
   try {
     await userRequest.delete(`blogs/${id}`);
     dispatch(deleteBlogSuccess(id));
-    navigate("../blogs");
+    navigate("../blog");
   } catch (error) {
     dispatch(deleteBlogFailure());
     console.error(error);
@@ -316,9 +316,9 @@ export const deleteBlog = async (dispatch, id, navigate) => {
 export const updateBlog = async (id, blog, dispatch, navigate) => {
   dispatch(updateBlogStart());
   try {
-    const res = await userRequest.patch(`/blogs/${id}`, blog);
-    dispatch(updateBlogSuccess(res.data));
-    navigate("../blogs");
+    await userRequest.patch(`/blogs/${id}`, blog);
+    dispatch(updateBlogSuccess({ id, blog }));
+    navigate("../blog");
   } catch (error) {
     dispatch(updateBlogFailure());
   }
