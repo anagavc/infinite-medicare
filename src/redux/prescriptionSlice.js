@@ -13,7 +13,8 @@ const prescriptionSlice = createSlice({
     },
     addPrescriptionSuccess: (state, action) => {
       state.isFetching = false;
-      state.prescriptions = action.payload;
+      state.prescriptions.push(action.payload);
+
       state.error = false;
     },
     addPrescriptionFailure: (state) => {

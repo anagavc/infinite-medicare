@@ -13,7 +13,7 @@ const blogSlice = createSlice({
     },
     addBlogsSuccess: (state, action) => {
       state.isFetching = false;
-      state.blogs = action.payload;
+      state.blogs.push(action.payload);
       state.error = false;
     },
     addBlogsFailure: (state) => {

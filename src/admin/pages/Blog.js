@@ -4,7 +4,10 @@ import { NavLink } from "react-router-dom";
 import { formatDate } from "../../utilities/formatDate";
 import { getAllBlogs } from "../../api/apiCalls";
 import { DeleteForever } from "@mui/icons-material";
-import { UpdateBlogDialog } from "../../components/Layouts/Modal";
+import {
+  UpdateBlogDialog,
+  DeleteBlogDialog,
+} from "../../components/Layouts/Modal";
 const Blog = () => {
   const dispatch = useDispatch();
   const [blogId, setBlogId] = useState("");
@@ -24,13 +27,23 @@ const Blog = () => {
           setShowModal={setShowModal}
         />
       )}
+      {modalType === "delete" && (
+        <DeleteBlogDialog
+          blogId={blogId}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
       <div className="w-full flex flex-col bg-pry-50 justify-between  py-2">
         <h1 className="text-pry-100 text-center font-heading text-xl font-bold mb-4">
           News Item
         </h1>
-        <button className="flex w-96 mb-4 justify-center items-center  text-base bg-pry-100  text-pry-50 hover:bg-sec hover:text-pry-100 rounded p-4  font-body transition duration-300">
+        <NavLink
+          to="../addNews"
+          className="flex w-96 mb-4 justify-center items-center  text-base bg-pry-100  text-pry-50 hover:bg-sec hover:text-pry-100 rounded p-4  font-body transition duration-300"
+        >
           Post new article
-        </button>
+        </NavLink>
         <div className="flex flex-col lg:flex-row w-full justify-between gap-2 h-full flex-wrap">
           {newsItem?.map((item, index) => (
             <div
@@ -64,7 +77,14 @@ const Blog = () => {
               >
                 Edit
               </button>
-              <button className="flex w-full justify-center items-center  text-base   text-red-400 hover:text-red-600 rounded font-body transition duration-300">
+              <button
+                onClick={() => {
+                  setBlogId(item._id);
+                  setModalType("delete");
+                  setShowModal(true);
+                }}
+                className="flex w-full justify-center items-center  text-base   text-red-400 hover:text-red-600 rounded font-body transition duration-300"
+              >
                 <DeleteForever />
               </button>
             </div>

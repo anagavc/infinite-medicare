@@ -10,8 +10,8 @@ import {
   AddNews,
   Blog,
   PatientDetails,
+  Prescriptions,
 } from "../pages";
-import Prescriptions from "../pages/Prescriptions";
 
 const AdminLayout = () => {
   const [isOpen, setIsOpen] = useState(true);

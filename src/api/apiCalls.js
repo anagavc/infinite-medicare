@@ -271,11 +271,12 @@ export const updatePrescription = async (
 // prescriptions apiCalls ends
 
 // blogs apiCalls begins
-export const createBlog = async (dispatch, blog) => {
+export const createBlog = async (dispatch, blog, navigate) => {
   dispatch(addBlogsStart());
   try {
     const res = await userRequest.post("/blogs", blog);
     dispatch(addBlogsSuccess(res.data));
+    navigate("../blog");
   } catch (err) {
     dispatch(addBlogsFailure());
   }

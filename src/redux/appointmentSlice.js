@@ -13,7 +13,7 @@ const appointmentSlice = createSlice({
     },
     addAppointmentSuccess: (state, action) => {
       state.isFetching = false;
-      state.appointments = action.payload;
+      state.appointments.push(action.payload);
       state.error = false;
     },
     addAppointmentFailure: (state) => {

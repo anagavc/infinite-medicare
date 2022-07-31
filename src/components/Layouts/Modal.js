@@ -21,6 +21,7 @@ import {
   updateUserInfoByAdmin,
   updateUserPassword,
   updateBlog,
+  deleteBlog,
 } from "../../api/apiCalls";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
@@ -923,6 +924,48 @@ export const UpdateBlogDialog = ({ showModal, setShowModal, blogId }) => {
               Cancel
             </button>
           </form>
+        </div>
+      </Dialog>
+    </div>
+  );
+};
+
+//Modal for deltetion of a blog item
+export const DeleteBlogDialog = ({ blogId, showModal, setShowModal }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClose = () => {
+    setShowModal(!showModal);
+  };
+
+  return (
+    <div>
+      <Dialog open={showModal} onClose={handleClose}>
+        <div className="flex flex-col justify-between gap-8 px-4 lg:px-8 py-6">
+          <h1 className="text-lg font-body font-bold text-pry-100">
+            Confirm deletion
+          </h1>
+          <p className="text-base font-body text-pry-100">
+            Do you want to delete this news item from the database ? This is an
+            irreversible action.
+          </p>
+          <PrimaryButton
+            name="Yes, I am certain"
+            bgColor="red-500"
+            textColor="pry-50"
+            borderColor="pry-100"
+            py="2 lg:py-4"
+            click={() => {
+              deleteBlog(dispatch, blogId, navigate);
+              handleClose();
+            }}
+          />
+          <button
+            className="text-pry-100 font-body hover:text-sec transition duration-300"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
       </Dialog>
     </div>

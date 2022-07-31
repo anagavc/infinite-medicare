@@ -3,6 +3,7 @@ import Input from "../../components/UI/Input";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createBlog } from "../../api/apiCalls";
 import { PrimaryButton } from "../../components/UI/Buttons";
 import {
@@ -13,7 +14,7 @@ import {
 } from "firebase/storage";
 const AddNews = () => {
   const dispatch = useDispatch();
-  const [isFetching, setIsFetching] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -37,7 +38,7 @@ const AddNews = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const blog = { ...data, img: downloadURL };
-          createBlog(dispatch, blog);
+          createBlog(dispatch, blog, navigate);
         });
       }
     );
