@@ -7,9 +7,9 @@ import {
   Email,
   LocalHospital,
 } from "@mui/icons-material";
+import { publicRequest } from "../../api/requests";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { PrimaryButton, FooterIcon } from "../UI/Buttons";
 import { HeadingSix, Paragraph } from "../UI/FontStyles";
 
@@ -46,15 +46,14 @@ const Footer = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    setisFetching(true);
     try {
-      const res = await axios.post("/api/contact/enquiry", data);
-      setisFetching(false);
+      setisFetching(true);
+      await publicRequest.post("/subscription", data);
       reset();
-      // toast.success(`Thank you for subscribing`);
-    } catch (error) {
-      console.log(error);
       setisFetching(false);
+      toast.success("Thank you for subscribing");
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
@@ -163,7 +162,7 @@ const Footer = () => {
                   <input
                     type="text"
                     id="subscriberEmail"
-                    name="email"
+                    name="subscriberEmail"
                     className="py-3 px-4 w-full tracking-widest left-12 block pl-14  placeholder-pry-50 bg-pry-100 border-b border-b-pry-50 text-pry-50 placeholder:text-pry-50  appearance-none transition duration-300 focus:outline-none focus:border-pry-50 focus:ring-pry-50 focus:ring-1 "
                     placeholder="Your email address"
                     {...register("subscriberEmail", {
@@ -184,6 +183,7 @@ const Footer = () => {
                 bgColor="pry-50"
                 textColor="pry-100"
                 borderColor="pry-100"
+                // isFetching={isFetching}
                 py="3"
               />
             </form>

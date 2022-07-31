@@ -1,8 +1,12 @@
 import Layout from "../components/Layouts/Layout";
 import { PrimaryButton } from "../components/UI/Buttons";
-import { newsItem } from "../utilities/newsItem";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { formatDate } from "../utilities/formatDate";
+import { getAllBlogs } from "../api/apiCalls";
 const BlogPage = () => {
+  const newsItem = useSelector((state) => state.blog.blogs);
   return (
     <Layout>
       <div className="w-full flex flex-col bg-pry-50 justify-between  py-12">
@@ -20,14 +24,14 @@ const BlogPage = () => {
             >
               <div className="w-full">
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item.img}
+                  alt={item.title}
                   className="w-full bg-sec h-2/5 lg:h-64 rounded p-4  drop-shadow-lg"
                 />
               </div>
 
               <p className="text-base text-pry-50 uppercase font-body">
-                {item.date}
+                {formatDate(item.createdAt)}
               </p>
               <h6 className="text-sec font-body text-lg font-semibold border-b-2 border-sec">
                 {item.title}
@@ -36,7 +40,7 @@ const BlogPage = () => {
                 {item.content}
               </p>
               <NavLink
-                to={`${index}`}
+                to={`${item._id}`}
                 className="flex space-x-2 w-full items-center  text-base  text-sec hover:text-pry-50 font-body transition duration-300"
               >
                 <span className="h-1 w-20 bg-sec hover:bg-pry-50 transition duration-300"></span>

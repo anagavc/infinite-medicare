@@ -324,4 +324,3 @@ export const updateBlog = async (id, blog, dispatch, navigate) => {
     dispatch(updateBlogFailure());
   }
 };
-// prescriptions apiCalls ends

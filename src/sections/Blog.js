@@ -1,7 +1,16 @@
-import { newsItem } from "../utilities/newsItem";
-import { NavLink } from "react-router-dom";
-
+import { getAllBlogs } from "../api/apiCalls";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { formatDate } from "../utilities/formatDate";
+import { useDispatch, useSelector } from "react-redux";
 const Blog = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const page = location.pathname.split("/")[0];
+  useEffect(() => {
+    getAllBlogs(dispatch);
+  }, [dispatch, page]);
+  const newsItem = useSelector((state) => state.blog.blogs);
   return (
     <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
       <div className="flex flex-col gap-2 justify-center items-center">
@@ -21,7 +30,7 @@ const Blog = () => {
             key={index}
           >
             <p className="text-base text-pry-50 uppercase font-body">
-              {item.date}
+              {formatDate(item.createdAt)}
             </p>
             <h6 className="text-sec font-body text-lg font-semibold border-b-2 border-sec">
               {item.title}
@@ -30,7 +39,7 @@ const Blog = () => {
               {item.content}
             </p>
             <NavLink
-              to={`${index}`}
+              to={`blog/${item._id}`}
               className="flex space-x-2 w-full items-center  text-base  text-sec hover:text-pry-50 font-body transition duration-300"
             >
               <span className="h-1 w-20 bg-sec hover:bg-pry-50 transition duration-300"></span>

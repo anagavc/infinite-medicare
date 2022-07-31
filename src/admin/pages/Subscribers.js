@@ -25,14 +25,17 @@ const Subscribers = () => {
       renderCell: (params) => {
         return (
           <div className="flex items-center justify-center">
-            {params.row.email}
+            {params.row.subscriberEmail}
           </div>
         );
       },
     },
   ];
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col">
+      <h1 className="text-pry-100 text-center font-heading text-xl font-bold mb-4">
+        Subscribers
+      </h1>
       <div className="flex-1">
         <DataGrid
           rows={subscribers}
