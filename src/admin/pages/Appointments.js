@@ -59,7 +59,7 @@ const Appointments = () => {
           rows={appointments}
           disableSelectionOnClick
           columns={columns}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row._id || Math.floor(Math.random())}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[5, 10, 20]}

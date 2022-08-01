@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AppointmentsTable = ({ appointments }) => {
   const [pageSize, setPageSize] = useState(10);
@@ -17,7 +17,7 @@ const AppointmentsTable = ({ appointments }) => {
           rows={appointments}
           disableSelectionOnClick
           columns={columns}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row._id || 1}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[5, 10, 20]}

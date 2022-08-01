@@ -4,6 +4,7 @@ import dermatologist from "../images/dermatologist.png";
 import urology from "../images/urology.png";
 import { PrimaryButton } from "../components/UI/Buttons";
 import { NavLink } from "react-router-dom";
+import { FadeUpAnimation } from "../components/UI/Animations";
 const Staff = () => {
   const consultants = [
     {
@@ -45,7 +46,7 @@ const Staff = () => {
   ];
   return (
     <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
-      <div className="flex flex-col gap-2 justify-center items-center">
+      <FadeUpAnimation className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Our Consultants
         </h3>
@@ -53,8 +54,8 @@ const Staff = () => {
         <p className="font-heading text-center text-base text-pry-100 ">
           Here are our Lead Consultants
         </p>
-      </div>
-      <div className="w-full flex-col lg:flex-row flex justify-between gap-8 lg:space-x-8 h-full">
+      </FadeUpAnimation>
+      <FadeUpAnimation className="w-full flex-col lg:flex-row flex justify-between gap-8 lg:space-x-8 h-full">
         {consultants.map((consultant) => (
           <div
             className="flex flex-col bg-pry-100 w-full lg:w-2/6 p-8 rounded space-y-4"
@@ -98,7 +99,7 @@ const Staff = () => {
               <div className="w-2/5">
                 <PrimaryButton
                   name="Book"
-                  path="book"
+                  path="/contact"
                   bgColor="sec"
                   textColor="pry-100"
                   borderColor="pry-100"
@@ -108,7 +109,7 @@ const Staff = () => {
             </div>
           </div>
         ))}
-      </div>
+      </FadeUpAnimation>
     </div>
   );
 };

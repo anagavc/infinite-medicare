@@ -1,9 +1,7 @@
 import Layout from "../components/Layouts/Layout";
-import { useEffect } from "react";
 import { PrimaryButton } from "../components/UI/Buttons";
 import { useLocation } from "react-router-dom";
-import { getSingleBlog } from "../api/apiCalls";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { formatDate } from "../utilities/formatDate";
 
 const BlogItem = () => {

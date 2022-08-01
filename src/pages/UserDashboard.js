@@ -1,5 +1,5 @@
 import Layout from "../components/Layouts/Layout";
-import doctor from "../images/doctor.png";
+import patient from "../images/reviewer1.png";
 import AppointmentsTable from "../components/Layouts/AppointmentsTable";
 import { PrimaryButton, UserButton } from "../components/UI/Buttons";
 import { UserActivity, UserInfo } from "../components/Layouts/UserData";
@@ -26,15 +26,21 @@ const UserDashboard = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [dataType, setDataType] = useState("appointments");
   const appointments = useSelector((state) => state.appointment.appointments);
   const prescriptions = useSelector(
     (state) => state.prescription.prescriptions
   );
+
+  const visited = appointments.map(
+    (appointment) => appointment.status === "Has been consulted"
+  );
+
   const userID = user._id;
   useEffect(() => {
     getUserAppointments(dispatch, userID);
     getUserPrescriptions(dispatch, userID);
-  }, [dispatch]);
+  }, [dispatch, userID]);
   return (
     <Layout>
       {modalType === "book" && (
@@ -54,11 +60,11 @@ const UserDashboard = () => {
         <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
           <div className="flex flex-col  w-full  lg:w-2/6 gap-6">
             <div className="flex flex-col px-2 lg:px-12 py-8 rounded  drop-shadow justify-center items-center gap-4 bg-pry-50">
-              <div className="rounded-full py-2 w-40 h-40 flex justify-center items-center bg-sec">
+              <div className="rounded-full p-6 w-40 h-40 flex justify-center items-center bg-sec">
                 <img
-                  src={doctor}
-                  className="w-3/5 h-4/5 bg-pry-100 p-4 rounded-full"
-                  alt="patient"
+                  src={user.img ? user.img : patient}
+                  className="w-full h-full bg-pry-100 py-4 rounded-full flex justify-center items-center"
+                  alt={user.name}
                 />
               </div>
               <UserInfo name={user.name} icon={<Person />} />
@@ -82,9 +88,18 @@ const UserDashboard = () => {
               />
             </div>
             <div className="flex flex-col drop-shadow pt-4 px-12 justify-start items-start gap-4 pb-8 bg-pry-50">
-              <UserButton name="Home" />
-              <UserButton name="Appointments" />
-              <UserButton name="Prescriptions" />
+              <UserButton
+                name="Appointments"
+                click={() => {
+                  setDataType("appointments");
+                }}
+              />
+              <UserButton
+                name="Prescriptions"
+                click={() => {
+                  setDataType("prescriptions");
+                }}
+              />
               <UserButton
                 name="Change Password"
                 click={() => {
@@ -105,30 +120,41 @@ const UserDashboard = () => {
           <div className="flex w-full lg:w-4/6  flex-col  gap-8">
             <div className="flex flex-col lg:flex-row justify-between w-full gap-4">
               <UserActivity
-                count="0"
-                name="Total Visits"
+                count={visited.length}
+                name={visited.length > 1 ? "Total Visits" : "Visitation"}
                 icon={<MeetingRoom />}
               />
 
               <UserActivity
-                count={appointments.length}
-                name={appointments.length > 1 ? "Appointments" : "Appointment"}
+                count={appointments?.length}
+                name={appointments?.length > 1 ? "Appointments" : "Appointment"}
                 icon={<CalendarMonth />}
               />
 
               <UserActivity
-                count="0"
-                name="Prescriptions"
+                count={prescriptions?.length}
+                name={
+                  prescriptions?.length > 1 ? "Prescriptions" : "Prescription"
+                }
                 icon={<MedicalInformation />}
               />
             </div>
-            <div className="w-full">
-              <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
-                Appointments
-              </h1>
-              {/* <AppointmentsTable appointments={appointments} /> */}
-              <PrescriptionsTable prescriptions={prescriptions} />
-            </div>
+            {dataType === "appointments" ? (
+              <div className="w-full">
+                <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
+                  Your appointments
+                </h1>
+                <AppointmentsTable appointments={appointments} />
+              </div>
+            ) : (
+              <div className="w-full flex flex-col justify-between gap-2">
+                <h1 className="font-heading text-lg lg:text-xl text-pry-100 font-bold">
+                  Your prescriptions
+                </h1>
+
+                <PrescriptionsTable prescriptions={prescriptions} />
+              </div>
+            )}
           </div>
         </div>
       </div>

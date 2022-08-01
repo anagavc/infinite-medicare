@@ -91,11 +91,12 @@ export const logout = (dispatch, navigate) => {
   navigate("/login", { replace: true });
 };
 
-export const updateUserInfo = async (id, user, dispatch) => {
+export const updateUserInfo = async (id, user, dispatch, navigate) => {
   dispatch(updateUserStart());
   try {
-    const res = await publicRequest.patch(`users/${id}`, user);
+    const res = await userRequest.patch(`users/${id}`, user);
     dispatch(updateUserSuccess(res.data));
+    navigate("/account", { replace: true });
   } catch (error) {
     console.log(error.message);
     dispatch(updateUserFailure());
@@ -115,7 +116,7 @@ export const updateUserInfoByAdmin = async (id, user, dispatch, navigate) => {
 export const updateUserPassword = async (id, user, dispatch, navigate) => {
   dispatch(updateUserStart());
   try {
-    const res = await publicRequest.put(`users/${id}`, user);
+    const res = await userRequest.put(`users/${id}`, user);
     dispatch(updateUserSuccess(res.data));
     navigate("/account");
   } catch (error) {

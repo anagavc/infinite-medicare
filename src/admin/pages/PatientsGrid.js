@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPatients } from "../../api/apiCalls";
+import reviewer1 from "../../images/reviewer1.png";
+
 const PatientsGrid = () => {
   const dispatch = useDispatch();
   const [pageSize, setPageSize] = useState(10);
@@ -17,12 +19,12 @@ const PatientsGrid = () => {
       flex: 1,
       renderCell: (params) => {
         return (
-          <div className="flex items-center justify-center">
-            {/* <img
-              className="w-12 h-12"
-              src={params.row.img}
+          <div className="flex items-center justify-center gap-4">
+            <img
+              className="w-12 py-2 bg-pry-100 rounded-full"
+              src={params.row.img ? params.row.img : reviewer1}
               alt={params.row.name}
-            /> */}
+            />
             {params.row.name}
           </div>
         );

@@ -10,11 +10,12 @@ export const PrimaryButton = ({
   name,
   click,
   isFetching,
+  borderColor,
   bgColor,
   py,
   textColor,
 }) => {
-  const buttonStyle = `text-base bg-${bgColor} py-${py} text-${textColor} hover:text-pry-50 hover:bg-sec rounded-full flex justify-center w-full items-center  px-8 font-body transition duration-300`;
+  const buttonStyle = `text-base bg-${bgColor} py-${py} text-${textColor} border border-${borderColor} hover:text-pry-50 hover:bg-sec rounded-full flex justify-center w-full items-center  px-8 font-body transition duration-300`;
   return (
     <>
       {path ? (

@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const PrescriptionsTable = ({ prescriptions }) => {
   const [pageSize, setPageSize] = useState(10);

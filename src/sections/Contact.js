@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { makeAppointment } from "../api/apiCalls";
+import { FadeUpAnimation } from "../components/UI/Animations";
 const Contact = () => {
   useEffect(() => {
     AOS.init();
@@ -102,15 +103,15 @@ const Contact = () => {
       {modalType === "payment" && (
         <PaymentDialog showModal={showModal} setShowModal={setShowModal} />
       )}
-      <div className="flex flex-col items-center justify-center">
+      <FadeUpAnimation className="flex flex-col items-center justify-center">
         <h3 className="text-sec text-3xl font-bold font-heading">Contact Us</h3>
         <Paragraph
           color="pry-50"
           align="center"
-          title="Send us an enquiry on what you would like to know"
+          title="Book an appoinment to see a consultant"
         />
-      </div>
-      <div className=" flex  lg:flex-row flex-col justify-between w-full  bg-pry-50  rounded py-12 space-y-8 px-4 lg:px-12">
+      </FadeUpAnimation>
+      <FadeUpAnimation className=" flex  lg:flex-row flex-col justify-between w-full  bg-pry-50  rounded py-12 space-y-8 px-4 lg:px-12">
         <form
           className=" w-full lg:w-2/5 space-y-4 flex flex-col bg-pry-100 rounded py-8 px-6 lg:pt-6 border-y-4 border-y-sec"
           onSubmit={handleSubmit(onSubmit)}
@@ -118,6 +119,11 @@ const Contact = () => {
           <h6 className="text-xl text-center text-pry-50 tracking-tight font-body  w-full">
             Book an appointment
           </h6>
+          {error && (
+            <p className="text-pry-100 font-normal text-base font-body">
+              There was an error while booking the appointment
+            </p>
+          )}
           {inputs.map((input) => (
             <Input
               title={input.title}
@@ -169,7 +175,7 @@ const Contact = () => {
             <img src={contact} alt="contact" />
           </div>
         </div>
-      </div>
+      </FadeUpAnimation>
     </div>
   );
 };

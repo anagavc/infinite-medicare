@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/bundle";
 import "swiper/css/pagination";
 import SwiperCore, { Pagination, Autoplay, EffectFade } from "swiper";
+import { FadeUpAnimation } from "../components/UI/Animations";
 SwiperCore.use([Pagination, Autoplay, EffectFade]);
 
 const Reviews = () => {
@@ -38,7 +39,7 @@ const Reviews = () => {
   ];
   return (
     <div className="bg-pry-100 flex flex-col w-full justify-between items-center py-24 lg:px-24 px-8 space-y-12">
-      <div className="flex flex-col items-center justify-center">
+      <FadeUpAnimation className="flex flex-col items-center justify-center">
         <h3 className="text-pry-50 text-3xl font-bold font-heading text-center">
           What Our <span className="text-sec">Clients</span> Have To Say
         </h3>
@@ -47,7 +48,7 @@ const Reviews = () => {
           align="center"
           title="Here are some of things our satisifed patients have to say"
         />
-      </div>
+      </FadeUpAnimation>
       <Swiper
         loop
         pagination={{

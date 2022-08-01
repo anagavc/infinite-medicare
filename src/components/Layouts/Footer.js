@@ -183,14 +183,14 @@ const Footer = () => {
                 bgColor="pry-50"
                 textColor="pry-100"
                 borderColor="pry-100"
-                // isFetching={isFetching}
+                isFetching={isFetching}
                 py="3"
               />
             </form>
           </div>
         </div>
       </div>
-      <div className="bg-sec flex justify-center items-center py-4">
+      <div className="bg-pry-100 drop-shadow flex justify-center items-center py-4">
         <Paragraph
           title=" Copyright &copy; Infinite Medicare 2022"
           color="pry-50"

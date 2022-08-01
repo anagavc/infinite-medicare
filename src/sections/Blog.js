@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { formatDate } from "../utilities/formatDate";
 import { useDispatch, useSelector } from "react-redux";
+import { FadeUpAnimation } from "../components/UI/Animations";
 const Blog = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -13,7 +14,7 @@ const Blog = () => {
   const newsItem = useSelector((state) => state.blog.blogs);
   return (
     <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-24 ">
-      <div className="flex flex-col gap-2 justify-center items-center">
+      <FadeUpAnimation className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Blog
         </h3>
@@ -21,9 +22,9 @@ const Blog = () => {
         <p className="font-heading text-base text-pry-100 text-center ">
           Here are some of the latest news at Infinite Medicare
         </p>
-      </div>
+      </FadeUpAnimation>
 
-      <div className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full ">
+      <FadeUpAnimation className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full ">
         {newsItem.slice(0, 3).map((item, index) => (
           <div
             className="flex flex-col px-6 py-8 bg-pry-100 w-full lg:w-3/6 drop-shadow rounded space-y-4"
@@ -36,7 +37,7 @@ const Blog = () => {
               {item.title}
             </h6>
             <p className="text-justify text-pry-50 text-base font-heading font-light">
-              {item.content}
+              {item.content.substring(0, 500) + ` ` + `....`}
             </p>
             <NavLink
               to={`blog/${item._id}`}
@@ -47,7 +48,7 @@ const Blog = () => {
             </NavLink>
           </div>
         ))}
-      </div>
+      </FadeUpAnimation>
     </div>
   );
 };

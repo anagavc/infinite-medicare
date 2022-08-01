@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { NavLink } from "react-router-dom";
+import { userRequest } from "../../api/requests";
 import { Paragraph } from "../../components/UI/FontStyles";
+import Chart from "../components/Chart";
 import PatientsGrid from "./PatientsGrid";
 import {
   LocalPostOffice,
@@ -10,6 +12,24 @@ import {
 } from "@mui/icons-material";
 
 const Dashboard = () => {
+  const [userStats, setUserStats] = useState([]);
+  const MONTHS = useMemo(
+    () => [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    []
+  );
   const actions = [
     {
       title: "Manage patients",
@@ -36,6 +56,22 @@ const Dashboard = () => {
       style: "text-pry-100 hover:text-grey",
     },
   ];
+  useEffect(() => {
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("/users/stats");
+        res.data.map((item) =>
+          setUserStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], "Active Users": item.total },
+          ])
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getStats();
+  }, [MONTHS]);
 
   return (
     <div className="flex flex-col w-full justify-between space-y-10 bg-pry-50">
@@ -53,9 +89,13 @@ const Dashboard = () => {
           </NavLink>
         ))}
       </div>
-      <div className="flex  flex-col justify-start  lg:justify-between">
-        <Paragraph>Products</Paragraph>
-        <PatientsGrid />
+      <div className="flex  flex-col justify-start  lg:justify-between bg-pry-50 drop-shadow rounded">
+        <Chart
+          data={userStats}
+          title="Patient Analytics"
+          grid
+          dataKey="Active Users"
+        />
       </div>
     </div>
   );

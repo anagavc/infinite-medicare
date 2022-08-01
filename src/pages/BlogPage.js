@@ -1,10 +1,10 @@
 import Layout from "../components/Layouts/Layout";
 import { PrimaryButton } from "../components/UI/Buttons";
-import { NavLink, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { formatDate } from "../utilities/formatDate";
-import { getAllBlogs } from "../api/apiCalls";
+import { FadeUpAnimation } from "../components/UI/Animations";
+
 const BlogPage = () => {
   const newsItem = useSelector((state) => state.blog.blogs);
   return (
@@ -16,10 +16,10 @@ const BlogPage = () => {
             Latest News
           </h1>
         </div>
-        <div className="flex flex-col lg:flex-row w-full justify-between gap-8 h-full flex-wrap px-8 lg:p-12">
+        <FadeUpAnimation className="flex flex-col lg:flex-row w-full justify-between items-center gap-8 h-full flex-wrap px-8 lg:py-12 lg:px-24 mt-6 lg:mt-0">
           {newsItem.map((item, index) => (
             <div
-              className="flex flex-col px-6 py-8 bg-pry-100 w-full lg:w-96 drop-shadow rounded space-y-4"
+              className="flex flex-col px-6 py-8 bg-pry-100 w-full lg:w-2/5 drop-shadow rounded gap-4"
               key={index}
             >
               <div className="w-full">
@@ -37,7 +37,7 @@ const BlogPage = () => {
                 {item.title}
               </h6>
               <p className="text-justify text-pry-50 text-base font-heading font-light">
-                {item.content}
+                {item.content.substring(0, 500) + ` ` + `....`}
               </p>
               <NavLink
                 to={`${item._id}`}
@@ -48,7 +48,7 @@ const BlogPage = () => {
               </NavLink>
             </div>
           ))}
-        </div>
+        </FadeUpAnimation>
         <div className="px-8 lg:px-24 mx-auto w-full mt-6">
           <PrimaryButton
             name="Back"

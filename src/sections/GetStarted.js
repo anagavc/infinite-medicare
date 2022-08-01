@@ -1,4 +1,5 @@
 import { DocumentScanner, LocalHospital, PersonAdd } from "@mui/icons-material";
+import { FadeUpAnimation } from "../components/UI/Animations";
 
 const GetStarted = () => {
   const procedures = [
@@ -23,7 +24,7 @@ const GetStarted = () => {
   ];
   return (
     <div className="bg-pry-50 flex flex-col space-y-12 px-8 lg:px-24 w-full h-full py-32 ">
-      <div className="flex flex-col gap-2 justify-center items-center">
+      <FadeUpAnimation className="flex flex-col gap-2 justify-center items-center">
         <h3 className="text-pry-100 text-3xl font-bold font-heading text-center">
           Get Started
         </h3>
@@ -31,8 +32,8 @@ const GetStarted = () => {
         <p className="font-heading text-base text-pry-100 ">
           These are the steps on getting started
         </p>
-      </div>
-      <div className="w-full flex flex-col lg:flex-row justify-between gap-6 lg:space-x-8">
+      </FadeUpAnimation>
+      <FadeUpAnimation className="w-full flex flex-col lg:flex-row justify-between gap-6 lg:space-x-8">
         {procedures.map((procedure) => (
           <div
             className="w-full lg:w-2/6 rounded lg:rounded-lg flex-col bg-pry-100 px-6 py-8 lg:px-8 space-y-4"
@@ -49,7 +50,7 @@ const GetStarted = () => {
             </p>
           </div>
         ))}
-      </div>
+      </FadeUpAnimation>
     </div>
   );
 };

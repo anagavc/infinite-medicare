@@ -14,7 +14,6 @@ import {
   createPrescription,
   deletePatient,
   deletePrescription,
-  makeAppointment,
   updateAppointment,
   updatePrescription,
   updateUserInfo,
@@ -24,12 +23,13 @@ import {
   deleteBlog,
 } from "../../api/apiCalls";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
 import { PrimaryButton } from "../UI/Buttons";
 //modal for booking appointments
 export const BookDialog = ({ showModal, setShowModal }) => {
   const [modalType, setModalType] = useState("details");
+  const [appointments, setAppointment] = useState({});
   const dispatch = useDispatch();
   const {
     register,
@@ -41,8 +41,6 @@ export const BookDialog = ({ showModal, setShowModal }) => {
     setShowModal(!showModal);
   };
   const { currentUser } = useSelector((state) => state.user);
-
-  const { appointments } = useSelector((state) => state.appointment);
   const handlePaystackSuccessAction = (appointment) => {
     bookAppointment(dispatch, {
       email: currentUser.email,
@@ -66,7 +64,7 @@ export const BookDialog = ({ showModal, setShowModal }) => {
     onClose: handlePaystackCloseAction,
   };
   const onSubmit = async (data) => {
-    makeAppointment(dispatch, data);
+    setAppointment(data);
     setShowModal(true);
     setModalType("payment");
     reset();
@@ -167,7 +165,6 @@ export const PasswordDialog = ({ showModal, setShowModal }) => {
     setShowModal(!showModal);
   };
   const onSubmit = async (data) => {
-    console.log(data);
     updateUserPassword(userID, data, dispatch, navigate);
     reset();
     setShowModal(false);
@@ -243,14 +240,40 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
     formState: { errors },
     reset,
   } = useForm();
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setShowModal(!showModal);
   };
   const onSubmit = async (data) => {
-    updateUserInfo(userID, data, dispatch);
+    const fileName = new Date().getTime() + data.img[0]?.name;
+
+    if (data.img[0]) {
+      const storage = getStorage(app);
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, data.img[0]);
+      uploadTask.on(
+        "state_changed",
+        (progress) => {
+          console.group(progress);
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File is availabe for download at", downloadURL);
+            const updatedUser = { ...data, img: downloadURL };
+            updateUserInfo(userID, updatedUser, dispatch, navigate);
+          });
+        }
+      );
+    } else if (!data.img[0]) {
+      const updatedUser = { ...data, img: currentUser.img };
+      updateUserInfo(userID, updatedUser, dispatch, navigate);
+    }
     reset();
     setShowModal(false);
   };
@@ -273,6 +296,15 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
             className="flex flex-col  h-full w-full gap-4"
             onSubmit={handleSubmit(onSubmit)}
           >
+            <Input
+              title="Image"
+              textColor="pry-100"
+              inputName="img"
+              placeholder="Upload Image"
+              type="file"
+              register={register}
+              errors={errors}
+            />
             <Input
               title="Name"
               textColor="pry-100"
@@ -327,7 +359,10 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
 export const PaymentDialog = ({ showModal, setShowModal }) => {
   const { appointments } = useSelector((state) => state.appointment);
   const dispatch = useDispatch();
-
+  const [selectedAppointment, setSelectedAppointment] = useState(
+    appointments[appointments.length - 1]
+  );
+  console.log(selectedAppointment.email);
   const handlePaystackSuccessAction = (appointment) => {
     bookAppointment(dispatch, appointments);
     handleClose();
@@ -337,9 +372,9 @@ export const PaymentDialog = ({ showModal, setShowModal }) => {
     handleClose();
   };
   const componentProps = {
-    aapointment: appointments,
+    aapointment: selectedAppointment,
     reference: new Date().getTime().toString(),
-    email: appointments?.email,
+    email: selectedAppointment.email,
     amount: 200000,
     publicKey: "pk_test_dfe822981cc4a0d3d96f802f178d1ff62953e120",
     text: "Make Payment",
@@ -359,9 +394,10 @@ export const PaymentDialog = ({ showModal, setShowModal }) => {
             Confirm appointment
           </h1>
           <p className="text-base font-body text-pry-100">
-            Hi, {appointments.name} to confirm your appointment on{" "}
-            {appointments.date} with a {appointments.specialty} consultant,
-            click on the make payment button to pay with Paystack. Thank you
+            Hi, {selectedAppointment.name} to confirm your appointment on{" "}
+            {selectedAppointment.date} with a {selectedAppointment.specialty}{" "}
+            consultant, click on the make payment button to pay with Paystack.
+            Thank you
           </p>
           <PaystackButton
             {...componentProps}
@@ -405,10 +441,11 @@ export const AdminUpdateAccountDialog = ({
       <Dialog open={showModal} onClose={handleClose}>
         <div className="flex flex-col justify-between gap-4 px-4 lg:px-8 py-6">
           <h1 className="text-lg font-body font-bold text-pry-100">
-            Update account
+            Update users' account
           </h1>
           <p className="text-base font-body text-pry-100">
-            To update your account, enter the information you want to update.
+            To update the users' details, enter the information you want to
+            update.
           </p>
           {error && (
             <p className="text-pry-100 font-normal text-base font-body">
@@ -536,7 +573,7 @@ export const UpdateAppointmentDialog = ({
   setShowModal,
   appointmentId,
 }) => {
-  const { error, isFetching } = useSelector((state) => state.appointment);
+  const { error } = useSelector((state) => state.appointment);
 
   const {
     register,
@@ -608,14 +645,14 @@ export const UpdateAppointmentDialog = ({
 };
 //modal for the admin to give a prescription to a patient
 export const AddPrescriptionDialog = ({ showModal, setShowModal, patient }) => {
-  const { error, isFetching } = useSelector((state) => state.prescription);
+  const { error } = useSelector((state) => state.prescription);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -698,7 +735,7 @@ export const UpdatePrescriptionDialog = ({
   setShowModal,
   prescriptionId,
 }) => {
-  const { error, isFetching } = useSelector((state) => state.prescription);
+  const { error } = useSelector((state) => state.prescription);
 
   const {
     register,
@@ -816,7 +853,7 @@ export const DeletePrescriptionDialog = ({
 
 //modal for the admin to update a blog item
 export const UpdateBlogDialog = ({ showModal, setShowModal, blogId }) => {
-  const { error, isFetching } = useSelector((state) => state.blog);
+  const { error } = useSelector((state) => state.blog);
 
   const {
     register,

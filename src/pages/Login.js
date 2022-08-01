@@ -8,6 +8,7 @@ import { login } from "../api/apiCalls";
 import { PrimaryButton } from "../components/UI/Buttons";
 import { useForm } from "react-hook-form";
 import { Home, LocalHospital } from "@mui/icons-material";
+import { FadeUpAnimation } from "../components/UI/Animations";
 const Login = () => {
   const { error, isFetching } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -25,15 +26,15 @@ const Login = () => {
   return (
     <div className="lg:h-screen flex justify-center items-center w-full ">
       <div className="bg-pry-100 lg:flex flex-col px-16 hidden py-12 h-full w-2/4 gap-4">
-        <div className="flex items-center h-full">
+        <FadeUpAnimation className="flex items-center h-full">
           <NavLink to="/">
             <span className="text-xl font-bold cursor-pointer text-pry-50 gap-2 font-heading justify-center hover:text-sec transition duration-300  flex items-center">
               <LocalHospital />
               Infinite Medicare
             </span>
           </NavLink>
-        </div>
-        <div className="flex flex-col w-full h-full gap-4 items-center justify-center">
+        </FadeUpAnimation>
+        <FadeUpAnimation className="flex flex-col w-full h-full gap-4 items-center justify-center">
           <img src={loginImg} alt="login" className="w-3/5" />
           <h1 className="font-heading text-center text-4xl text-pry-50 font-bold">
             Get access to premium healthcare service
@@ -42,9 +43,9 @@ const Login = () => {
             We offer you a premium way of living when it comes to taking care of
             your health.
           </p>
-        </div>
+        </FadeUpAnimation>
       </div>
-      <div className="bg-pry-50  flex flex-col  lg:px-16   lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-6  justify-center  lg:py-36 my-auto">
+      <FadeUpAnimation className="bg-pry-50  flex flex-col  lg:px-16   lg:h-screen w-full lg:w-2/4 lg:gap-4 gap-6  justify-center  lg:py-36 my-auto">
         <NavLink
           className="text-pry-100 hover:text-sec transition duration-300 px-6 "
           to="/"
@@ -59,7 +60,7 @@ const Login = () => {
         </h1>
         {error && (
           <p className="text-pry-100 font-normal text-base px-6 font-body">
-            The email address or password you entered does not exist
+            The email address or password you entered is incorrect
           </p>
         )}
         <form
@@ -107,7 +108,7 @@ const Login = () => {
         <div className="lg:hidden block w-full ">
           <Footer />
         </div>
-      </div>
+      </FadeUpAnimation>
     </div>
   );
 };

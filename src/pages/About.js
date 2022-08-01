@@ -2,12 +2,13 @@ import ambulance from "../images/ambulance.jpg";
 import Layout from "../components/Layouts/Layout";
 import Staff from "../sections/Staff";
 import { PrimaryButton } from "../components/UI/Buttons";
+import { FadeUpAnimation } from "../components/UI/Animations";
 
 const About = () => {
   return (
     <Layout>
       <div className="h-full flex flex-col justify-between pb-24 gap-4 pt-32  bg-pry-50">
-        <div className="w-full px-8 lg:px-24 flex flex-col justify-between gap-4">
+        <FadeUpAnimation className="w-full px-8 lg:px-24 flex flex-col justify-between gap-4">
           <h1 className="text-3xl font-heading text-pry-100 font-bold ">
             About Infinite Medicare
           </h1>
@@ -45,7 +46,7 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
+        </FadeUpAnimation>
         <div className="w-full bg-pry-50 drop-shadow p-8 lg:drop-shadow-none">
           <Staff />
         </div>

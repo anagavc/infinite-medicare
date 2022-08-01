@@ -1,4 +1,4 @@
-import doctor from "../../images/doctor.png";
+import reviewer1 from "../../images/reviewer1.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -43,7 +43,7 @@ const UserDashboard = () => {
     getUser(dispatch, userID);
     getUserAppointments(dispatch, userID);
     getUserPrescriptions(dispatch, userID);
-  }, [dispatch]);
+  }, [dispatch, userID]);
 
   const appointments = useSelector((state) => state.appointment.appointments);
   const prescriptions = useSelector(
@@ -92,11 +92,11 @@ const UserDashboard = () => {
         <div className="flex flex-col lg:flex-row justify-between rounded drop-shadow p-4 lg:p-8 w-full bg-pry-50 gap-6">
           <div className="flex flex-col w-full  lg:w-2/6 gap-6">
             <div className="flex flex-col px-2 lg:px-6 py-8 rounded items-center  drop-shadow justify-between gap-4 bg-pry-50">
-              <div className="rounded-full py-2 w-40 h-40 flex justify-center mx-auto items-center bg-sec">
+              <div className="rounded-full p-6 w-40 h-40 flex justify-center items-center bg-sec">
                 <img
-                  src={doctor}
-                  className="w-3/5 h-4/5 bg-pry-100 p-4 rounded-full"
-                  alt="patient"
+                  src={user.img ? user.img : reviewer1}
+                  className="w-full h-full bg-pry-100 py-4 rounded-full flex justify-center items-center"
+                  alt={user.name}
                 />
               </div>
               <UserInfo
@@ -184,7 +184,7 @@ const UserDashboard = () => {
             {dataType === "appointments" ? (
               <div className="w-full">
                 <h1 className="font-heading text-lg lg:text-xl text-pry-100 mb-6 font-bold">
-                  Patients appointments
+                  Patient's appointments
                 </h1>
                 <AppointmentsTable appointments={appointments} />
               </div>
