@@ -126,10 +126,10 @@ const Footer = () => {
                 align="left"
               />
               <NavLink
-                to="/#contact"
+                to="/contact"
                 className="text-pry-50 hover:text-sec transition font-body text-base duration-300"
               >
-                Make an enquiry
+                Book an appointment
               </NavLink>
             </div>
             <form
