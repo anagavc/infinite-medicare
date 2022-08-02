@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { userRequest } from "../../api/requests";
 import { Paragraph } from "../../components/UI/FontStyles";
 import Chart from "../components/Chart";
-import PatientsGrid from "./PatientsGrid";
 import {
   LocalPostOffice,
   AddBox,

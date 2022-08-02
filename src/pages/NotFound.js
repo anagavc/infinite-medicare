@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PrimaryButton } from "../components/UI/Buttons";
-import { useNavigate } from "react-router-dom";
 import errorImg from "../images/error.svg";
 import { FadeDownAnimation } from "../components/UI/Animations";
 import Layout from "../components/Layouts/Layout";
@@ -11,7 +10,6 @@ const NotFound = (props) => {
     AOS.init();
     AOS.refresh();
   }, []);
-  const navigate = useNavigate();
   return (
     <Layout>
       <div className="w-full flex flex-col bg-pry-50 justify-center items-center h-full">

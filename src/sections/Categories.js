@@ -4,7 +4,6 @@ import {
   MedicalInformation,
   MonitorHeart,
 } from "@mui/icons-material";
-import { FadeUpAnimation } from "../components/UI/Animations";
 const Categories = () => {
   const categories = [
     {
@@ -24,7 +23,7 @@ const Categories = () => {
     },
   ];
   return (
-    <FadeUpAnimation className="w-5/6  bg-pry-50 hidden  lg:flex space-x-4 drop-shadow px-8 py-8 rounded-xl justify-around absolute top-3/4 lg:top-full lg:-mt-20">
+    <div className="w-5/6  bg-pry-50 hidden  lg:flex space-x-4 drop-shadow px-8 py-8 rounded-xl justify-around absolute top-3/4 lg:top-full lg:-mt-14">
       {categories.map((category) => (
         <div className="flex space-x-4 flex-1" key={category.name}>
           <div className="bg-pry-100 rounded text-pry-50 w-20 flex items-center justify-center">
@@ -40,7 +39,7 @@ const Categories = () => {
           </div>
         </div>
       ))}
-    </FadeUpAnimation>
+    </div>
   );
 };
 

@@ -37,7 +37,7 @@ const Blog = () => {
               {item.title}
             </h6>
             <p className="text-justify text-pry-50 text-base font-heading font-light">
-              {item.content.substring(0, 500) + ` ` + `....`}
+              {item.content.substring(0, 500) + `....`}
             </p>
             <NavLink
               to={`blog/${item._id}`}
