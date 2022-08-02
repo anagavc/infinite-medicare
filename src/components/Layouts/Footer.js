@@ -179,7 +179,7 @@ const Footer = () => {
                 </p>
               </div>
               <PrimaryButton
-                name="Send Message"
+                name="Subscribe"
                 bgColor="pry-50"
                 textColor="pry-100"
                 borderColor="pry-100"

@@ -325,16 +325,7 @@ export const AccountDialog = ({ showModal, setShowModal }) => {
               errors={errors}
               errorColor="pry-100"
             />
-            <Input
-              title="Email Address"
-              textColor="pry-100"
-              inputName="email"
-              placeholder="Enter your email address"
-              type="email"
-              register={register}
-              errors={errors}
-              errorColor="pry-100"
-            />
+
             <PrimaryButton
               name="Submit"
               isFetching={isFetching}
@@ -362,9 +353,9 @@ export const PaymentDialog = ({ showModal, setShowModal }) => {
   const [selectedAppointment, setSelectedAppointment] = useState(
     appointments[appointments.length - 1]
   );
-  console.log(selectedAppointment.email);
+
   const handlePaystackSuccessAction = (appointment) => {
-    bookAppointment(dispatch, appointments);
+    bookAppointment(dispatch, selectedAppointment);
     handleClose();
   };
   const handlePaystackCloseAction = () => {
