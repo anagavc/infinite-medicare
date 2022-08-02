@@ -39,6 +39,8 @@ const UserDashboard = () => {
   const userID = user._id;
   useEffect(() => {
     getUserAppointments(dispatch, userID);
+  }, [dispatch, userID]);
+  useEffect(() => {
     getUserPrescriptions(dispatch, userID);
   }, [dispatch, userID]);
   return (
