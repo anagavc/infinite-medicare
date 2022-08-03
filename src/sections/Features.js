@@ -21,7 +21,7 @@ const Features = () => {
       name: "Adequately equipped",
       image: equipment,
       description:
-        "Our facility is well equipped with state-of-the-art medical equipment to ensure that you are well taken care of and you gain back an optimal level of health while in our facility. The equipments are well manned by technicians who are highly trained.",
+        "Our facility is well equipped with state-of-the-art medical equipment to ensure that you are taken care of and you gain back an optimal level of health while in our facility. The equipments are manned by trained technicians.",
     },
   ];
   return (
@@ -45,7 +45,7 @@ const Features = () => {
               <img
                 src={feature.image}
                 alt={feature.name}
-                className="w-full bg-pry-50 h-2/5 lg:h-64 rounded-xl p-4 lg:p-6 drop-shadow-lg"
+                className="w-full bg-pry-50 h-2/5 lg:h-64 rounded-xl p-4 lg:p-6 drop-shadow-lg object-fit"
               />
             </div>
 
