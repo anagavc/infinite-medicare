@@ -146,7 +146,7 @@ export const makeAppointment = async (dispatch, appointment) => {
 export const getUserAppointments = async (dispatch, userID) => {
   dispatch(getAppointmentStart());
   try {
-    const res = await userRequest.get(`/appointments/${userID}`);
+    const res = await publicRequest.get(`/appointments/${userID}`);
     dispatch(getAppointmentSuccess(res.data));
   } catch (error) {
     dispatch(getAppointmentFailure());
@@ -224,7 +224,7 @@ export const createPrescription = async (dispatch, prescription) => {
 export const getUserPrescriptions = async (dispatch, userID) => {
   dispatch(getPrescriptionStart());
   try {
-    const res = await userRequest.get(`prescriptions/${userID}`);
+    const res = await publicRequest.get(`prescriptions/${userID}`);
     dispatch(getPrescriptionSuccess(res.data));
   } catch (error) {
     dispatch(getPrescriptionFailure());
