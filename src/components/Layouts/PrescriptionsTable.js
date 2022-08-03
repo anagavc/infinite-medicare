@@ -9,8 +9,8 @@ const PrescriptionsTable = ({ prescriptions }) => {
     { field: "drug", headerName: "Drugs", flex: 1 },
   ];
   return (
-    <div className="flex h-full">
-      <div className="w-full h-full mb-48">
+    <div className="flex h-screen">
+      <div className="w-full">
         <DataGrid
           rows={prescriptions?.length ? prescriptions : []}
           disableSelectionOnClick

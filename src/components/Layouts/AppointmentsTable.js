@@ -11,8 +11,8 @@ const AppointmentsTable = ({ appointments }) => {
     { field: "report", headerName: "Consultation report", flex: 1 },
   ];
   return (
-    <div className="flex h-full">
-      <div className="w-full h-full mb-48">
+    <div className="flex h-screen">
+      <div className="w-full">
         <DataGrid
           rows={appointments}
           disableSelectionOnClick
