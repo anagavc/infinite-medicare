@@ -76,9 +76,16 @@ AUTH_SECRET = any_secret_key_of_your_choice
 ![servicesIgPost](https://user-images.githubusercontent.com/84836053/183029415-d52a0fea-8bcb-4a18-a132-1d45da169a4e.png)
 
 
-`The StaffPage`!
-[staff](https://user-images.githubusercontent.com/84836053/183029563-6ed063dd-f1fd-4ab6-9010-e413d531fcab.png)
+`The Staff Page`
+![staff](https://user-images.githubusercontent.com/84836053/183029563-6ed063dd-f1fd-4ab6-9010-e413d531fcab.png)
 
+
+`The User Dashboard`
+![infiniteMedicareUserDashboard](https://user-images.githubusercontent.com/84836053/183032261-11a4176f-f59a-4acf-94e4-8e00ff552f80.png)
+
+
+`The Admin Dashboard`
+![infiniteMedicareAdminDashboardHome](https://user-images.githubusercontent.com/84836053/183032364-cdd2dc7d-0c23-4fa2-af27-fb0224348a03.png)
 
 
 
