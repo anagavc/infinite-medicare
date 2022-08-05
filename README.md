@@ -1,4 +1,4 @@
-# Infinite medicare Hospital Management  Web Application
+# Infinite Medicare Hospital Management  Web Application
 An hospital management web application for a modern day hospital using React for the user interface components, Tailwind CSS for styling of the components and the Redux Toolkit for state management.
 
 Payments for appointments are processed with Paystack and successful appointment bookings are saved to the database attached with details of the appointment made which the admin has the ability to add a consultation report after each appointment
