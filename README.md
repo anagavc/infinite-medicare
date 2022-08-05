@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# INifinte Hospital Management  Web Application
+An hospital management web application for a modern day hospital using React for the user interface components, Tailwind CSS for styling of the components and the Redux Toolkit for state management.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Payments for appointments are processed with Paystack and successful appointment bookings are saved to the database attached with details of the appointment made which the admin has the ability to add a consultation report after each appointment
 
-## Available Scripts
+The images for the products are uploaded to Firebase's storage and the URL address saved to the database, this greatly improves the response time of the web application and relieves the database the burden of handling the image uploads. 
 
-In the project directory, you can run:
+The user has a user panel from were they can track their appointments and prescriptions that have been issued tot them by the doctor
 
-### `npm start`
+For the icons, the Material UI library icons were used as they have a low build size, the slides on the reviews section were made with the Swiper Js library and the validation of forms are done with the aid of the react-hook-form library.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The backend is handled using the Node.js runtime environment with Express as the server and MongoDB for the database management. The token for the logged in users is created and signed using JsonWebToken and the passwords are hashed with the Advanced Encryption Standard provided by the CryptoJs library.`
+## Demo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`The link to the live website:`
 
-### `npm test`
+https://infinitemedicare.netlify.app
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Client:** React, Redux Toolkit, Tailwind CSS, Paystack, Firebase Storage
 
-### `npm run build`
+**Server:** Node, Express, MongoDB
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Paystack payment processing
+- State management with the Redux Toolkit
+- Tailwind CSS
+- React Frontend
+- Authentication using JWT
+- Admin & User Login System
+- Images upload to the firebase cloud storage
+- Node.js Backend
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Make sure you have Node.js installed and then proceed to execute this command in the terminal
 
-## Learn More
+```bash
+  npm i
+```
+    
+## Environment Variables
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Create an account on mongodb.com and create a new cluster, then set the env value of:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+CONNECTION_URL = to the name of yout atlas database
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+For management of the sessions, set an env variable
 
-### Analyzing the Bundle Size
+```javascript
+AUTH_SECRET = any_secret_key_of_your_choice
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Usage/Examples
 
-### Advanced Configuration
+`An hospital management solution using paystack for payment processing`
+## Screenshots
+`The Hero Section`
+![infiniteHeaderIG](https://user-images.githubusercontent.com/84836053/183029268-6a4c4429-ba80-4085-adb3-e8dc3c75b230.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+`The Login Section`
+![infiniteMedicareLogin](https://user-images.githubusercontent.com/84836053/183029344-53efcbbc-a335-4890-9086-0c9a4026c243.png)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+`The Services Section`
+![servicesIgPost](https://user-images.githubusercontent.com/84836053/183029415-d52a0fea-8bcb-4a18-a132-1d45da169a4e.png)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`The StaffPage`!
+[staff](https://user-images.githubusercontent.com/84836053/183029563-6ed063dd-f1fd-4ab6-9010-e413d531fcab.png)
+
+
+
+
+
+## Contributing
+
+Contributions are highly appreciated!
+
+`Kindly send a pull request and I will review them with immediate effect`
+
